@@ -24,18 +24,26 @@ set   pager_stop
 set   postponed = "+[Gmail]/Drafts"
 set   record = /tmp/sent
 set   sendmail = /usr/bin/msmtp
+set   sort_aux = reverse-last-date-received
 set   spoolfile = "+INBOX"
 set   ssl_force_tls
 
 bind editor <space> noop
 
 macro attach	  s	"<save-entry><kill-line>/home/kiike/downloads/<enter>y" "Save attachment"
-macro index 	  ga	"<change-folder>=[Gmail].All Mail<enter>" "Go to all mail"
-macro index 	  gd	"<change-folder>=[Gmail].Drafts<enter>" "Go to drafts"
-macro index 	  gi	"<change-folder>=INBOX<enter>" "Go to inbox"
-macro index 	  gs	"<change-folder>=[Gmail].Sent Mail<enter>" "Go to Sent Mail"
-macro index,pager d	"<save-message>=[Gmail].Trash<enter><enter><sync-mailbox>" "Trash"
-macro index 	  gt	"<change-folder>=[Gmail].Trash<enter>" "Go to Trash"
-macro index,pager y	"<save-message>=[Gmail].All Mail<enter><enter><sync-mailbox>" "Archive"
+macro index 	  ga	"<change-folder>=all_mail<enter>" "Go to all mail"
+macro index 	  gd	"<change-folder>=drafts<enter>" "Go to drafts"
+macro index 	  gi	"<change-folder>=inbox<enter>" "Go to inbox"
+macro index 	  gs	"<change-folder>=sent_mail<enter>" "Go to Sent Mail"
+macro index 	  gt	"<change-folder>=trash<enter>" "Go to Trash"
+macro index,pager d	"<save-message>=trash<enter><enter><sync-mailbox>" "Trash"
+macro index,pager y	"<save-message>=all_mail<enter><enter><sync-mailbox>" "Archive"
 
+
+bind pager k previous-line
+bind pager j next-line
+bind pager gg top
+bind pager G bottom
+bind index gg first-entry
+bind index G last-entry
 
