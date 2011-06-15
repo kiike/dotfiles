@@ -4,6 +4,7 @@ source ~/.mutt/colors
 source ~/.mutt/mailboxes
 
 set   alias_file = ~/.mutt/aliases
+set   beep_new
 set   certificate_file = ~/.mutt/certificates
 set   check_new
 unset copy
@@ -24,8 +25,9 @@ set   pager_stop
 set   postponed = "+[Gmail]/Drafts"
 set   record = /tmp/sent
 set   sendmail = /usr/bin/msmtp
+set   sort = reverse-last-date-received
 set   sort_aux = reverse-last-date-received
-set   spoolfile = "+INBOX"
+set   spoolfile = "+inbox"
 set   ssl_force_tls
 
 bind editor <space> noop
@@ -46,4 +48,3 @@ bind pager gg top
 bind pager G bottom
 bind index gg first-entry
 bind index G last-entry
-
