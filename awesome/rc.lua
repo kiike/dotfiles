@@ -8,7 +8,7 @@ require("vicious")
 
 -- Themes define colours, icons, and wallpapers
 awehome = os.getenv("XDG_DATA_HOME") .. "/awesome/"
-beautiful.init(awehome .. "themes/default/theme.lua")
+beautiful.init(awehome .. "themes/ice/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
