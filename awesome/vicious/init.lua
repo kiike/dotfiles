@@ -18,6 +18,7 @@ local table = {
 }
 require("vicious.helpers")
 require("vicious.widgets")
+--require("vicious.contrib")
 
 -- Vicious: widgets for the awesome window manager
 module("vicious")
@@ -74,6 +75,8 @@ local function update(widget, reg, disablecache)
         widget:add_value(tonumber(data) and tonumber(data)/100)
     elseif widget.set_value ~= nil then
         widget:set_value(tonumber(data) and tonumber(data)/100)
+    elseif widget.set_markup ~= nil then
+        widget:set_markup(data)
     else
         widget.text = data
     end
@@ -116,12 +119,18 @@ local function regregister(reg)
             timers[reg.update] = {
                 timer = capi.timer({ timeout = reg.timer })
             }
-            timers[reg.update].timer:add_signal("timeout", reg.update)
-            timers[reg.update].timer:start()
-        end
 
-        -- Initial update
-        reg.update()
+            local tm = timers[reg.update].timer
+            if tm.connect_signal then
+                tm:connect_signal("timeout", reg.update)
+            else
+                tm:add_signal("timeout", reg.update)
+            end
+            tm:start()
+
+            -- Initial update
+            tm:emit_signal("timeout")
+        end
         reg.running = true
     end
 end

@@ -80,7 +80,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{ Vicious widgets
    -- Battery widget
    vicious_bat = widget({ type = "textbox" })
-   vicious.register(vicious_bat, vicious.widgets.batpmu, "↯$2%", 30, "battery_0")
+   vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "battery_0")
    
    -- Date widget
    vicious_date = widget({ type = "textbox" })
