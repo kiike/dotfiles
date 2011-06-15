@@ -1,8 +1,7 @@
-export PATH=$PATH:~/scripts/
 export EDITOR="vim"
 export PAGER="less"
 export BROWSER="luakit"
-
+export PATH="/home/kiike/scripts/fb-uploader:$PATH"
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -36,7 +35,7 @@ case $TERM in;
 		precmd () { print -Pn "\e]0;urxvt %1//\a" } 
 		preexec () { print -Pn "\e]0;$1\a" } ;;
 	*)
-		PS1="%B%1//%b ";;
+		PS1="%B%1//%f%b ";;
 esac
 
 
@@ -53,3 +52,4 @@ alias nano="nano -x"
 alias netcfg="sudo netcfg"
 alias pacman='sudo pacman'
 alias suspend="sudo pm-suspend"
+alias sxiv="sxiv -f"
