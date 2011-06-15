@@ -8,7 +8,7 @@ require("vicious")
 
 -- Themes define colours, icons, and wallpapers
 awehome = os.getenv("XDG_DATA_HOME") .. "/awesome/"
-beautiful.init(awehome .. "/themes/zenburn/theme.lua")
+beautiful.init(awehome .. "themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
@@ -17,7 +17,7 @@ modkey = "Mod4"
 
 -- Autostart
 awful.util.spawn("xmodmap /home/kiike/.xmodmaprc")
-awful.util.spawn("udiskie")
+awful.util.spawn("devmon")
 awful.util.spawn("urxvtd")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -39,7 +39,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3 }, s, layouts[1])
+    tags[s] = awful.tag({ "~", "@", "*" }, s, layouts[1])
 end
 -- }}}
 
@@ -48,17 +48,18 @@ end
 myawesomemenu = {
    { "sys restart", "sudo halt -r" },
    { "sys halt", "sudo halt" },
+   { "sys suspend", "sudo pm-suspend" },
    { "wm restart", awesome.restart },
    { "wm quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "&awesome...", myawesomemenu },
+mymainmenu = awful.menu({ items = { { "&session  >", myawesomemenu },
                                     { "&cmus", term_exec .. "cmus"},
 				    { "&firefox", "firefox" },
-                                    { "&gimp", "gimp"},
+                                    { "&gimp", "gimp-2.7"},
                                     { "&irssi", term_exec .. "irssi"},
 				    { "&luakit", "luakit"},
-				    { "mca&bber", term_exec .. "mcabber" },
+				    { "mca&bber", term_exec .. "mcabber -f /home/kiike/dotfiles/mcabber/facebook.rc" },
 				    { "&newsbeuter", term_exec .. "newsbeuter" },
 				    { "&mutt", term_exec .. "mutt"},
                                     { "&openttd", "openttd" },
@@ -70,24 +71,16 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
--- {{ Image widgets
-   -- Battery icon
-   bat_icon = widget({ type = "imagebox" })
-   bat_icon.image = image(awehome .. "/themes/zenburn/bat.png")
-   
-   -- Calendar icon
-   cal_icon = widget({ type = "imagebox" })
-   cal_icon.image = image(awehome .. "/themes/zenburn/cal.png")
-   
+-- Misc widgets   
    -- Separator
    separator = widget({ type = "textbox", name = "separator" })
-   separator.text = '  '
+   separator.text = ' | '
 -- }}
                                  
 -- {{ Vicious widgets
    -- Battery widget
    vicious_bat = widget({ type = "textbox" })
-   vicious.register(vicious_bat, vicious.widgets.batpmu, "$2".."%", 30, "battery_0")
+   vicious.register(vicious_bat, vicious.widgets.batpmu, "↯$2%", 30, "battery_0")
    
    -- Date widget
    vicious_date = widget({ type = "textbox" })
@@ -167,10 +160,8 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         vicious_date,
-        cal_icon,
         separator,
         vicious_bat,
-        bat_icon,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -187,6 +178,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    awful.key({ modkey,           }, "x",      function () awful.util.spawn('kblayout') end  ),
+
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -317,7 +310,9 @@ awful.rules.rules = {
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
-      properties = { floating = true } },
+      properties = { 	tag = tags[1][3],
+      			floating = true,
+			switchtotag = true } },
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2] } },
     { rule = { class = "Namoroka" },
