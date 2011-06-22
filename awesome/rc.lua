@@ -9,6 +9,10 @@ require("vicious")
 -- Themes define colours, icons, and wallpapers
 awehome = os.getenv("XDG_DATA_HOME") .. "/awesome/"
 beautiful.init(awehome .. "themes/ice/theme.lua")
+local igor = io.popen("uname -n")
+local hostname = igor:read("*line")
+igor:close()
+
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
@@ -80,8 +84,11 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{ Vicious widgets
    -- Battery widget
    vicious_bat = widget({ type = "textbox" })
-   vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "battery_0")
-   
+   if hostname == "balrog"
+	then vicious.register(vicious_bat, vicious.widgets.batpmu "↯$2%", 30, "battery_0" )
+	else vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "BAT0")
+   end
+ 
    -- Date widget
    vicious_date = widget({ type = "textbox" })
    vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
