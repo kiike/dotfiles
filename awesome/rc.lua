@@ -85,7 +85,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
    -- Battery widget
    vicious_bat = widget({ type = "textbox" })
    if hostname == "balrog"
-	then vicious.register(vicious_bat, vicious.widgets.batpmu "↯$2%", 30, "battery_0" )
+	then vicious.register(vicious_bat, vicious.widgets.batpmu, "↯$2%", 30, "battery_0" )
 	else vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "BAT0")
    end
  

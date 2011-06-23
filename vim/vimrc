@@ -1,4 +1,5 @@
-set nocp
+set nocompatible
+filetype off
 set autoindent
 
 au BufRead /tmp/mutt* set tw=72|start
@@ -6,6 +7,9 @@ au BufRead /tmp/mutt* set tw=72|start
 let g:zenburn_high_Contrast=1
 colorscheme zenburn
 
-set rtp+=~/.vim/vundle.git/ 
+set rtp+=~/.vim/bundle/vundle/ 
 call vundle#rc()
 
+Bundle 'gmarik/vundle'
+
+filetype plugin indent on
