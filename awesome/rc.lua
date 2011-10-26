@@ -23,6 +23,7 @@ modkey = "Mod4"
 awful.util.spawn("xmodmap /home/kiike/.xmodmaprc")
 awful.util.spawn("devmon")
 awful.util.spawn("urxvtd")
+awful.util.spawn("ibus-daemon --xim")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
