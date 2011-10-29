@@ -6,6 +6,9 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+export XMODIFIERS=@im=ibus
+export GTK_IM_MODULE=ibus
+
 # Keybindings
 
 bindkey -v
@@ -31,7 +34,8 @@ bindkey "\e[7~" beginning-of-line
 autoload colors; colors
 case $TERM in;
 	*rxvt*)
-		PS1="%B%F{10}%1//%f%b "
+		[[ $(uname -n) == "balrog" ]] && PS1="%B%F{10}%1//%f%b "
+		[[ $(uname -n) == "blanka" ]] && PS1="%B%F{9}%1//%f%b "
 		precmd () { print -Pn "\e]0;urxvt %1//\a" } 
 		preexec () { print -Pn "\e]0;$1\a" } ;;
 	*)

@@ -1,0 +1,8 @@
+text/html		firefox %s
+image/*			sxiv %s
+audio/*			mplayer %s
+video/*			mplayer %s
+
+application/zip		unzip %s
+application/tar		tar xf %s
+
