@@ -21,8 +21,9 @@ modkey = "Mod4"
 
 -- Autostart
 awful.util.spawn("xmodmap /home/kiike/.xmodmaprc")
-awful.util.spawn("devmon")
+awful.util.spawn("devmon -g")
 awful.util.spawn("urxvtd")
+awful.util.spawn("start-pulseaudio-x11")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
