@@ -24,6 +24,7 @@ awful.util.spawn("xmodmap /home/kiike/.xmodmaprc")
 awful.util.spawn("devmon -g")
 awful.util.spawn("urxvtd")
 awful.util.spawn("start-pulseaudio-x11")
+awful.util.spawn("ibus-daemon --xim")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -60,7 +61,8 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "&session  >", myawesomemenu },
                                     { "&cmus", term_exec .. "cmus"},
-				    { "&firefox", "firefox" },
+				    { "&firefox", "firefox -P kiike -no-remote" },
+				    { "firefox kae", "firefox -P kae -no-remote" },
                                     { "&gimp", "gimp-2.7"},
                                     { "&irssi", term_exec .. "irssi"},
 				    { "&luakit", "luakit"},
@@ -235,6 +237,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
+    awful.key({ modkey, "Shift"   }, "k",
+          function ()
+              awful.prompt.run({ prompt = "kb layout> " },
+                  mypromptbox[mouse.screen].widget,
+                  function (...) awful.util.spawn("setxkbmap " .. ...) end,
+                  awful.completion.shell,
+                  awful.util.getdir("cache") .. "/history")
+          end),
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end)
 
 )
@@ -313,6 +323,9 @@ awful.rules.rules = {
 		     size_hints_honor = false,
                      keys = clientkeys,
                      buttons = clientbuttons } },
+    { rule = { instance = "plugin-container" },
+      properties = { floating = true, fullscreen = true },
+      callback = awful.titlebar.add },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },

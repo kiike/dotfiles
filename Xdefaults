@@ -8,9 +8,10 @@ URxvt*transparent: 	true
 URxvt*shading: 		50
 URxvt*colorUL: 		#86a2be
 URxvt*lineSpace:	1	
-URxvt*font: 		xft:Terminus:size=8:antialias=false
+URxvt*font: 		xft:Terminus:size=8:antialias=false \
 URxvt*urgentOnBell:	true
-
+URxvt.inputMethod: ibus
+URxvt.preeditType: OnTheSpot,None
 URxvt.perl-ext:		default,url-select
 URxvt.keysym.M-u:	perl:url-select:select_next
 URxvt.urlLauncher:	firefox

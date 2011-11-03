@@ -17,6 +17,7 @@ set   header_cache = ~/.mutt/header_cache
 set   index_format = "  %D   %-30.30F %s"
 set   mail_check = 600
 set   mbox_type = Maildir
+set   mailcap_path = ~/.mutt/mailcap
 set   message_cachedir = ~/.mutt/body_cache
 set   mime_forward
 set   mime_forward_rest
