@@ -22,7 +22,7 @@ set   mime_forward
 set   mime_forward_rest
 unset move
 set   pager_stop
-set   postponed = "+[Gmail]/Drafts"
+set   postponed = "~/mail/drafts"
 set   record = /tmp/sent
 set   sendmail = /usr/bin/msmtp
 set   sort = reverse-last-date-received
