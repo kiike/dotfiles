@@ -52,8 +52,8 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   { "sys restart", "sudo halt -r" },
-   { "sys halt", "sudo halt" },
+   { "sys restart", "sudo shutdown -r now" },
+   { "sys halt", "sudo shutdown -h now" },
    { "sys suspend", "sudo pm-suspend" },
    { "wm restart", awesome.restart },
    { "wm quit", awesome.quit }
@@ -188,8 +188,6 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "x",      function () awful.util.spawn('kblayout') end  ),
-
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -237,7 +235,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    awful.key({ modkey, "Shift"   }, "k",
+    awful.key({ modkey, "Shift"   }, "x",
           function ()
               awful.prompt.run({ prompt = "kb layout> " },
                   mypromptbox[mouse.screen].widget,
