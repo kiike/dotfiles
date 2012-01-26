@@ -1,26 +1,30 @@
-URxvt*background:	#000000
-URxvt*foreground:	#FFFFFF
-URxvt*buffered:         true
-URxvt*cursorColor:      #00FF44
-URxvt*underlineColor:   yellow
-URxvt*scrollstyle:	plain
-URxvt*transparent: 	true
-URxvt*shading: 		50
-URxvt*colorUL: 		#86a2be
-URxvt*lineSpace:	1	
-URxvt*font: 		xft:Terminus:size=8:antialias=false \
-URxvt*urgentOnBell:	true
-URxvt.inputMethod: ibus
-URxvt.preeditType: OnTheSpot,None
+URxvt.background:	#000000
+URxvt.foreground:	#FFFFFF
+URxvt.color7:		#FFFFFF
+URxvt.buffered:         true
+URxvt.cursorColor:      #00FF44
+URxvt.underlineColor:   yellow
+URxvt.scrollstyle:	plain
+URxvt.transparent: 	true
+URxvt.shading: 		50
+URxvt.colorUL: 		#86a2be
+URxvt.lineSpace:	1	
+URxvt.font: 		xft:Ubuntu Mono,\
+			xft:Baekmuk Gulim
+URxvt.urgentOnBell:	true
+URxvt.visualBell:	true
+URxvt.inputMethod:	uim
+URxvt.preeditType:	OnTheSpot,Root,None
 URxvt.perl-ext:		default,url-select
 URxvt.keysym.M-u:	perl:url-select:select_next
 URxvt.urlLauncher:	firefox
 URxvt.underlineURLs:	false
+URxvt.modifier:		alt
 
 !#Xft.hinting: 1
 !#Xft.hintstyle: hintfull
 !#Xft.dpi: 96
 
-XTerm*background: black
-XTerm*foreground: white
+XTerm.background: black
+XTerm.foreground: white
 
