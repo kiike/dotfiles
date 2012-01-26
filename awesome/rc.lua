@@ -22,9 +22,9 @@ modkey = "Mod4"
 -- Autostart
 awful.util.spawn("xmodmap /home/kiike/.xmodmaprc")
 awful.util.spawn("devmon -g")
-awful.util.spawn("urxvtd")
 awful.util.spawn("start-pulseaudio-x11")
-awful.util.spawn("ibus-daemon --xim")
+awful.util.spawn("uim-xim")
+awful.util.spawn("urxvtd")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -59,7 +59,12 @@ myawesomemenu = {
    { "wm quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "&session  >", myawesomemenu },
+mygamesmenu = { { "tropico", ".wine/drive_c/Program Files/Tropico/start.sh" },
+		{ "worms", "wine '.wine/drive_c/Games/Worms Armageddon - New Edition/WA.exe' /NOINTRO" }
+}
+
+mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
+				    { "games    >", mygamesmenu },
                                     { "&cmus", term_exec .. "cmus"},
 				    { "&firefox", "firefox -P kiike -no-remote" },
 				    { "firefox kae", "firefox -P kae -no-remote" },
@@ -78,13 +83,13 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
--- Misc widgets   
+-- {{{ Misc widgets   
    -- Separator
    separator = widget({ type = "textbox", name = "separator" })
    separator.text = ' | '
--- }}
+-- }}}
                                  
--- {{ Vicious widgets
+-- {{{ Vicious widgets
    -- Battery widget
    vicious_bat = widget({ type = "textbox" })
    if hostname == "balrog"
@@ -95,7 +100,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
    -- Date widget
    vicious_date = widget({ type = "textbox" })
    vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
--- }}
+-- }}}
 
 
 -- Create a systray
@@ -143,14 +148,6 @@ mytasklist.buttons = awful.util.table.join(
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    mylayoutbox[s] = awful.widget.layoutbox(s)
-    mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-                           awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
@@ -235,14 +232,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
-    awful.key({ modkey, "Shift"   }, "x",
-          function ()
-              awful.prompt.run({ prompt = "kb layout> " },
-                  mypromptbox[mouse.screen].widget,
-                  function (...) awful.util.spawn("setxkbmap " .. ...) end,
-                  awful.completion.shell,
-                  awful.util.getdir("cache") .. "/history")
-          end),
+    awful.key({ modkey, "Shift"   }, "x",     function ()
+	    					awful.util.spawn("/home/kiike/scripts/kblayout.sh")
+						end),
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end)
 
 )
@@ -329,11 +321,13 @@ awful.rules.rules = {
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
-      properties = { 	tag = tags[1][3],
+	      properties = { 	tag = tags[1][3],
       			floating = true,
 			switchtotag = true } },
+    { rule = { name = 'WormsArmageddon - Wine desktop' },
+      properties = { tag = tags[1][3], fullscreen = true, switchtotag = true } },
     { rule = { class = "Firefox" },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[1][2], switchtotag = true} },
     { rule = { class = "Namoroka" },
       properties = { tag = tags[1][2] } },
     { rule = { class = "luakit" },
