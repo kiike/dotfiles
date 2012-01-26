@@ -1,7 +1,7 @@
 set nocompatible
 filetype off
 set autoindent
-au BufRead /tmp/mutt* set tw=72|start
+au BufRead /tmp/mutt* set tw=72
 
 let g:zenburn_high_Contrast=1
 colorscheme zenburn
@@ -12,6 +12,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'jceb/vim-orgmode'
 Bundle 'speeddating.vim'
-
+Bundle 'utl.vim'
 
 filetype plugin indent on
