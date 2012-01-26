@@ -6,9 +6,6 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-export XMODIFIERS=@im=ibus
-export GTK_IM_MODULE=ibus
-
 # Keybindings
 
 bindkey -v
@@ -49,10 +46,8 @@ alias aurget="cd /tmp; aurget"
 alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
-alias feh="feh -T kiike"
 alias ls='ls --color=auto'
 alias makepkg="mppcadd; makepkg -c"
-alias nano="nano -x"
 alias netcfg="sudo netcfg"
 alias pacman='sudo pacman'
 alias suspend="sudo pm-suspend"
