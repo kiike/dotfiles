@@ -1,17 +1,17 @@
 color	body		magenta		default 	"(ftp|http)://[^ ]+"
-color	attachment 	brightmagenta	default  
+color	attachment 	magenta		default  
 color	body 		magenta		default		[-a-z_0-9.]+@[-a-z_0-9.]+ 
 color	error 		color202	default 
-color 	hdrdefault 	red 		default
-color 	header 		cyan 		default		^(From|Subject): 
-color 	index 		color214 	default 	~T
-color 	index 		brightyellow	default 	~N  
-color 	index 		magenta		default		~F
-color	index 		red		default		~D
+color 	hdrdefault 	white 		default
+color 	header 		white 		default		^(From|Subject): 
+color 	index 		white	 	default 	~T
+color 	index 		white		default 	~N  
+color 	index 		white		default		~F
+color	index 		white		default		~D
 color 	index 		yellow		default 	~O
-color 	indicator 	color201	color232 
+color 	indicator 	color201	default 
 color 	markers 	brightcyan	default
-color 	message 	color117	default
+color 	message 	cyan 		default
 color 	normal 		white		default
 color 	quoted    	color252	default
 color 	quoted1   	white		default
@@ -23,7 +23,7 @@ color 	quoted6   	color252	default
 color 	quoted7   	white		default
 color 	search		brightgreen	default 
 color 	signature 	color252	default
-color 	status		color118	default    
+color 	status		cyan		default    
 color 	tilde 		blue		default
 color 	tree 		red		default
 color 	underline 	yellow		default
