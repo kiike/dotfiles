@@ -5,7 +5,7 @@ color	error 		color202	default
 color 	hdrdefault 	white 		default
 color 	header 		white 		default		^(From|Subject): 
 color 	index 		white	 	default 	~T
-color 	index 		white		default 	~N  
+color 	index 		cyan		default 	~N  
 color 	index 		white		default		~F
 color	index 		white		default		~D
 color 	index 		yellow		default 	~O
