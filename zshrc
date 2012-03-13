@@ -1,10 +1,14 @@
 export EDITOR="vim"
 export PAGER="less"
 export BROWSER="luakit"
-export PATH="/home/kiike/scripts/fb-uploader:$PATH"
+export PATH="/home/kiike/scripts/:$PATH"
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Keybindings
 
@@ -47,8 +51,10 @@ alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
 alias ls='ls --color=auto'
-alias makepkg="mppcadd; makepkg -c"
+alias mcp='sudo makechrootpkg -dur ~/build/ -l archppc -- --noconfirm'
+alias makepkg="makepkg -c"
 alias netcfg="sudo netcfg"
 alias pacman='sudo pacman'
 alias suspend="sudo pm-suspend"
 alias sxiv="sxiv -f"
+alias tmux="tmux -2"
