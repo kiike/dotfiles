@@ -2,6 +2,7 @@ export EDITOR="vim"
 export PAGER="less"
 export BROWSER="luakit"
 export PATH="/home/kiike/scripts/:$PATH"
+export IPOD_MOUNTPOINT="/media/DEEJAY"
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -36,7 +37,7 @@ autoload colors; colors
 case $TERM in;
 	*rxvt*)
 		[[ $(uname -n) == "guile" ]] && PS1="%B%F{13}%1//%f%b "
-		[[ $(uname -n) == "balrog" ]] && PS1="%B%F{10}%1//%f%b "
+		[[ $(uname -n) == "bison" ]] && PS1="%B%F{1}%1//%f%b "
 		[[ $(uname -n) == "blanka" ]] && PS1="%B%F{9}%1//%f%b "
 		precmd () { print -Pn "\e]0;urxvt %1//\a" } 
 		preexec () { print -Pn "\e]0;$1\a" } ;;
