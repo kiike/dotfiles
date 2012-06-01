@@ -1,5 +1,6 @@
 text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput
 
-application/zip		unzip %s
-application/tar		tar xf %s
+image/*;		sxiv %s;
+application/zip;	unzip %s;
+application/tar;	tar xf %s;
 

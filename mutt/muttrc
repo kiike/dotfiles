@@ -16,6 +16,7 @@ set   folder = $HOME/mail
 set   header_cache = ~/.mutt/header_cache
 set   index_format = "  %D   %-30.30F %s"
 set   mail_check = 600
+set   markers = no
 set   mbox_type = Maildir
 set   mailcap_path = ~/.mutt/mailcap
 set   message_cachedir = ~/.mutt/body_cache
@@ -26,7 +27,7 @@ set   pager_stop
 set   postponed = "~/mail/drafts"
 set   record = /tmp/sent
 set   sendmail = /usr/bin/msmtp
-set   sort = reverse-last-date-received
+set   sort = threads
 set   sort_aux = reverse-last-date-received
 set   spoolfile = "+inbox"
 set   ssl_force_tls
@@ -34,13 +35,13 @@ set   ssl_force_tls
 bind editor <space> noop
 
 macro attach	  s	"<save-entry><kill-line>/home/kiike/downloads/<enter>y" "Save attachment"
-macro index 	  ga	"<change-folder>=all_mail<enter>" "Go to all mail"
+macro index 	  ga	"<change-folder>=archive<enter>" "Go to all mail"
 macro index 	  gd	"<change-folder>=drafts<enter>" "Go to drafts"
 macro index 	  gi	"<change-folder>=inbox<enter>" "Go to inbox"
-macro index 	  gs	"<change-folder>=sent_mail<enter>" "Go to Sent Mail"
+macro index 	  gs	"<change-folder>=sent<enter>" "Go to Sent Mail"
 macro index 	  gt	"<change-folder>=trash<enter>" "Go to Trash"
 macro index,pager d	"<save-message>=trash<enter><enter><sync-mailbox>" "Trash"
-macro index,pager y	"<save-message>=all_mail<enter><enter><sync-mailbox>" "Archive"
+macro index,pager y	"<save-message>=archive<enter><enter><sync-mailbox>" "Archive"
 
 
 bind pager k previous-line
