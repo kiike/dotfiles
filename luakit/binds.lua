@@ -237,6 +237,13 @@ add_binds("normal", {
     key({"Control", "Shift"}, "R",  function (w) w:restart() end),
 
     -- Window
+    key({},   "S",           function (w)
+        if  w.sbar.hidden == true then
+            w.sbar.ebox:show() w.sbar.hidden = false
+        else
+            w.sbar.ebox:hide() w.sbar.hidden = true
+        end
+    end),
     buf("^ZZ$",                     function (w) w:save_session() w:close_win() end),
     buf("^ZQ$",                     function (w) w:close_win() end),
     buf("^D$",                      function (w) w:close_win() end),
