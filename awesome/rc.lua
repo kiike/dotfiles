@@ -20,10 +20,6 @@ term_exec = terminal .. " -e "
 modkey = "Mod4"
 
 -- Autostart
-awful.util.spawn("xmodmap /home/kiike/.xmodmaprc")
-awful.util.spawn("devmon -g")
-awful.util.spawn("start-pulseaudio-x11")
-awful.util.spawn("uim-xim")
 awful.util.spawn("urxvtd")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -59,8 +55,8 @@ myawesomemenu = {
    { "wm quit", awesome.quit }
 }
 
-mygamesmenu = { { "tropico", ".wine/drive_c/Program Files/Tropico/start.sh" },
-		{ "worms", "wine '.wine/drive_c/Games/Worms Armageddon - New Edition/WA.exe' /NOINTRO" }
+mygamesmenu = { { "&openttd", "openttd" },
+	{ "diablo 2", "wine '.wine/drive_c/Program Files/Diablo II/Diablo II.exe'" }
 }
 
 mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
@@ -68,13 +64,13 @@ mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
                                     { "&cmus", term_exec .. "cmus"},
 				    { "&firefox", "firefox -P kiike -no-remote" },
 				    { "firefox kae", "firefox -P kae -no-remote" },
-                                    { "&gimp", "gimp-2.7"},
+                                    { "&gimp", "gimp-2.8"},
                                     { "&irssi", term_exec .. "irssi"},
 				    { "&luakit", "luakit"},
 				    { "mca&bber", term_exec .. "mcabber -f /home/kiike/dotfiles/mcabber/facebook.rc" },
 				    { "&newsbeuter", term_exec .. "newsbeuter" },
 				    { "&mutt", term_exec .. "mutt"},
-                                    { "&openttd", "openttd" },
+                                    { "&snes9x", "snes9x-gtk" },
 				    { "&vifm", term_exec .. "vifm" }
 				   }
                         })
