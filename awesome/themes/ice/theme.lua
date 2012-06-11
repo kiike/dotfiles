@@ -4,7 +4,7 @@
 
 theme = {}
 
-theme.font          = "Terminus 7"
+theme.font          = "Ubuntu Mono 10"
 
 theme.bg_normal     = "#222222a5"
 theme.bg_focus      = "#535d6ca5"
@@ -17,9 +17,9 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 theme.border_width  = "1"
-theme.border_normal = "#000000dd"
-theme.border_focus  = "#535d6cdd"
-theme.border_marked = "#91231cdd"
+theme.border_normal = "#000000df"
+theme.border_focus  = "#535d6cdf"
+theme.border_marked = "#91231cdf"
 
 
 theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/floatingw.png"
