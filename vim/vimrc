@@ -1,17 +1,44 @@
-set nocompatible
-filetype off
 set autoindent
-au BufRead /tmp/mutt* set tw=72
+set backupdir=~/.cache/vim/
+set cursorline
+set directory=~/.cache/vim/
+set ignorecase
+set incsearch
+set laststatus=2
+set nocompatible
+set number
+set smartcase
+set showcmd
+set undofile
+set undodir=~/.cache/vim/
 
-let g:zenburn_high_Contrast=1
-colorscheme zenburn
+filetype off
+
+au BufNewFile,BufRead /tmp/mutt* set tw=72 ft=mail fo+=a|exe "normal O"|exe "normal O"|start
+au BufNewFile,BufRead *.markdown,*.md set fo+=a
+
+let g:solarized_termtrans=0
+let g:solarized_style="dark"
+colorscheme solarized
 
 set rtp+=~/.vim/bundle/vundle/ 
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'jceb/vim-orgmode'
 Bundle 'speeddating.vim'
 Bundle 'utl.vim'
+Bundle 'Solarized'
+Bundle 'SirVer/ultisnips'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'scrooloose/nerdtree'
+
+inoremap . .<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
+inoremap : :<C-g>u
 
 filetype plugin indent on
+
+if has("syntax")
+	syntax on
+endif
