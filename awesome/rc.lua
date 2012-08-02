@@ -7,6 +7,7 @@ require("naughty")
 require("vicious")
 
 -- Themes define colours, icons, and wallpapers
+home = os.getenv("HOME")
 awehome = os.getenv("XDG_DATA_HOME") .. "/awesome/"
 beautiful.init(awehome .. "themes/ice/theme.lua")
 local igor = io.popen("uname -n")
@@ -55,8 +56,9 @@ myawesomemenu = {
    { "wm quit", awesome.quit }
 }
 
-mygamesmenu = { { "&openttd", "openttd" },
-	{ "diablo 2", "wine '.wine/drive_c/Program Files/Diablo II/Diablo II.exe'" }
+mygamesmenu = { { "openttd", "openttd" },
+		{ "pioneer", "pioneer" },
+		{ "diablo 2", "wine '.wine/drive_c/Program Files/Diablo II/Diablo II.exe'" }
 }
 
 mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
@@ -66,7 +68,7 @@ mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
 				    { "firefox kae", "firefox -P kae -no-remote" },
                                     { "&gimp", "gimp-2.8"},
                                     { "&irssi", term_exec .. "irssi"},
-                                    { "&jaikoz", "$HOME/Jaikoz/jaikoz.sh"},
+                                    { "&jaikoz", "./Jaikoz/jaikoz.sh"},
 				    { "&luakit", "luakit"},
 				    { "&newsbeuter", term_exec .. "newsbeuter" },
 				    { "&mutt", term_exec .. "mutt"},
