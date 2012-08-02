@@ -6,12 +6,12 @@ theme = {}
 
 theme.font          = "Ubuntu Mono 10"
 
-theme.bg_normal     = "#222222a5"
-theme.bg_focus      = "#535d6ca5"
-theme.bg_urgent     = "#ff0000a5"
-theme.bg_minimize   = "#444444a5"
+theme.bg_normal     = "#00000090"
+theme.bg_focus      = "#535d6c70"
+theme.bg_urgent     = "#ff000090"
+theme.bg_minimize   = "#44444490"
 
-theme.fg_normal     = "#aaaaaa"
+theme.fg_normal     = "#cccccc"
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
