@@ -45,6 +45,9 @@ case $TERM in;
 		PS1="%B%1//%f%b ";;
 esac
 
+setopt share_history
+setopt inc_append_history
+
 
 ### Aliases
 
@@ -60,3 +63,6 @@ alias pacman='sudo pacman'
 alias suspend="sudo pm-suspend"
 alias sxiv="sxiv -f"
 alias tmux="tmux -2"
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
