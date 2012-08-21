@@ -1,8 +1,7 @@
 export EDITOR="vim"
-export PAGER="less"
+export PAGER="vim -R"
 export BROWSER="luakit"
 export PATH="/home/kiike/scripts/:$PATH"
-export IPOD_MOUNTPOINT="/media/DEEJAY"
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -56,11 +55,10 @@ alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
 alias ls='ls --color=auto'
-alias mcp='sudo makechrootpkg -dur ~/build/ -l archppc -- --noconfirm'
+alias less='vim -R -'
 alias makepkg="makepkg -c"
 alias netcfg="sudo netcfg"
 alias pacman='sudo pacman'
-alias suspend="sudo pm-suspend"
 alias sxiv="sxiv -f"
 alias tmux="tmux -2"
 
