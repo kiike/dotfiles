@@ -21,7 +21,6 @@
 	setopt inc_append_history
 #}}}
 
-
 #{{{ Keybindings
 	typeset -g -A key
 	#bindkey '\e[3~' delete-char
@@ -60,7 +59,6 @@
 	esac
 #}}}
 
-
 #{{{ Aliases
 	alias aurget="cd /tmp; aurget"
 	alias cp="cp -R"
@@ -68,6 +66,7 @@
 	alias du="du -h"
 	alias ls='ls --color=auto'
 	alias makepkg="makepkg -c"
+	alias nmon="echo -cdnm | nmon"
 	alias netcfg="sudo netcfg"
 	alias pacman='sudo pacman'
 	alias rc.d='sudo systemctl'
@@ -75,4 +74,4 @@
 	alias tmux="tmux -2"
 #}}}
 
-#vim: foldmethod=marker
+# vim: foldmethod=marker
