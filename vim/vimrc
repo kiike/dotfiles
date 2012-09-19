@@ -6,7 +6,7 @@ set ignorecase
 set incsearch
 set laststatus=2
 set nocompatible
-set number
+set relativenumber
 set smartcase
 set showcmd
 set undofile
@@ -31,14 +31,34 @@ Bundle 'Solarized'
 Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdtree'
+Bundle 'maksimr/vim-translator'
 
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 inoremap : :<C-g>u
 
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+map <leader>nd :NERDTree<CR>
+
 filetype plugin indent on
 
 if has("syntax")
 	syntax on
 endif
+
+let g:goog_user_conf = { 'langpair': 'en|ca', 'v_key': 'T' }
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>

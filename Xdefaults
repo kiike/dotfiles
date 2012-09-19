@@ -10,7 +10,7 @@ URxvt.shading: 		50
 URxvt.colorUL: 		#86a2be
 URxvt.lineSpace:	1	
 URxvt.inputMethod:	uim
-URxvt.font: 		xft:Terminus:size=10:antialias=false, \
+URxvt.font: 		xft:Inconsolata:size=10:antialias=false, \
 			xft:Baekmuk Gulim:antialias=false
 URxvt.urgentOnBell:	true
 URxvt.preeditType:	OnTheSpot,Root,None

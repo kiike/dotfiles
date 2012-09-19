@@ -73,7 +73,8 @@ mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
 				    { "&newsbeuter", term_exec .. "newsbeuter" },
 				    { "&mutt", term_exec .. "mutt"},
                                     { "&snes9x", "snes9x-gtk" },
-				    { "&vifm", term_exec .. "vifm" }
+				    { "&vifm", term_exec .. "vifm" },
+				    { "&world clock", "/home/kiike/scripts/tzdate a" }
 				   }
                         })
 

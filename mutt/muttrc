@@ -12,15 +12,16 @@ set   date_format = "%d %b %Y %H:%M"
 set   delete
 set   editor = vim
 set   fast_reply
+set   forward_quote
 set   folder = "~/mail"
 set   header_cache = "~/mail/.header_cache"
 set   index_format = "  %D   %-30.30F %s"
-set   mail_check = 600
+set   mail_check = 60
 set   markers = no
 set   mbox_type = Maildir
 set   mailcap_path = "~/.mutt/mailcap"
 set   message_cachedir = "~/.mutt/body_cache"
-set   mime_forward
+set   mime_forward = no
 set   mime_forward_rest
 set   pager_stop
 set   postponed = "~/mail/drafts"
@@ -31,6 +32,8 @@ set   sort = threads
 set   sort_aux = reverse-last-date-received
 set   spoolfile = "+inbox"
 set   ssl_force_tls
+
+auto_view text/html
 
 bind editor <space> noop
 
