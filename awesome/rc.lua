@@ -48,7 +48,7 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-myawesomemenu = {
+session_menu = {
    { "sys restart", "sudo shutdown -r now" },
    { "sys halt", "sudo shutdown -h now" },
    { "sys suspend", "sudo pm-suspend" },
@@ -56,13 +56,13 @@ myawesomemenu = {
    { "wm quit", awesome.quit }
 }
 
-mygamesmenu = { { "openttd", "openttd" },
+games_menu =  { { "openttd", "openttd" },
 		{ "pioneer", "pioneer" },
-		{ "diablo 2", "wine '.wine/drive_c/Program Files/Diablo II/Diablo II.exe'" }
+		{ "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
 }
 
-mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
-				    { "games    >", mygamesmenu },
+main_menu = awful.menu({ items =  { { "session  >", session_menu },
+				    { "games    >", games_menu },
                                     { "&cmus", term_exec .. "cmus"},
 				    { "&firefox", "firefox -P kiike -no-remote" },
 				    { "firefox kae", "firefox -P kae -no-remote" },
@@ -72,6 +72,7 @@ mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
 				    { "&luakit", "luakit"},
 				    { "&newsbeuter", term_exec .. "newsbeuter" },
 				    { "&mutt", term_exec .. "mutt"},
+				    { "&qemu", "qemu-kvm -hda /home/kiike/vm/WinXP -m 512 -boot d -vga std -usb -usbdevice tablet -device AC97,id=sound0,bus=pci.0,addr=0x4"},
                                     { "&snes9x", "snes9x-gtk" },
 				    { "&vifm", term_exec .. "vifm" },
 				    { "&world clock", "/home/kiike/scripts/tzdate a" }
@@ -79,7 +80,7 @@ mymainmenu = awful.menu({ items = { { "session  >", myawesomemenu },
                         })
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = mymainmenu })
+                                     menu = main_menu })
 -- }}}
 
 -- {{{ Misc widgets   
@@ -198,7 +199,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "a", function () mymainmenu:show({ keygrabber=true,
+    awful.key({ modkey,           }, "a", function () main_menu:show({ keygrabber=true,
                                                                         coords={x=0,y=0}
                                                                      }) end),
 
