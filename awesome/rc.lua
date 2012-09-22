@@ -48,39 +48,41 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-session_menu = {
-   { "sys restart", "sudo shutdown -r now" },
-   { "sys halt", "sudo shutdown -h now" },
-   { "sys suspend", "sudo pm-suspend" },
-   { "wm restart", awesome.restart },
-   { "wm quit", awesome.quit }
+session_menu = {   { "sys restart", "sudo shutdown -r now" },
+		   { "sys halt", "sudo shutdown -h now" },
+		   { "sys suspend", "sudo pm-suspend" },
+		   { "wm restart", awesome.restart },
+		   { "wm quit", awesome.quit }
 }
 
-games_menu =  { { "openttd", "openttd" },
+games_menu = {  { "openttd", "openttd" },
 		{ "pioneer", "pioneer" },
 		{ "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
 }
 
-main_menu = awful.menu({ items =  { { "session  >", session_menu },
-				    { "games    >", games_menu },
-                                    { "&cmus", term_exec .. "cmus"},
-				    { "&firefox", "firefox -P kiike -no-remote" },
-				    { "firefox kae", "firefox -P kae -no-remote" },
-                                    { "&gimp", "gimp-2.8"},
-                                    { "&irssi", term_exec .. "irssi"},
-                                    { "&jaikoz", "./Jaikoz/jaikoz.sh"},
-				    { "&luakit", "luakit"},
-				    { "&newsbeuter", term_exec .. "newsbeuter" },
-				    { "&mutt", term_exec .. "mutt"},
-				    { "&qemu", "qemu-kvm -hda /home/kiike/vm/WinXP -m 512 -boot d -vga std -usb -usbdevice tablet -device AC97,id=sound0,bus=pci.0,addr=0x4"},
-                                    { "&snes9x", "snes9x-gtk" },
-				    { "&vifm", term_exec .. "vifm" },
-				    { "&world clock", "/home/kiike/scripts/tzdate a" }
-				   }
-                        })
+main_menu = {	    { "session  >", session_menu },
+		    { "games    >", games_menu },
+		    { "&cmus", term_exec .. "cmus"},
+		    { "&firefox", "firefox -P kiike -no-remote" },
+		    { "firefox kae", "firefox -P kae -no-remote" },
+		    { "&gimp", "gimp-2.8"},
+		    { "&irssi", term_exec .. "irssi"},
+		    { "&jaikoz", "./Jaikoz/jaikoz.sh"},
+		    { "&luakit", "luakit"},
+		    { "&newsbeuter", term_exec .. "newsbeuter" },
+		    { "&mutt", term_exec .. "mutt"},
+		    { "&qemu", "qemu-kvm -hda vm/WinXP -m 512 \
+				-vga std -usb -usbdevice tablet \
+				-device AC97,id=sound0,bus=pci.0,addr=0x4"},
+		    { "&snes9x", "snes9x-gtk" },
+		    { "&vifm", term_exec .. "vifm" },
+		    { "&world clock", "scripts/tzdate a" }
+	     }
+
+awesome_menu = awful.menu({ items =  main_menu})
 
 mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = main_menu })
+                                     menu = awesome_menu })
 -- }}}
 
 -- {{{ Misc widgets   
@@ -199,7 +201,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "a", function () main_menu:show({ keygrabber=true,
+    awful.key({ modkey,           }, "a", function () awesome_menu:show({ keygrabber=true,
                                                                         coords={x=0,y=0}
                                                                      }) end),
 
