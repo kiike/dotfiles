@@ -7,6 +7,9 @@ require("naughty")
 require("vicious")
 
 -- Themes define colours, icons, and wallpapers
+terminal = "lilyterm"
+term_exec = terminal .. " -e " 
+modkey = "Mod4"
 home = os.getenv("HOME")
 awehome = os.getenv("XDG_DATA_HOME") .. "/awesome/"
 beautiful.init(awehome .. "themes/ice/theme.lua")
@@ -14,11 +17,6 @@ local igor = io.popen("uname -n")
 local hostname = igor:read("*line")
 igor:close()
 
-
--- This is used later as the default terminal and editor to run.
-terminal = "urxvtc"
-term_exec = terminal .. " -e " 
-modkey = "Mod4"
 
 -- Autostart
 awful.util.spawn("urxvtd")
@@ -57,14 +55,15 @@ session_menu = {   { "sys restart", "sudo shutdown -r now" },
 
 games_menu = {  { "openttd", "openttd" },
 		{ "pioneer", "pioneer" },
+		{ "rct2", "wineexec '.wine/drive_c/Program Files/Infogrames/RollerCoaster Tycoon 2/rct2.exe'" },
 		{ "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
 }
 
-main_menu = {	    { "session  >", session_menu },
-		    { "games    >", games_menu },
+main_menu = {	    { "session    >", session_menu },
+		    { "games      >", games_menu },
+		    { "------------", ""},
 		    { "&cmus", term_exec .. "cmus"},
-		    { "&firefox", "firefox -P kiike -no-remote" },
-		    { "firefox kae", "firefox -P kae -no-remote" },
+		    { "&firefox", "firefox -P kiike" },
 		    { "&gimp", "gimp-2.8"},
 		    { "&irssi", term_exec .. "irssi"},
 		    { "&jaikoz", "./Jaikoz/jaikoz.sh"},
@@ -330,8 +329,6 @@ awful.rules.rules = {
       properties = { tag = tags[1][3], fullscreen = true, switchtotag = true } },
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2], switchtotag = true} },
-    { rule = { class = "Namoroka" },
-      properties = { tag = tags[1][2] } },
     { rule = { class = "luakit" },
       properties = { tag = tags[1][2], switchtotag = true } }
 }
@@ -365,6 +362,28 @@ client.add_signal("manage", function (c, startup)
     end
 end)
 
-client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.add_signal( "focus",
+	function(c)
+		if c.class:lower():find(terminal) then
+			c.border_color = beautiful.border_focus
+			c.opacity = 1
+		end
+	end)
+
+client.add_signal( "unfocus",
+	function(c)
+		if awful.layout.get(c.screen) == awful.layout.suit.max
+		and c.class:lower():find(terminal) then
+			c.border_color = beautiful.border_normal
+			c.opacity = 0.1
+		end
+
+		if awful.layout.get(c.screen) ~= awful.layout.suit.max
+		and c.class:lower():find(terminal) then
+			c.border_color = beautiful.border_normal
+			c.opacity = 0.7
+		end
+	end)
 -- }}}
+
+-- vim: fdm=marker
