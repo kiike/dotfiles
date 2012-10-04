@@ -6,9 +6,9 @@ theme = {}
 
 theme.font          = "Ubuntu Mono 10"
 
-theme.bg_normal     = "#00000090"
-theme.bg_focus      = "#535d6c70"
-theme.bg_urgent     = "#ff000090"
+theme.bg_normal     = "#000000a5"
+theme.bg_focus      = "#b5890070"
+theme.bg_urgent     = "#dc322f90"
 theme.bg_minimize   = "#44444490"
 
 theme.fg_normal     = "#cccccc"
@@ -16,7 +16,7 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.border_width  = "1"
+theme.border_width  = "0"
 theme.border_normal = "#000000df"
 theme.border_focus  = "#535d6cdf"
 theme.border_marked = "#91231cdf"
@@ -29,7 +29,7 @@ theme.tasklist_floating_icon = "/usr/share/awesome/themes/default/tasklist/float
 -- menu_[border_color|border_width]
 --theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
 theme.menu_height = "15"
-theme.menu_width  = "90"
+theme.menu_width  = "100"
 theme.menu_fg_normal = "#aaaaaa"
 theme.menu_border_color = "#535d6cdd"
 
