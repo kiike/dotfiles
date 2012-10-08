@@ -4,6 +4,7 @@ source ~/.mutt/colors
 source ~/.mutt/mailboxes
 
 set   alias_file = "~/.mutt/aliases"
+set   auto_tag
 set   beep_new
 set   certificate_file = "~/.mutt/certificates"
 set   check_new
@@ -43,6 +44,7 @@ macro index 	  gd	"<change-folder>=drafts<enter>" "Go to drafts"
 macro index 	  gi	"<change-folder>=inbox<enter>" "Go to inbox"
 macro index 	  gs	"<change-folder>=sent<enter>" "Go to Sent Mail"
 macro index 	  gt	"<change-folder>=trash<enter>" "Go to Trash"
+macro index 	  sy	"!offlineimap<enter>" "Sync with OfflineIMAP"
 macro index,pager d	"<save-message>=trash<enter><enter><sync-mailbox>" "Trash"
 macro index,pager y	"<save-message>=archive<enter><enter><sync-mailbox>" "Archive"
 macro index,pager a     "|abook --add-email\n" 'add sender to abook'
