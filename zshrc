@@ -1,7 +1,7 @@
 #{{{ Exports
 	export EDITOR="vim"
 	export PAGER="less"
-	export BROWSER="luakit"
+	export BROWSER="firefox"
 	export PATH=$PATH:$HOME/.rvm/bin
 	export PATH="$HOME/scripts/:$PATH"
 	export GPG_TTY=$(tty)
@@ -9,14 +9,15 @@
 #}}}
 
 #{{{ Modules
+	setopt extendedglob
 	autoload -U colors && colors
 	autoload -U compinit && compinit
 #}}}
 
 #{{{ History
 	HISTFILE=~/.histfile
-	HISTSIZE="1000"
-	SAVEHIST="1000"
+	HISTSIZE="10000"
+	SAVEHIST="10000"
 	setopt share_history
 	setopt inc_append_history
 #}}}
@@ -51,6 +52,9 @@
 	esac
 
 	case $TERM in;
+		*xterm*)
+			precmd () { print -Pn "\e]0;%//\a" } 
+			preexec () { print -Pn "\e]0;$1\a" } ;;
 		*rxvt*)
 			precmd () { print -Pn "\e]0;urxvt %1//\a" } 
 			preexec () { print -Pn "\e]0;$1\a" } ;;
