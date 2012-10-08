@@ -46,8 +46,8 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-session_menu = {   { "sys restart", "sudo shutdown -r now" },
-		   { "sys halt", "sudo shutdown -h now" },
+session_menu = {   { "sys restart", "sudo systemctl reboot" },
+		   { "sys poweroff", "systemctl poweroff" },
 		   { "sys suspend", "sudo pm-suspend" },
 		   { "wm restart", awesome.restart },
 		   { "wm quit", awesome.quit }
@@ -317,6 +317,8 @@ awful.rules.rules = {
     { rule = { instance = "plugin-container" },
       properties = { floating = true, fullscreen = true },
       callback = awful.titlebar.add },
+    { rule = { class = "uim-toolbar-gtk" },
+      properties = { opacity = 0.5 } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
