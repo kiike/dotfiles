@@ -1,16 +1,15 @@
--- Ice, a Solarized-based,
--- simple theme by Enric Morales
+-- Ice, a Solarized-based, simple theme by Enric Morales
 
 theme = {}
 
 theme.font          = "Ubuntu 10"
 
 theme.bg_normal     = "#000000b0"
-theme.bg_focus      = "#003642f0"
+theme.bg_focus     =  "#073642ff"
 theme.bg_urgent     = "#dc322f90"
 theme.bg_minimize   = "#44444490"
 
-theme.fg_normal     = "#cccccc"
+theme.fg_normal     = "#eeeeee"
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
@@ -52,12 +51,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
--- You can use your own command to set your wallpaper
---theme.wallpaper_cmd = { "awsetbg /home/kiike/pictures/wallpaper.jpg" }
-
-
-
-theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+theme.awesome_icon = awehome .. "themes/ice/awesome16.png"
 
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
