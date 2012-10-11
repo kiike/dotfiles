@@ -15,7 +15,7 @@ set undodir=~/.cache/vim/
 filetype off
 
 au BufNewFile,BufRead /tmp/mutt* set tw=72 ft=mail fo+=a|exe "normal O"|exe "normal O"|start
-au BufNewFile,BufRead *.markdown,*.md set fo+=a
+au BufNewFile,BufRead *.markdown,*.md set fo+=an
 
 let g:solarized_termtrans=0
 let g:solarized_style="dark"
@@ -25,6 +25,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
+Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'speeddating.vim'
 Bundle 'utl.vim'
 Bundle 'Solarized'
@@ -32,6 +33,8 @@ Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'maksimr/vim-translator'
+
+let g:pandoc_auto_format = 1
 
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
