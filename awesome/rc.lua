@@ -47,7 +47,7 @@ end
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 session_menu = {   { "sys restart", "sudo systemctl reboot" },
-		   { "sys poweroff", "systemctl poweroff" },
+		   { "sys poweroff", "sudo systemctl poweroff" },
 		   { "sys suspend", "sudo pm-suspend" },
 		   { "wm restart", awesome.restart },
 		   { "wm quit", awesome.quit }
@@ -231,6 +231,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("./scripts/volume.sh s 2dB-") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("./scripts/volume.sh s 2dB+") end),
+    awful.key({ }, "XF86AudioMute", function () awful.util.spawn("./scripts/volume.sh m") end),
 
     -- Prompt
     awful.key({ modkey, "Shift"   }, "x",     function ()
