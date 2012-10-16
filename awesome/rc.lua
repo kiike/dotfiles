@@ -7,7 +7,7 @@ require("naughty")
 require("vicious")
 
 -- Themes define colours, icons, and wallpapers
-terminal = "lilyterm"
+terminal = "evilvte"
 term_exec = terminal .. " -e " 
 modkey = "Mod4"
 home = os.getenv("HOME")
@@ -32,7 +32,6 @@ layouts =
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
 }
 
 -- {{{ Tags
@@ -234,6 +233,10 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("./scripts/volume.sh s 2dB-") end),
     awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("./scripts/volume.sh s 2dB+") end),
     awful.key({ }, "XF86AudioMute", function () awful.util.spawn("./scripts/volume.sh m") end),
+    awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("./scripts/remote.sh prev") end),
+    awful.key({ }, "XF86AudioNext", function () awful.util.spawn("./scripts/remote.sh next") end),
+    awful.key({ }, "XF86AudioStop", function () awful.util.spawn("./scripts/remote.sh stop") end),
+    awful.key({ }, "XF86AudioPlay", function () awful.util.spawn("./scripts/remote.sh togglePause") end),
 
     -- Prompt
     awful.key({ modkey, "Shift"   }, "x",     function ()
@@ -313,6 +316,7 @@ awful.rules.rules = {
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
+		     opacity = 0.7,
                      focus = true,
 		     size_hints_honor = false,
                      keys = clientkeys,
@@ -330,12 +334,8 @@ awful.rules.rules = {
 	      properties = { 	tag = tags[1][3],
       			floating = true,
 			switchtotag = true } },
-    { rule = { name = 'WormsArmageddon - Wine desktop' },
-      properties = { tag = tags[1][3], fullscreen = true, switchtotag = true } },
     { rule = { class = "Firefox" },
       properties = { tag = tags[1][2], switchtotag = true} },
-    { rule = { class = "luakit" },
-      properties = { tag = tags[1][2], switchtotag = true } }
 }
 
 -- }}}
@@ -369,22 +369,23 @@ end)
 
 client.add_signal( "focus",
 	function(c)
-		if c.class:lower():find(terminal) then
 			c.border_color = beautiful.border_focus
 			c.opacity = 1
-		end
 	end)
 
 client.add_signal( "unfocus",
 	function(c)
+		-- will match terminals in maximised layout
 		if awful.layout.get(c.screen) == awful.layout.suit.max
-		and c.class:lower():find(terminal) then
+		then
 			c.border_color = beautiful.border_normal
+			-- this actually means transparency, not opacity!
 			c.opacity = 0.1
 		end
 
+		-- will match terminals in other layouts
 		if awful.layout.get(c.screen) ~= awful.layout.suit.max
-		and c.class:lower():find(terminal) then
+		then
 			c.border_color = beautiful.border_normal
 			c.opacity = 0.7
 		end
