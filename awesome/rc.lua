@@ -4,7 +4,7 @@ require("awful.autofocus")
 require("awful.rules")
 require("beautiful")
 require("naughty")
-require("vicious")
+vicious=require("vicious")
 
 -- Themes define colours, icons, and wallpapers
 terminal = "evilvte"
@@ -92,11 +92,12 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{{ Vicious widgets
    -- Battery widget
    vicious_bat = widget({ type = "textbox" })
-   if hostname == "balrog"
-	then vicious.register(vicious_bat, vicious.widgets.batpmu, "↯$2%", 30, "battery_0" )
-	else vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "BAT0")
-   end
+   vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "BAT0")
  
+   -- Date widget
+   vicious_mail = widget({ type = "textbox" })
+   vicious.register(vicious_mail, vicious.widgets.mdir, '✉ $1 | ', 120, { '/home/kiike/mail/inbox' })
+   --
    -- Date widget
    vicious_date = widget({ type = "textbox" })
    vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
@@ -169,6 +170,7 @@ for s = 1, screen.count() do
         vicious_date,
         separator,
         vicious_bat,
+	vicious_mail,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -316,7 +318,6 @@ awful.rules.rules = {
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-		     opacity = 0.7,
                      focus = true,
 		     size_hints_honor = false,
                      keys = clientkeys,
@@ -324,8 +325,6 @@ awful.rules.rules = {
     { rule = { instance = "plugin-container" },
       properties = { floating = true, fullscreen = true },
       callback = awful.titlebar.add },
-    { rule = { class = "uim-toolbar-gtk" },
-      properties = { opacity = 0.5 } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "pinentry" },
@@ -380,7 +379,7 @@ client.add_signal( "unfocus",
 		then
 			c.border_color = beautiful.border_normal
 			-- this actually means transparency, not opacity!
-			c.opacity = 0.1
+			--c.opacity = 0.1
 		end
 
 		-- will match terminals in other layouts
