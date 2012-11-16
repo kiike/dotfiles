@@ -12,15 +12,11 @@ set showcmd
 set undofile
 set undodir=~/.cache/vim/
 
-filetype off
-
-au BufNewFile,BufRead /tmp/mutt* set tw=72 ft=mail fo+=a|exe "normal O"|exe "normal O"|start
-au BufNewFile,BufRead *.markdown,*.md set fo+=an
-
 let g:solarized_termtrans=0
 let g:solarized_style="dark"
 colorscheme solarized
 
+filetype off
 set rtp+=~/.vim/bundle/vundle/ 
 call vundle#rc()
 
@@ -30,7 +26,6 @@ Bundle 'speeddating.vim'
 Bundle 'utl.vim'
 Bundle 'Solarized'
 Bundle 'SirVer/ultisnips'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/nerdtree'
 Bundle 'maksimr/vim-translator'
 
@@ -65,3 +60,21 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
+
+function! Prose()
+	augroup PROSE
+		autocmd InsertEnter * set formatoptions+=a
+		autocmd InsertLeave * set formatoptions-=a
+	augroup END
+endfunc
+
+function! MailInit()
+	set tw=72 ft=mail
+	exe "normal O"
+	exe "normal O"
+	call Prose()
+	start
+endfunc
+
+au BufNewFile,BufRead /tmp/mutt* :call MailInit() 
+au BufNewFile,BufRead *.markdown,*.md set tw=72 ts=4 sts=4 et
