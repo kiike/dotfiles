@@ -10,9 +10,9 @@ local setmetatable = setmetatable
 local wrequire = require("vicious.helpers").wrequire
 
 -- Vicious: widgets for the awesome window manager
--- vicious.widgets
-local widgets = { _NAME = "vicious.widgets" }
+-- vicious.contrib
+local contrib = { _NAME = "vicious.contrib" }
 -- }}}
 
 -- Load modules at runtime as needed
-return setmetatable(widgets, { __index = wrequire })
+return setmetatable(contrib, { __index = wrequire })
