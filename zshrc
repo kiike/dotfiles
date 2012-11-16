@@ -5,7 +5,6 @@
 	export PATH=$PATH:$HOME/.rvm/bin
 	export PATH="$HOME/scripts/:$PATH"
 	export GPG_TTY=$(tty)
-	[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 #}}}
 
 #{{{ Modules
@@ -65,11 +64,11 @@
 
 #{{{ Aliases
 	alias aurget="cd /tmp; aurget"
+	alias ccp="rsync -aAPh"
 	alias cp="cp -R"
 	alias df="df -h"
 	alias du="du -h"
 	alias ls='ls --color=auto'
-	alias makepkg="makepkg -c"
 	alias nmon="echo -cdnm | nmon"
 	alias netcfg="sudo netcfg"
 	alias pacman='sudo pacman'
