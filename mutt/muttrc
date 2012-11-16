@@ -12,6 +12,7 @@ set   copy
 set   date_format = "%d %b %Y %H:%M"
 set   delete
 set   editor = vim
+set   edit_headers=no
 set   fast_reply
 set   forward_quote
 set   folder = "~/mail"
@@ -24,6 +25,7 @@ set   mailcap_path = "~/.mutt/mailcap"
 set   message_cachedir = "~/.mutt/body_cache"
 set   mime_forward = no
 set   mime_forward_rest
+set   help = no
 set   pager_stop
 set   postponed = "~/mail/drafts"
 set   query_command = "abook --mutt-query %s"
@@ -48,6 +50,15 @@ macro index 	  sy	"!offlineimap<enter>" "Sync with OfflineIMAP"
 macro index,pager d	"<save-message>=trash<enter><enter><sync-mailbox>" "Trash"
 macro index,pager y	"<save-message>=archive<enter><enter><sync-mailbox>" "Archive"
 macro index,pager a     "|abook --add-email\n" 'add sender to abook'
+macro index <F8> \
+	"<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
+	"notmuch: search mail"
+macro index <F9> \
+	"<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt -r thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
+	"notmuch: reconstruct thread"
+macro index <F6> \
+	"<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -- -inbox<enter>" \
+	"notmuch: remove message from inbox"
 
 
 bind pager k previous-line
