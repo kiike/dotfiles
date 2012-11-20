@@ -53,6 +53,8 @@ session_menu = {   { "sys restart", "sudo systemctl reboot" },
 }
 
 games_menu = {  { "openttd", "openttd" },
+		{ "ivac", "wineexec '.wine/drive_c/Program Files/IVAO/IvAc/IvAc.exe'" },
+		{ "teamspeak", "aoss TeamSpeak" },
 		{ "pioneer", "pioneer" },
 		{ "rct2", "wineexec '.wine/drive_c/Program Files/Infogrames/RollerCoaster Tycoon 2/rct2.exe'" },
 		{ "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
@@ -96,7 +98,15 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
  
    -- Date widget
    vicious_mail = widget({ type = "textbox" })
-   vicious.register(vicious_mail, vicious.widgets.mdir, '✉ $1 | ', 120, { '/home/kiike/mail/inbox' })
+   vicious.register(vicious_mail, vicious.widgets.mdir, 
+   function (widget, args)
+	   if args[1] == 0
+		   then return 
+		   else return '✉ <span color="#dc322f">' .. args[1] .. "</span> | "
+	   end
+   end, 60, { home..'/mail/inbox' })
+   
+
    --
    -- Date widget
    vicious_date = widget({ type = "textbox" })
@@ -232,8 +242,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("./scripts/volume.sh s 2dB-") end),
-    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("./scripts/volume.sh s 2dB+") end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("./scripts/volume.sh s 3dB-") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("./scripts/volume.sh s 3dB+") end),
     awful.key({ }, "XF86AudioMute", function () awful.util.spawn("./scripts/volume.sh m") end),
     awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("./scripts/remote.sh prev") end),
     awful.key({ }, "XF86AudioNext", function () awful.util.spawn("./scripts/remote.sh next") end),
