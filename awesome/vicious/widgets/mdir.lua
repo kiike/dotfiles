@@ -24,9 +24,10 @@ local function worker(format, warg)
 
     for i=1, #warg do
         -- Recursively find new messages
-        local f = io.popen("find '"..warg[i].."' -type f -wholename '*/new/*'")
+        local f = io.popen("ls " ..warg[i].. "/new/")
         for line in f:lines() do count.new = count.new + 1 end
         f:close()
+
     end
 
     return {count.new}
