@@ -19,8 +19,8 @@ fi
 deploy(){
 	if ! [ -e $2 ]; then
 		echo -n "ln -s "${PWD}/$1" "$2"... "
-		#ln -s "${PWD}/$1" "$2"
-		#[ $? = 0 ] && echo "OK"
+		ln -s "${PWD}/$1" "$2"
+		[ $? = 0 ] && echo "OK"
 	else
 		echo "Skipping $1"
 	fi
