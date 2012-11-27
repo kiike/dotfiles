@@ -39,7 +39,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "~", "@", "*" }, s, layouts[1])
+    tags[s] = awful.tag({ "!", "@", "#" }, s, layouts[1])
 end
 -- }}}
 
@@ -384,12 +384,10 @@ client.add_signal( "focus",
 
 client.add_signal( "unfocus",
 	function(c)
-		-- will match terminals in maximised layout
 		if awful.layout.get(c.screen) == awful.layout.suit.max
 		then
 			c.border_color = beautiful.border_normal
-			-- this actually means transparency, not opacity!
-			--c.opacity = 0.1
+			c.opacity = 0.1
 		end
 
 		-- will match terminals in other layouts
