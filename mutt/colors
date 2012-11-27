@@ -4,12 +4,10 @@ color	body 		magenta		default		[-a-z_0-9.]+@[-a-z_0-9.]+
 color	error 		red		default
 color 	hdrdefault 	white 		default
 color 	header 		white 		default		^(From|Subject): 
-color 	index 		white	 	default 	~T
 color 	index 		cyan		default 	~N  
-color 	index 		cyan		default 	~T  
 color 	index 		white		default		~F
 color	index 		white		default		~D
-color 	index 		yellow		default 	~O
+color 	index 		white		default 	~O
 color 	indicator 	magenta		default 
 color 	markers 	brightcyan	default
 color 	message 	cyan 		default
@@ -28,5 +26,6 @@ color 	status		white		default
 color 	tilde 		blue		default
 color 	tree 		red		default
 color 	underline 	yellow		default
+color 	index 		yellow	 	default		~T
 
 # vim: ft=muttrc

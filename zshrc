@@ -45,6 +45,7 @@
 #{{{ PS1, window title
 	case $(uname -n) in;
 		guile) PS1="%B%F{13}%1//%f%b ";;
+		balrog) PS1="%B%F{2}%1//%f%b ";;
 		bison) PS1="%B%F{1}%1//%f%b ";;
 		blanka) PS1="%B%F{9}%1//%f%b ";;
 		vega) PS1="%B%F{2}%1//%f%b ";;
