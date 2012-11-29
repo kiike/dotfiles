@@ -2,7 +2,7 @@
 	export EDITOR="vim"
 	export PAGER="less"
 	export BROWSER="firefox"
-	export PATH=$PATH:$HOME/.rvm/bin
+	export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
 	export PATH="$HOME/scripts/:$PATH"
 	export GPG_TTY=$(tty)
 #}}}
@@ -14,6 +14,7 @@
 #}}}
 
 #{{{ History
+	HISTCONTROL=erasedups
 	HISTFILE=~/.histfile
 	HISTSIZE="10000"
 	SAVEHIST="10000"
@@ -37,9 +38,6 @@
 	bindkey '^[[D' backward-char
 	bindkey '^[[B' down-line-or-search
 	bindkey '^[[C' forward-char 
-	# for rxvt
-	bindkey "\e[8~" end-of-line
-	bindkey "\e[7~" beginning-of-line
 #}}}
 
 #{{{ PS1, window title
@@ -77,5 +75,15 @@
 	alias sxiv="sxiv -f"
 	alias tmux="tmux -2"
 #}}}
+
+# Functions {{{
+
+cdd() {
+	cdd.sh
+	if [ -e /tmp/cdd.tmp ]; then
+		cd $(cat /tmp/cdd.tmp)
+		rm -f /tmp/cdd.tmp
+	fi
+}
 
 # vim: foldmethod=marker
