@@ -50,7 +50,7 @@
 	esac
 
 	case $TERM in;
-		*xterm*)
+		*xterm*|*screen*)
 			precmd () { print -Pn "\e]0;%//\a" } 
 			preexec () { print -Pn "\e]0;$1\a" } ;;
 		*rxvt*)

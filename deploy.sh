@@ -26,13 +26,13 @@ deploy(){
 	fi
 }
 
-PUT_IN_HOME=('zshrc' 'vim' 'mutt' 'tmux.conf' 'mplayer' 'wgetrc')
-
-for i in ${PUT_IN_HOME[@]}; do
-	deploy "$i" "${HOME}/.$i"
-done
-
-deploy awesome ${XDG_DATA_HOME}/awesome
 deploy awesome ${XDG_CONFIG_HOME}/awesome
+deploy awesome ${XDG_DATA_HOME}/awesome
 deploy lilyterm ${XDG_CONFIG_HOME}/lilyterm
-deploy vimrc ${HOME}/.vim/vimrc
+deploy mplayer ${HOME}/.mplayer
+deploy mutt ${HOME}/.mutt
+deploy tmux.conf ${HOME}/.tmux.conf
+deploy vim ${HOME}/.vim
+deploy vim/vimrc ${HOME}/.vimrc
+deploy wgetrc ${HOME}/.wgetrc
+deploy zshrc ${HOME}/.zshrc
