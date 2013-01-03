@@ -1,4 +1,4 @@
-text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput
+text/html; lynx -assume_encoding UTF-8 -dump %s; nametemplate=%s.html; copiousoutput
 
 image/*;		sxiv %s;
 application/zip;	unzip %s;
