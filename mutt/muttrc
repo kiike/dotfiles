@@ -3,40 +3,38 @@ source ~/.mutt/aliases
 source ~/.mutt/colors
 source ~/.mutt/mailboxes
 
-set   alias_file = "~/.mutt/aliases"
-set   auto_tag
-set   beep_new
-set   certificate_file = "~/.mutt/certificates"
-set   check_new
-set   copy
-set   date_format = "%d %b %Y %H:%M"
-set   delete
-set   editor = vim
-set   edit_headers=no
-set   fast_reply
-set   forward_quote
-set   folder = "~/mail"
-set   header_cache = "~/mail/.header_cache"
-set   index_format = "  %D   %-30.30F %s"
-set   mail_check = 60
-set   markers = no
-set   mbox_type = Maildir
-set   mailcap_path = "~/.mutt/mailcap"
-set   message_cachedir = "~/.mutt/body_cache"
-set   mime_forward = no
-set   mime_forward_rest
-set   help = no
-set   pager_stop
-set   postponed = "~/mail/drafts"
-set   query_command = "abook --mutt-query %s"
-set   record = "~/mail/sent"
-set   sendmail = "/usr/bin/msmtp"
-set   sort = threads
-set   sort_aux = reverse-last-date-received
-set   spoolfile = "+inbox"
-set   ssl_force_tls
-
-auto_view text/html
+set alias_file = "~/.mutt/aliases"
+set auto_tag
+set beep_new
+set certificate_file = "~/.mutt/certificates"
+set check_new
+set copy
+set date_format = "%d %b %Y %H:%M"
+set delete
+set editor = vim
+set edit_headers=no
+set fast_reply
+set forward_quote
+set folder = "~/mail"
+set header_cache = "~/mail/.header_cache"
+set index_format = "  %D   %-30.30F %s"
+set mail_check = 60
+set markers = no
+set mbox_type = Maildir
+set mailcap_path = "~/.mutt/mailcap"
+set message_cachedir = "~/.mutt/body_cache"
+set mime_forward = no
+set mime_forward_rest
+set help = no
+set pager_stop
+set postponed = "~/mail/drafts"
+set query_command = "abook --mutt-query %s"
+set record = "~/mail/sent"
+set sendmail = "/usr/bin/msmtp"
+set sort = threads
+set sort_aux = reverse-last-date-received
+set spoolfile = "+inbox"
+set ssl_force_tls
 
 bind editor <space> noop
 
@@ -59,7 +57,6 @@ macro index <F9> \
 macro index <F6> \
 	"<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -- -inbox<enter>" \
 	"notmuch: remove message from inbox"
-
 
 bind pager k previous-line
 bind pager j next-line
