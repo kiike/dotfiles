@@ -5,6 +5,7 @@
 	export PATH=$PATH:$HOME/.gem/ruby/1.9.1/bin
 	export PATH="$HOME/scripts/:$PATH"
 	export GPG_TTY=$(tty)
+	export PYTHONDOCS=/usr/share/doc/python2/html/
 #}}}
 
 #{{{ Modules
@@ -44,6 +45,7 @@
 	case $(uname -n) in;
 		guile) PS1="%B%F{13}%1//%f%b ";;
 		balrog) PS1="%B%F{2}%1//%f%b ";;
+		sagat) PS1="%B%F{4}%1//%f%b ";;
 		bison) PS1="%B%F{1}%1//%f%b ";;
 		blanka) PS1="%B%F{9}%1//%f%b ";;
 		vega) PS1="%B%F{2}%1//%f%b ";;
