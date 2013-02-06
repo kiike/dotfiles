@@ -38,7 +38,7 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-terminal = "evilvte"
+terminal = "urxvtc"
 term_exec = terminal .. " -e " 
 editor = os.getenv("EDITOR")
 editor_cmd = term_exec .. editor
@@ -471,29 +471,4 @@ client.connect_signal("manage", function (c, startup)
         awful.titlebar(c):set_widget(layout)
     end
 end)
-
-
-client.add_signal( "focus",
-	function(c)
-			c.border_color = beautiful.border_focus
-			c.opacity = 1
-	end)
-
-client.add_signal( "unfocus",
-	function(c)
-		if awful.layout.get(c.screen) == awful.layout.suit.max
-		then
-			c.border_color = beautiful.border_normal
-			--c.opacity = 0.1
-		end
-		
-		if awful.layout.get(c.screen) ~= awful.layout.suit.max
-		then
-			c.border_color = beautiful.border_normal
-			c.opacity = 0.7
-		end
-	end)
--- }}}
-
-
 -- }}}
