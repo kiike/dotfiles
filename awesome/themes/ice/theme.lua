@@ -51,7 +51,7 @@ theme.titlebar_maximized_button_focus_inactive  = basedir .. "maximized_focus_in
 theme.titlebar_maximized_button_normal_active = basedir .. "maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = basedir .. "maximized_focus_active.png"
 
-theme.awesome_icon = awehome .. "themes/ice/awesome16.png"
+theme.awesome_icon = awehome .. "/themes/ice/awesome16.png"
 
 return theme
 -- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
