@@ -92,8 +92,6 @@ alias pacman='sudo pacman'
 alias rc.d='sudo systemctl'
 alias sxiv="sxiv -f"
 alias tmux="tmux -2"
-alias gvim="gvim --remote-silent"
-alias vim="vim --remote-silent"
 # }}}
 
 # Functions {{{
