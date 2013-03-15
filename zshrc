@@ -71,11 +71,11 @@ esac
 
 case $TERM in;
 	*xterm*|*screen*)
-		precmd () { print -Pn "\e]${EXTRA}0;%//\a" } 
-		preexec () { print -Pn "\e]0;$1\a" } ;;
+		precmd () { print -Pn "\e]0;${EXTRA}%//\a" } 
+		preexec () { print -Pn "\e]0;${EXTRA}$1\a" } ;;
 	*rxvt*)
-		precmd () { print -Pn "\e]${EXTRA}0;urxvt %1//\a" } 
-		preexec () { print -Pn "\e]0;$1\a" } ;;
+		precmd () { print -Pn "\e]0;${EXTRA}%1//\a" } 
+		preexec () { print -Pn "\e]0;${EXTRA}$1\a" } ;;
 esac
 #}}}
 
