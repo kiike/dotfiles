@@ -1,7 +1,7 @@
 # Variables {{{
 if [ -z $DISPLAY ];
-	then VIMCMD="vim --remote-silent"
-	else VIMCMD="gvim --remote-silent"
+	then VIMCMD="vim"
+	else VIMCMD="gvim"
 fi
 # }}}
 
