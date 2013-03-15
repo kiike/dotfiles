@@ -57,24 +57,25 @@ setopt inc_append_history
 # }}}
 
 # PS1, window title {{{
-case $(uname -n) in;
+case $HOST in;
+	balrog) PS1="%B%F{2}[%m] %1//%f%b "
+		EXTRA="$HOST ";;
+	sagat) PS1="%B%F{4}[%m] %1//%f%b "
+		EXTRA="$HOST ";;
+	vega) PS1="%B%F{2}[%m]%1//%f%b "
+		EXTRA="$HOST ";;
 	guile) PS1="%B%F{13}%1//%f%b ";;
-	balrog) PS1="%B%F{2}%1//%f%b ";;
-	sagat) PS1="%B%F{4}%1//%f%b ";;
 	bison) PS1="%B%F{1}%1//%f%b ";;
 	blanka) PS1="%B%F{9}%1//%f%b ";;
-	vega) PS1="%B%F{2}%1//%f%b ";;
 esac
 
 case $TERM in;
 	*xterm*|*screen*)
-		precmd () { print -Pn "\e]0;%//\a" } 
+		precmd () { print -Pn "\e]${EXTRA}0;%//\a" } 
 		preexec () { print -Pn "\e]0;$1\a" } ;;
 	*rxvt*)
-		precmd () { print -Pn "\e]0;urxvt %1//\a" } 
+		precmd () { print -Pn "\e]${EXTRA}0;urxvt %1//\a" } 
 		preexec () { print -Pn "\e]0;$1\a" } ;;
-	*)
-		PS1="%B%1//%f%b ";;
 esac
 #}}}
 
