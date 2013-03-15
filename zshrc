@@ -60,12 +60,12 @@ setopt inc_append_history
 case $HOST in;
 	balrog) PS1="%B%F{2}[%m] %1//%f%b "
 		EXTRA="$HOST ";;
-	sagat) PS1="%B%F{4}[%m] %1//%f%b "
+	sagat) 	PS1="%B%F{4}[%m] %1//%f%b "
 		EXTRA="$HOST ";;
-	vega) PS1="%B%F{2}[%m]%1//%f%b "
+	vega)   PS1="%B%F{2}[%m] %1//%f%b "
 		EXTRA="$HOST ";;
-	guile) PS1="%B%F{13}%1//%f%b ";;
-	bison) PS1="%B%F{1}%1//%f%b ";;
+	guile)  PS1="%B%F{13}%1//%f%b ";;
+	bison)  PS1="%B%F{1}%1//%f%b ";;
 	blanka) PS1="%B%F{9}%1//%f%b ";;
 esac
 
