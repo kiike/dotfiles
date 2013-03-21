@@ -16,6 +16,24 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
+-- Functions {{{
+
+-- Keyboard map indicator and changer
+kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.layout = { { "us", "" }, { "es", "" } }
+kbdcfg.current = 1
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
+kbdcfg.switch = function ()
+    kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+    local t = kbdcfg.layout[kbdcfg.current]
+    kbdcfg.widget:set_text(" " .. t[1] .. " ")
+     os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+    end
+
+-- }}}
+
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -89,6 +107,7 @@ session_menu = {
     { "sys restart", "sudo systemctl reboot" },
     { "sys poweroff", "sudo systemctl poweroff" },
     { "sys suspend", "sudo pm-suspend" },
+    { "sys lock", term_exec .. "syslock" },
     { "wm restart", awesome.restart },
     { "wm quit", awesome.quit }
 }
@@ -230,6 +249,8 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(vicious_mail)
+    right_layout:add(separator)
+    right_layout:add(kbdcfg.widget)
     right_layout:add(separator)
     right_layout:add(vicious_bat)
     right_layout:add(separator)
@@ -377,7 +398,8 @@ globalkeys = awful.util.table.join(
     -- Prompt
     awful.key({ modkey, "Shift"   }, "x",
         function ()
-            awful.util.spawn("/home/kiike/scripts/kblayout.sh")
+            kbdcfg.switch() 
+            awful.util.spawn("xmodmap .Xmodmaprc")
         end),
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
