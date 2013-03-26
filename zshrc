@@ -8,6 +8,8 @@ fi
 # Exports {{{ 
 export EDITOR=$VIMCMD
 export PATH=$HOME/scripts:$PATH
+export PATH=$HOME/.virtualenv/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.0.0/bin:$PATH
 export PAGER=less
 export BROWSER=firefox
 export GPG_TTY=$(tty)
@@ -82,18 +84,22 @@ esac
 #}}}
 
 # Aliases {{{
-alias aurget="cd /tmp; aurget"
+for a in apt-get aptitude systemctl pacman netcfg ip; do
+	which $a >/dev/null && alias ${a}="sudo ${a}"
+done
+
 alias ccp="rsync -aAPh"
 alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
 alias ls='ls --color=auto'
 alias nmon="echo -cdnm | nmon"
-alias netcfg="sudo netcfg"
-alias pacman='sudo pacman'
-alias rc.d='sudo systemctl'
-alias sxiv="sxiv -f"
-alias tmux="tmux -2"
+
+if [[ $HOST == "bison" ]]; then
+	alias git="hub"
+	alias sxiv="sxiv -f"
+fi
+
 # }}}
 
 # Functions {{{
