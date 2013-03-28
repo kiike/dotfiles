@@ -1,0 +1,33 @@
+set incsearch
+set ignorecase
+set vicmd=vim
+set notrash
+set history=15
+set followlinks
+set nofastrun
+set nosortnumbers
+set undolevels=100
+set novimhelp
+set norunexec
+set noiec
+set fusehome=/tmp/vifm_FUSE
+set timefmt=%y/%m/%d\ %H:%M
+set vicmd="vim --remote-silent &"
+set vixcmd="gvim --remote-silent &"
+colorscheme Default
+
+command mv mv %f %D
+command mmv mv %c %D
+
+nnoremap ms :mv<cr>
+nnoremap mm :mmv<cr>
+
+
+filetype *.jpeg,*.jpg,*.png sxiv -f %c &
+filetype *.mp4,*.m4v,*.mkv,*.avi,*.mov mplayer %c &
+filetype *.pdf,*.ps zathura %c &
+filetype *.cr2,*.CR2 ufraw %c &
+filetype *.smc snes9x-gtk %c &
+filetype *.docx,*.doc,*.odt abiword %c &
+
+set vifminfo=bookmarks,chistory,shistory,phistory
