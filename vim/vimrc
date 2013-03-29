@@ -1,80 +1,129 @@
+set nocompatible
 set autoindent
-set backupdir=~/.cache/vim/
-set cursorline
-set directory=~/.cache/vim/
 set ignorecase
 set incsearch
-set laststatus=2
-set nocompatible
 set relativenumber
 set smartcase
-set showcmd
+
+" Undo and backups {{{
+" This enables backups and undo and creates an undo point after 
+" the end of every sentence.
 set undofile
 set undodir=~/.cache/vim/
-
-let g:solarized_termtrans=0
-let g:solarized_style="dark"
-colorscheme solarized
-
-filetype off
-set rtp+=~/.vim/bundle/vundle/ 
-call vundle#rc()
-
-Bundle 'gmarik/vundle'
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'speeddating.vim'
-Bundle 'utl.vim'
-Bundle 'Solarized'
-Bundle 'SirVer/ultisnips'
-Bundle 'scrooloose/nerdtree'
-Bundle 'maksimr/vim-translator'
-
-let g:pandoc_auto_format = 1
+set backupdir=~/.cache/vim/
+set directory=~/.cache/vim/
 
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 inoremap : :<C-g>u
+"}}}
 
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" Vundle Config {{{
+filetype off
+set rtp+=~/.vim/bundle/vundle/ 
+call vundle#rc()
 
-map <leader>nd :NERDTree<CR>
+Bundle 'gmarik/vundle'
+Bundle 'Lokaltog/powerline'
+Bundle 'SirVer/ultisnips'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'nanotech/jellybeans.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'klen/python-mode'
+Bundle 'maksimr/vim-translator'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-speeddating'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'utl.vim'
+Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'ervandew/supertab'
 
 filetype plugin indent on
+" }}}
+
+" Look and Feel {{{
+set showcmd
+set cursorline
+set cursorcolumn
+set laststatus=2
+
+set background=dark
+colorscheme solarized
+
+set guifont="Inconsolata-dz for Powerline Medium 10"
+set guioptions=""
+
+if has("gui_running")
+	set title
+	let &titlestring = "gvim %f"
+endif
 
 if has("syntax")
 	syntax on
 endif
+"}}}
 
-let g:goog_user_conf = { 'langpair': 'en|ca', 'v_key': 'T' }
+" Window mappings {{{
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+"}}}
 
+" Leader mappings {{{
+map <leader>t :NERDTree<CR>
+"}}}
+
+" Toggle between rel. and abs. line nums {{{
 function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
+if(&relativenumber == 1)
+set number
+else
+set relativenumber
+endif
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
+"}}}
 
+" UltiSnips Config {{{
+let g:UltiSnipsSnippetDirectories=["UltiSnips","snippets"]
+"}}}
+
+"Add "a" to formatoptions and remove it automatically {{{
 function! Prose()
 	augroup PROSE
 		autocmd InsertEnter * set formatoptions+=a
 		autocmd InsertLeave * set formatoptions-=a
 	augroup END
 endfunc
+" }}}
 
+" File-type functions {{{
 function! MailInit()
 	set tw=72 ft=mail
 	exe "normal O"
 	exe "normal O"
 	call Prose()
+	set spell
 	start
 endfunc
 
+function! MarkdownInit()
+	set tw=72 ts=4 sts=4 et
+	let g:pandoc_use_hard_wraps = 1
+	let g:pandoc_auto_format = 1
+	set spell
+	syn off		" Pandoc slows down Vim a lot.
+endfun
+" }}}
+
+" Auto-commands {{{
 au BufNewFile,BufRead /tmp/mutt* :call MailInit() 
-au BufNewFile,BufRead *.markdown,*.md set tw=72 ts=4 sts=4 et
+au BufNewFile,BufRead *.markdown,*.md :call MarkdownInit()
+au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=79 spell
+" }}}
+
+" vim: fdm=marker
