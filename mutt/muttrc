@@ -1,6 +1,3 @@
-source ~/.mutt/aliases
-source ~/.mutt/colors
-
 set alias_file          = "~/.mutt/aliases"
 set auto_tag
 set beep_new
@@ -9,14 +6,13 @@ set check_new
 set copy
 set date_format         = "%d %b %Y %H:%M"
 set delete
-set editor              = vim
 set edit_headers        = no
 set fast_reply
 set forward_quote
 set folder              = "~/mail"
 set header_cache        = "~/mail/.header_cache"
 set hide_thread_subject = no
-set index_format        = " %-45.45s  %F %> %D [%Z]"
+set index_format        = " %-45.45s  %-32.32L  %> %[%d %b %Y] [%Z]"
 set mail_check          = 60
 set markers             = no
 set mbox_type           = Maildir
@@ -31,37 +27,27 @@ set query_command       = "abook --mutt-query %s"
 set record              = "~/mail/sent"
 set reverse_name
 set sendmail            = "/usr/bin/msmtp"
-set sidebar_width       = 20
+set sidebar_width       = 24
 set sidebar_visible
 set sort                = threads
 set sort_aux            = reverse-last-date-received
 set spoolfile           = "+inbox"
-set ssl_force_tls
 
-bind editor <space> noop
 auto_view text/html
 alternative_order text/enriched text/plain text/html text
 
-macro attach	  s	"<save-entry><kill-line>/home/kiike/downloads/<enter>y" "Save attachment"
+macro attach	  s	"<save-entry><kill-line>~/downloads/<enter>y" "Save attachment"
 macro index 	  ga	"<change-folder>=archive<enter>" "Go to all mail"
 macro index 	  gd	"<change-folder>=drafts<enter>" "Go to drafts"
 macro index 	  gi	"<change-folder>=inbox<enter>" "Go to inbox"
 macro index 	  gs	"<change-folder>=sent<enter>" "Go to Sent Mail"
 macro index 	  gt	"<change-folder>=trash<enter>" "Go to Trash"
-macro index 	  sy	"!offlineimap<enter>" "Sync with OfflineIMAP"
+macro index 	  Y	"!offlineimap<enter>" "Sync with OfflineIMAP"
 macro index,pager d	"<save-message>=trash<enter><enter><sync-mailbox>" "Trash"
 macro index,pager y	"<save-message>=archive<enter><enter><sync-mailbox>" "Archive"
 macro index,pager a     "|abook --add-email\n" 'add sender to abook'
-macro index <F8> \
-	"<enter-command>unset wait_key<enter><shell-escape>notmuch-mutt -r --prompt search<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter>" \
-	"notmuch: search mail"
-macro index <F9> \
-	"<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt -r thread<enter><change-folder-readonly>~/.cache/notmuch/mutt/results<enter><enter-command>set wait_key<enter>" \
-	"notmuch: reconstruct thread"
-macro index <F6> \
-	"<enter-command>unset wait_key<enter><pipe-message>notmuch-mutt tag -- -inbox<enter>" \
-	"notmuch: remove message from inbox"
 
+bind editor <space> noop
 bind pager k previous-line
 bind pager j next-line
 bind pager gg top
@@ -69,17 +55,25 @@ bind pager G bottom
 bind index gg first-entry
 bind index G last-entry
 
-bind index gk sidebar-prev
-bind index gj sidebar-next
-bind index gl sidebar-open
-bind pager gk sidebar-prev
-bind pager gj sidebar-next
-bind pager gl sidebar-open
+bind index,pager R list-reply
 
-subscribe awesome@naquadah.org
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index L sidebar-open
+macro pager q "<exit><sync-mailbox>"
+macro index,pager S ":toggle sidebar_visible<enter><redraw-screen>"
 
+subscribe awesome@naquadah.org \
+	  android@llistes.softcatala.org \
+	  mozilla@llistes.softcatala.org
 
 source ~/.mutt/mailboxes
+source ~/.mutt/aliases
+source ~/.mutt/colors
 
-folder-hook lists.* source ~/.mutt/lists.profile
-folder-hook !lists.* source ~/.mutt/main.profile
+folder-hook lists.* \
+	source ~/.mutt/lists.profile
+folder-hook lists.*softcat \
+	source ~/.mutt/softcat.profile
+folder-hook !lists.* \
+	source ~/.mutt/main.profile
