@@ -1,0 +1,26 @@
+browser   firefox
+player    mplayer
+
+podcast-auto-enqueue   yes
+refresh-on-startup     yes
+max-downloads          2
+download-path          ~/podcasts/%h/%n
+reload-threads         4
+
+color background   white   default
+color listnormal   white   default
+color listfocus    red     default
+color info         cyan    default
+color article      white   default
+
+unbind-key k
+unbind-key h
+unbind-key l
+unbind-key j
+
+bind-key k  up
+bind-key j  down
+bind-key l  next-feed
+bind-key h  prev-feed
+bind-key ^F pagedown
+bind-key ^B pageup
