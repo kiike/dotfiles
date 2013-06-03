@@ -4,6 +4,7 @@ set ignorecase
 set incsearch
 set relativenumber
 set smartcase
+"set clipboard=unnamed
 
 " Undo and backups {{{
 " This enables backups and undo and creates an undo point after 
@@ -40,6 +41,8 @@ Bundle 'utl.vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'ervandew/supertab'
 
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim/ 
+
 filetype plugin indent on
 " }}}
 
@@ -50,6 +53,7 @@ set cursorcolumn
 set laststatus=2
 
 set background=dark
+let g:solarized_termtrans = 1
 colorscheme solarized
 
 set guifont="Inconsolata-dz for Powerline Medium 10"
@@ -76,12 +80,14 @@ map <C-l> <C-W>l
 map <leader>t :NERDTree<CR>
 "}}}
 
-" Toggle between rel. and abs. line nums {{{
+" Toggle between relative, absolute, and no line numbers {{{
 function! NumberToggle()
 if(&relativenumber == 1)
-set number
+	set number
+elseif(&number == 1)
+	set nonumber
 else
-set relativenumber
+	set relativenumber
 endif
 endfunc
 
