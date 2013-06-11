@@ -1,19 +1,13 @@
-# Variables {{{
-if [ -z $DISPLAY ];
-	then VIMCMD="vim"
-	else VIMCMD="gvim"
-fi
-# }}}
-
 # Exports {{{ 
-export EDITOR=$VIMCMD
+export EDITOR=vim
 export PATH=$HOME/scripts:$PATH
-export PATH=$HOME/.virtualenv/bin:$PATH
 export PATH=$HOME/.gem/ruby/2.0.0/bin:$PATH
 export PAGER=less
 export BROWSER=firefox
 export GPG_TTY=$(tty)
 export PYTHONDOCS=/usr/share/doc/python2/html/
+
+source $HOME/.virtualenv/bin/activate
 # }}}
 
 # Modules {{{
@@ -54,24 +48,19 @@ HISTFILE=~/.zsh_history
 test -f $HISTFILE || touch $HISTFILE
 HISTSIZE="1000"
 SAVEHIST="1000"
-setopt share_history
-setopt inc_append_history
+setopt histignorealldups
+setopt sharehistory
+setopt incappendhistory
 # }}}
 
 # PS1, window title {{{
-case $HOST in;
-	bison)  PS1="%B%F{1}%1//%f%b ";;
-	balrog) PS1="%B%F{2}[%m] %1//%f%b "
-		EXTRA="$HOST ";;
-	sagat) 	PS1="%B%F{3}[%m] %1//%f%b "
-		EXTRA="$HOST ";;
-	vega)   PS1="%B%F{4}[%m] %1//%f%b "
-		EXTRA="$HOST ";;
-	guile)  PS1="%B%F{5}[%m] %1//%f%b "
-		EXTRA="$HOST ";;
-	blanka) PS1="%B%F{6}[%m] %1//%f%b "
-		EXTRA="$HOST ";;
-esac
+if [ -z ${SSH_CONNECTION} ];
+	then    PS1="%B%F{4}%1//%f%b "
+		EXTRA=""
+
+	else    PS1="%B$HOST:%F{4}%1//%f%b "
+		EXTRA="$HOST "
+fi
 
 case $TERM in;
 	*xterm*|*screen*)
@@ -79,7 +68,7 @@ case $TERM in;
 		preexec () { print -Pn "\e]0;${EXTRA}$1\a" } ;;
 	*rxvt*)
 		precmd () { print -Pn "\e]0;${EXTRA}%1//\a" } 
-		preexec () { print -Pn "\e]0;${EXTRA}$1\a" } ;;
+		preexec () { print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a" } ;;
 esac
 #}}}
 
