@@ -7,7 +7,8 @@ export BROWSER=firefox
 export GPG_TTY=$(tty)
 export PYTHONDOCS=/usr/share/doc/python2/html/
 
-source $HOME/.virtualenv/bin/activate
+[ -f $HOME/.virtualenv/bin/activate ] && \
+	source $HOME/.virtualenv/bin/activate
 # }}}
 
 # Modules {{{
