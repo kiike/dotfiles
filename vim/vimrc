@@ -27,14 +27,14 @@ call vundle#rc()
 
 if has("python")
 	Bundle 'SirVer/ultisnips'
+	Bundle 'Lokaltog/powerline'
+	Bundle 'klen/python-mode'
 endif
 
 Bundle 'gmarik/vundle'
-Bundle 'Lokaltog/powerline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'klen/python-mode'
 Bundle 'maksimr/vim-translator'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-speeddating'
