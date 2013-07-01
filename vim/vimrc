@@ -27,11 +27,11 @@ call vundle#rc()
 
 if has("python")
 	Bundle 'SirVer/ultisnips'
-	Bundle 'Lokaltog/powerline'
 	Bundle 'klen/python-mode'
 endif
 
 Bundle 'gmarik/vundle'
+Bundle 'bling/vim-airline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'godlygeek/tabular'
@@ -43,8 +43,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'utl.vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'ervandew/supertab'
-
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim/ 
 
 filetype plugin indent on
 " }}}
