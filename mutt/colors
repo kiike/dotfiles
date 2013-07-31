@@ -1,30 +1,23 @@
-color	body		red		default 	"(ftp|http)://[^ ]+"
-color	attachment 	magenta		default  
-color	body 		magenta		default		[-a-z_0-9.]+@[-a-z_0-9.]+ 
+color	attachment 	blue		default
+color	body		blue		default 	"(ftp|http)://[^ ]+"
+color	body 		blue		default		[-a-z_0-9.]+@[-a-z_0-9.]+
 color	error 		brightred	default
 color 	hdrdefault 	white 		default
-color 	index 		cyan		default 	~N  
+color 	index 		red		default 	~N
 color 	index 		yellow		default		~F
 color	index 		white		default		~D
 color 	index 		white		default 	~O
-color 	indicator 	red		default 
+color 	index 		white	 	black		~T
+color 	indicator 	brightwhite	black
 color 	markers 	brightcyan	default
-color 	message 	cyan 		default
+color 	message 	white 		default
 color 	normal 		white		default
-color 	quoted    	yellow		default
-color 	quoted1   	white		default
-color 	quoted2   	yellow		default
-color 	quoted3   	white		default
-color 	quoted4   	yellow		default
-color 	quoted5   	white		default
-color 	quoted6   	yellow		default
-color 	quoted7   	white		default
-color 	search		brightgreen	default 
+color 	quoted    	white 		default
+color 	search		brightgreen	default
 color 	signature 	yellow		default
-color 	status		cyan		default    
+color 	status		blue		default
 color 	tilde 		blue		default
-color 	tree 		red		default
+color 	tree 		black		default
 color 	underline 	yellow		default
-color 	index 		yellow	 	default		~T
 
 # vim: ft=muttrc
