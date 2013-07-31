@@ -131,7 +131,6 @@ main_menu = {
     { "&cmus", term_exec .. "cmus"},
     { "&firefox", "firefox -P kiike" },
     { "&gimp", "gimp-2.8"},
-    { "&irssi", term_exec .. "irssi"},
     { "&jaikoz", "./Jaikoz/jaikoz.sh"},
     { "&luakit", "luakit"},
     { "&newsbeuter", term_exec .. "newsbeuter" },
@@ -141,7 +140,8 @@ main_menu = {
                 -device AC97,id=sound0,bus=pci.0,addr=0x4"},
     { "&snes9x", "snes9x-gtk" },
     { "&vifm", term_exec .. "vifm" },
-    { "&world clock", "scripts/tzdate a" }
+    { "&world clock", "scripts/tzdate a" },
+    { "w&eechat", term_exec .. "weechat-curses"}
 }
 
 awesome_menu = awful.menu({ items =  main_menu})
