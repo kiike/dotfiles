@@ -21,7 +21,9 @@ local menubar = require("menubar")
 -- Keyboard map indicator and changer
 kbdcfg = {}
 kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { { "us", "" }, { "es", "" } }
+kbdcfg.layout = { { "us", "-option compose:ralt" },
+                  { "es", "-option" }
+                }
 kbdcfg.current = 1
 kbdcfg.widget = wibox.widget.textbox()
 kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
@@ -30,6 +32,7 @@ kbdcfg.switch = function ()
     local t = kbdcfg.layout[kbdcfg.current]
     kbdcfg.widget:set_text(" " .. t[1] .. " ")
      os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+     os.execute("xmodmap .Xmodmaprc")
     end
 
 -- }}}
