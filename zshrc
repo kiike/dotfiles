@@ -1,14 +1,9 @@
 # Exports {{{ 
-export EDITOR=vim
-export PATH=$HOME/scripts:$PATH
-export PATH=$HOME/.gem/ruby/2.0.0/bin:$PATH
-export PAGER=less
-export BROWSER=firefox
-export GPG_TTY=$(tty)
-export PYTHONDOCS=/usr/share/doc/python2/html/
-
-[ -f $HOME/.virtualenv/bin/activate ] && \
-	source $HOME/.virtualenv/bin/activate
+VIRTUALENV="$HOME/.virtualenv3"
+if [ -f ${VIRTUALENV}/bin/activate ]; then
+	VIRTUAL_ENV_DISABLE_PROMPT=1
+	source ${VIRTUALENV}/bin/activate
+fi
 # }}}
 
 # Modules {{{
@@ -74,10 +69,6 @@ esac
 #}}}
 
 # Aliases {{{
-for a in apt-get aptitude systemctl pacman netcfg ip; do
-	which $a >/dev/null && alias ${a}="sudo ${a}"
-done
-
 alias ccp="rsync -aAPh"
 alias cp="cp -R"
 alias df="df -h"
