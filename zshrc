@@ -13,6 +13,28 @@ autoload -U compinit && compinit
 setopt extendedglob
 #}}}
 
+# Functions {{{
+cdd() {
+	cdd.sh
+	if [ -e /tmp/cdd.tmp ]; then
+		cd $(cat /tmp/cdd.tmp)
+		rm -f /tmp/cdd.tmp
+	fi
+}
+
+
+zle-init zle-keymap-select () {
+	case $KEYMAP in
+		vicmd) echo -ne "\033]12;6\007";;
+		viins|main) echo -ne "\033]12;7\007";;
+	esac
+	zle reset-prompt
+}
+zle -N zle-keymap-select
+zle -N zle-init
+
+# }}}
+
 # Keybindings {{{
 bindkey -v
 
@@ -63,7 +85,8 @@ case $TERM in;
 		precmd () { print -Pn "\e]0;${EXTRA}%//\a" } 
 		preexec () { print -Pn "\e]0;${EXTRA}$1\a" } ;;
 	*rxvt*)
-		precmd () { print -Pn "\e]0;${EXTRA}%1//\a" } 
+		precmd () { print -Pn "\e]0;${EXTRA}%1//\a"
+				echo -ne "\033]12;7\007" }
 		preexec () { print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a" } ;;
 esac
 #}}}
@@ -75,22 +98,14 @@ alias df="df -h"
 alias du="du -h"
 alias ls='ls --color=auto'
 alias nmon="echo -cdnm | nmon"
+alias pacman="sudo pacman"
+alias systemctl="sudo systemctl"
 
-if [[ $HOST == "bison" ]]; then
+if [[ $HOST == "bison.*" ]]; then
 	alias git="hub"
 	alias sxiv="sxiv -f"
 fi
 
 # }}}
-
-# Functions {{{
-
-cdd() {
-	cdd.sh
-	if [ -e /tmp/cdd.tmp ]; then
-		cd $(cat /tmp/cdd.tmp)
-		rm -f /tmp/cdd.tmp
-	fi
-}
 
 # vim: foldmethod=marker
