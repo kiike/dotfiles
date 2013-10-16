@@ -96,7 +96,7 @@ tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
     tags[s] = awful.tag( -- Tag names:
-    			 { '일', '이', '삼', '사'}, s,
+    			 { '#', '%', '@', '&'}, s,
     		         -- Default layouts per tag:
 			 {layouts[1], layouts[2], layouts[1], layouts[1]}
 		       )
@@ -117,10 +117,9 @@ session_menu = {
 
 games_menu = {
     { "openttd", "openttd" },
-    { "ivac", "wineexec '.wine/drive_c/Program Files/IVAO/IvAc/IvAc.exe'" },
-    { "teamspeak", "aoss TeamSpeak" },
     { "pioneer", "pioneer" },
     { "rct2", "wineexec '.wine/drive_c/Program Files/Infogrames/RollerCoaster Tycoon 2/rct2.exe'" },
+    { "terraria", "wineexec '.wine/drive_c/Program Files/Terraria/Terraria.exe'" },
     { "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
 }
 
@@ -129,18 +128,20 @@ main_menu = {
     { "games", games_menu },
     { "", ""},
     { "&cmus", term_exec .. "cmus"},
-    { "&firefox", "firefox -P kiike" },
+    { "&firefox", "firefox -P igor" },
     { "&gimp", "gimp-2.8"},
     { "&jaikoz", "./Jaikoz/jaikoz.sh"},
     { "&luakit", "luakit"},
     { "&newsbeuter", term_exec .. "newsbeuter" },
     { "&mutt", term_exec .. "mutt"},
-    { "&qemu", "qemu-kvm -hda vm/WinXP -m 512 \
+    { "&qemu", "qemu-system-i386 -m 512 \
                 -vga std -usb -usbdevice tablet \
-                -device AC97,id=sound0,bus=pci.0,addr=0x4"},
+                -net nic -net user,smb=~/downloads \
+                -device AC97,id=sound0,bus=pci.0,addr=0x4 /var/local/vm/WinXP"},
     { "&snes9x", "snes9x-gtk" },
     { "&vifm", term_exec .. "vifm" },
     { "&world clock", "scripts/tzdate a" },
+    { "writer", "libreoffice --writer" },
     { "w&eechat", term_exec .. "weechat-curses"}
 }
 
@@ -153,24 +154,29 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 -- {{{ Misc widgets
    -- Separator
    separator = wibox.widget.textbox()
-   separator:set_text('  ')
+   separator:set_text('   ')
 -- }}}
 
 -- {{{ Vicious widgets
    -- Battery widget
+   vicious_bat_icon = wibox.widget.imagebox()
+   vicious_bat_icon:set_image(beautiful.widget_battery)
    vicious_bat = wibox.widget.textbox()
-   vicious.register(vicious_bat, vicious.widgets.bat, "↯$2%", 30, "BAT0")
+   vicious.register(vicious_bat, vicious.widgets.bat, "$2%", 30, "BAT0")
 
-   -- Date widget
-   vicious_mail = wibox.widget.textbox()
+   -- Mail widget
+   vicious_mail = wibox.widget.imagebox()
    vicious.register(vicious_mail, vicious.widgets.mdir, function (widget, args)
 	   if args[1] == 0
-		   then return string.format('✉')
-		   else return string.format('<span color="#dc322f">✉</span>')
+		   then vicious_mail:set_image(beautiful.widget_mail_read)
+		   else vicious_mail:set_image(beautiful.widget_mail_unread)
 	   end
    end, 60, { home..'/mail/inbox' })
 
    -- Date widget
+   vicious_date_icon = wibox.widget.imagebox()
+   vicious_date_icon:set_image(beautiful.widget_date)
+
    vicious_date = wibox.widget.textbox()
    vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
 
@@ -255,8 +261,10 @@ for s = 1, screen.count() do
     right_layout:add(separator)
     right_layout:add(kbdcfg.widget)
     right_layout:add(separator)
+    right_layout:add(vicious_bat_icon)
     right_layout:add(vicious_bat)
     right_layout:add(separator)
+    right_layout:add(vicious_date_icon)
     right_layout:add(vicious_date)
 
     -- Now bring it all together (with the tasklist in the middle)
