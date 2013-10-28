@@ -53,9 +53,12 @@ set cursorline
 set cursorcolumn
 set laststatus=2
 
+" Make sure the background is always transparent
+autocmd ColorScheme * highlight Normal ctermbg=None
+autocmd ColorScheme * highlight NonText ctermbg=None
+
 set background=dark
-let g:solarized_termtrans = 1
-colorscheme solarized
+colorscheme jellybeans
 
 set guifont="Inconsolata-dz for Powerline Medium 10"
 set guioptions=""
@@ -84,6 +87,7 @@ map <leader>t :NERDTree<CR>
 " Toggle between relative, absolute, and no line numbers {{{
 function! NumberToggle()
 if(&relativenumber == 1)
+	set norelativenumber
 	set number
 elseif(&number == 1)
 	set nonumber
