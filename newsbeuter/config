@@ -3,15 +3,18 @@ player    mplayer
 
 podcast-auto-enqueue   yes
 refresh-on-startup     yes
-max-downloads          2
+max-downloads          4
 download-path          ~/podcasts/%h/%n
 reload-threads         4
 
-color background   white   default
-color listnormal   white   default
-color listfocus    red     default
-color info         cyan    default
-color article      white   default
+color background   	white   default
+color listnormal   	white   default
+color listnormal_unread white   default bold
+color listfocus    	white   black
+color listfocus_unread  white   black bold
+color info         	white   default
+color article      	white   default
+
 
 unbind-key k
 unbind-key h
