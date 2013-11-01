@@ -3,7 +3,7 @@ color	body		blue		default 	"(ftp|http)://[^ ]+"
 color	body 		blue		default		[-a-z_0-9.]+@[-a-z_0-9.]+
 color	error 		brightred	default
 color 	hdrdefault 	white 		default
-color 	index 		red		default 	~N
+color 	index 		brightwhite	default 	~N
 color 	index 		yellow		default		~F
 color	index 		white		default		~D
 color 	index 		white		default 	~O

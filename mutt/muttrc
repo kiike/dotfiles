@@ -27,8 +27,10 @@ set query_command       = "abook --mutt-query %s"
 set record              = "~/mail/sent"
 set reverse_name
 set sendmail            = "/usr/bin/msmtp"
+set sidebar_delim       = " "
 set sidebar_width       = 24
 set sidebar_visible
+set sidebar_folderindent
 set sort                = threads
 set sort_aux            = reverse-last-date-received
 set spoolfile           = "+inbox"
@@ -47,19 +49,21 @@ macro index,pager d	"<save-message>=trash<enter><enter><sync-mailbox>" "Trash"
 macro index,pager y	"<save-message>=archive<enter><enter><sync-mailbox>" "Archive"
 macro index,pager a     "|abook --add-email\n" 'add sender to abook'
 
-bind editor <space> noop
-bind pager k previous-line
-bind pager j next-line
-bind pager gg top
-bind pager G bottom
+bind editor <space>   noop
 bind index gg first-entry
-bind index G last-entry
+bind index G  last-entry
+bind index K  sidebar-prev
+bind index J  sidebar-next
+bind index L  sidebar-open
+bind index z  collapse-thread
+bind index Z  collapse-all
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg  top
+bind pager G  bottom
+bind index,pager R   list-reply
 
-bind index,pager R list-reply
 
-bind index K sidebar-prev
-bind index J sidebar-next
-bind index L sidebar-open
 macro pager q "<exit><sync-mailbox>"
 macro index,pager S ":toggle sidebar_visible<enter><redraw-screen>"
 
@@ -67,7 +71,7 @@ subscribe awesome@naquadah.org \
 	  android@llistes.softcatala.org \
 	  mozilla@llistes.softcatala.org
 
-source ~/.mutt/mailboxes
+source ~/.mutt/mboxes
 source ~/.mutt/aliases
 source ~/.mutt/colors
 
