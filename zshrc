@@ -82,12 +82,34 @@ fi
 
 case $TERM in;
 	*xterm*|*screen*)
-		precmd () { print -Pn "\e]0;${EXTRA}%//\a" } 
-		preexec () { print -Pn "\e]0;${EXTRA}$1\a" } ;;
+		precmd () {
+			print -Pn "\e]0;${EXTRA}%//\a"
+			echo $ZSH_CMD_STARTTIME
+		} 
+		preexec () {
+			ZSH_CMD_STARTTIME=$(date +%s)
+			print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a"
+		} ;;
 	*rxvt*)
-		precmd () { print -Pn "\e]0;${EXTRA}%1//\a"
-				echo -ne "\033]12;7\007" }
-		preexec () { print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a" } ;;
+		preexec () {
+			CMD_START_DATE=$(date +%s)
+			CMD_NAME=$1
+			print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a"
+		}
+		precmd () {
+			if ! [[ -z $CMD_START_DATE ]]; then
+				CMD_END_DATE=$(date +%s)
+				CMD_ELAPSED_TIME=$(($CMD_END_DATE - $CMD_START_DATE))
+				CMD_NOTIFY_THRESHOLD=60
+
+				if [[ $CMD_ELAPSED_TIME -gt $CMD_NOTIFY_THRESHOLD ]]; then
+					print -n '\a'
+					notify-send 'Job finished' "The job \"$CMD_NAME\" has finished."
+				fi
+			fi
+			print -Pn "\e]0;${EXTRA}%1//\a"
+			print -n "\033]12;7\007"
+		};;
 esac
 #}}}
 
