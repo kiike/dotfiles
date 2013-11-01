@@ -12,8 +12,8 @@ set norunexec
 set noiec
 set fusehome=/tmp/vifm_FUSE
 set timefmt=%y/%m/%d\ %H:%M
-set vicmd="vim --remote-silent &"
-set vixcmd="gvim --remote-silent &"
+set vicmd="vim"
+set vixcmd="urxvtc -e vim"
 colorscheme Default
 
 command mv mv %f %D
@@ -24,10 +24,11 @@ nnoremap mm :mmv<cr>
 
 
 filetype *.jpeg,*.jpg,*.png sxiv -f %c &
-filetype *.mp4,*.m4v,*.mkv,*.avi,*.mov mplayer %c &
+filetype *.mp3,*.mp4,*.m4v,*.mkv,*.avi,*.mov mplayer %c &
 filetype *.pdf,*.ps zathura %c &
 filetype *.cr2,*.CR2 ufraw %c &
 filetype *.smc snes9x-gtk %c &
-filetype *.docx,*.doc,*.odt abiword %c &
+filetype *.docx,*.doc,*.odt libreoffice --writer %c &
+filetype *.zip,*.rar 7z x %c &
 
 set vifminfo=bookmarks,chistory,shistory,phistory
