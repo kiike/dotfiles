@@ -104,7 +104,6 @@ case $TERM in;
 
 				if [[ $CMD_ELAPSED_TIME -gt $CMD_NOTIFY_THRESHOLD ]]; then
 					print -n '\a'
-					[[ $HOST == 'bison' ]] && notify-send 'Job finished' "The job \"$CMD_NAME\" has finished."
 				fi
 			fi
 			print -Pn "\e]0;${EXTRA}%1//\a"
