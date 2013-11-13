@@ -34,6 +34,8 @@ deploy mutt ${HOME}/.mutt
 
 deploy newsbeuter ${XDG_CONFIG_HOME}/newsbeuter
 
+deploy pentadactylrc ${HOME}/.pentadactylrc
+
 deploy tmux.conf ${HOME}/.tmux.conf
 
 deploy vifm ${HOME}/.vifm
