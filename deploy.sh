@@ -26,6 +26,8 @@ deploy(){
 deploy awesome ${XDG_CONFIG_HOME}/awesome
 deploy awesome ${XDG_DATA_HOME}/awesome
 
+deploy compton.conf ${XDG_CONFIG_HOME}/compton.conf
+
 deploy mplayer ${HOME}/.mplayer
 
 deploy mutt ${HOME}/.mutt
@@ -40,7 +42,5 @@ deploy vim ${HOME}/.vim
 deploy vim/vimrc ${HOME}/.vimrc
 
 deploy wgetrc ${HOME}/.wgetrc
-
-deploy newsbeuter ${XDG_CONFIG_HOME}/newsbeuter
 
 deploy zshrc ${HOME}/.zshrc
