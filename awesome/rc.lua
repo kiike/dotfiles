@@ -129,7 +129,7 @@ main_menu = {
     { "games", games_menu },
     { "", ""},
     { "&cmus", term_exec .. "cmus"},
-    { "&firefox", "firefox -P igor" },
+    { "&firefox", "firefox -P kiike" },
     { "&gimp", "gimp-2.8"},
     { "&jaikoz", "./Jaikoz/jaikoz.sh"},
     { "&luakit", "luakit"},
