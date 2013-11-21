@@ -13,26 +13,36 @@ deploy(){
 	# Symlinks the first parameter into the second, as long as
 	# the destination folder doesn't exist.
 
-	if ! [ -e $2 ]; then
+	if ! [[ -e "$2" ]]; then
 		echo -n "Linking "$1" to "$2"... "
 		ln -s "${PWD}/$1" "$2"
-		[ $? = 0 ] && echo "OK"
+		[[ $? = 0 ]] && echo "OK"
 	else
-		echo "Warning: $1 already exists, skipping."
+		echo "Warning: $2 already exists, skipping."
 	fi
 }
 
+check_or_mkdir() {
+	# Checks whether the directory exists, otherwise creates it
+
+	if ! [[ -e "$1" ]]; then
+		mkdir "$1"
+	fi
+}
 
 deploy awesome ${XDG_CONFIG_HOME}/awesome
 deploy awesome ${XDG_DATA_HOME}/awesome
 
 deploy compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
-deploy mplayer ${HOME}/.mplayer
+check_or_mkdir ${HOME}/.mplayer && \
+	deploy mplayer.conf ${HOME}/.mplayer/config
 
 deploy mutt ${HOME}/.mutt
 
-deploy newsbeuter ${XDG_CONFIG_HOME}/newsbeuter
+check_or_mkdir ${XDG_CONFIG_HOME}/newsbeuter/
+	deploy newsbeuter/config ${XDG_CONFIG_HOME}/newsbeuter/config
+	deploy newsbeuter/urls ${XDG_CONFIG_HOME}/newsbeuter/urls
 
 deploy pentadactylrc ${HOME}/.pentadactylrc
 
