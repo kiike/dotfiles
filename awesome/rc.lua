@@ -167,12 +167,13 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
    -- Mail widget
    vicious_mail = wibox.widget.imagebox()
-   vicious.register(vicious_mail, vicious.widgets.mdir, function (widget, args)
+   vicious.register(vicious_mail, vicious.widgets.mdir,
+        function (widget, args)
 	   if args[1] == 0
-		   then vicious_mail:set_image(beautiful.widget_mail_read)
+		   then vicious_mail:set_image()
 		   else vicious_mail:set_image(beautiful.widget_mail_unread)
 	   end
-   end, 60, { home..'/mail/inbox' })
+        end, 60, { home .. '/mail/inbox' })
 
    -- Date widget
    vicious_date_icon = wibox.widget.imagebox()
