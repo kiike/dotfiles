@@ -118,7 +118,7 @@ session_menu = {
 games_menu = {
     { "openttd", "openttd" },
     { "pioneer", "pioneer" },
-    { "ticket to ride", "tickettoride" },
+    { "ticket to ride", "/opt/ticket-to-ride/ticket-to-ride" },
     { "rct2", "wineexec '.wine/drive_c/Program Files/Infogrames/RollerCoaster Tycoon 2/rct2.exe'" },
     { "terraria", "wineexec '.wine/drive_c/Program Files/Terraria/Terraria.exe'" },
     { "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
