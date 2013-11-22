@@ -1,8 +1,7 @@
 # Exports {{{ 
-VIRTUALENV="$HOME/.virtualenv3"
-if [ -f ${VIRTUALENV}/bin/activate ]; then
+if [[ -f ${HOME}/.pyenv/bin/activate ]] && [[ -z $VIRTUAL_ENV ]]; then
 	VIRTUAL_ENV_DISABLE_PROMPT=1
-	source ${VIRTUALENV}/bin/activate
+	source ${HOME}/.pyenv/bin/activate
 fi
 # }}}
 
