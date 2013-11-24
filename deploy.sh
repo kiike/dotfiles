@@ -15,8 +15,7 @@ deploy(){
 
 	if ! [[ -e "$2" ]]; then
 		echo -n "Linking "$1" to "$2"... "
-		ln -s "${PWD}/$1" "$2"
-		[[ $? = 0 ]] && echo "OK"
+		ln -s "${PWD}/$1" "$2" && echo "OK"
 	else
 		echo "Warning: $2 already exists, skipping."
 	fi
@@ -26,7 +25,10 @@ check_or_mkdir() {
 	# Checks whether the directory exists, otherwise creates it
 
 	if ! [[ -e "$1" ]]; then
-		mkdir "$1"
+		echo -n "Creating $1... "
+		mkdir "$1" && echo "OK"
+	else
+		echo "Warning: $1 already exists, skipping."
 	fi
 }
 
@@ -54,5 +56,7 @@ deploy vim ${HOME}/.vim
 deploy vim/vimrc ${HOME}/.vimrc
 
 deploy wgetrc ${HOME}/.wgetrc
+
+deploy Xmodmaprc ${HOME}/.Xmodmaprc
 
 deploy zshrc ${HOME}/.zshrc

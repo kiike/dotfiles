@@ -1,0 +1,11 @@
+# Map Alt_R to Hangul
+keysym Alt_R = Hangul
+
+! Map Menu to Compose
+keysym Menu = Multi_key
+
+! Swap caps lock and escape
+remove Lock = Caps_Lock
+keysym Escape = Caps_Lock
+keysym Caps_Lock = Escape
+add Lock = Caps_Lock
