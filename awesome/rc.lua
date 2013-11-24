@@ -19,20 +19,20 @@ local menubar = require("menubar")
 -- Functions {{{
 
 -- Keyboard map indicator and changer
-kbdcfg = {}
-kbdcfg.cmd = "setxkbmap"
-kbdcfg.layout = { { "us", "-option compose:ralt" },
-                  { "es", "-option" }
-                }
-kbdcfg.current = 1
-kbdcfg.widget = wibox.widget.textbox()
-kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
-kbdcfg.switch = function ()
-    kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
-    local t = kbdcfg.layout[kbdcfg.current]
-    kbdcfg.widget:set_text(" " .. t[1] .. " ")
-     os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
-     os.execute("xmodmap .Xmodmaprc")
+kbd = {}
+kbd.cmd = "setxkbmap"
+kbd.layout = { { "us", "-option compose:ralt" },
+               { "es", "-option" },
+               { "de", "-option" }
+             }
+kbd.current = 1
+kbd.time = 0
+kbd.switch = function ()
+        kbd.current = kbd.current % #(kbd.layout) + 1
+        local t = kbd.layout[kbd.current]
+        kbd.widget:set_text(t[1])
+        os.execute(kbd.cmd .. " " .. t[1] .. " " .. t[2] )
+        os.execute("xmodmap .Xmodmaprc")
     end
 
 -- }}}
@@ -43,7 +43,7 @@ kbdcfg.switch = function ()
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
+                     title = "Startup errors:",
                      text = awesome.startup_errors })
 end
 
@@ -56,7 +56,7 @@ do
         in_error = true
 
         naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
+                         title = "Error",
                          text = err })
         in_error = false
     end)
@@ -156,6 +156,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
    -- Separator
    separator = wibox.widget.textbox()
    separator:set_text('   ')
+
+   kbd.widget = wibox.widget.textbox()
+   kbd.widget:set_text(kbd.layout[kbd.current][1])
 -- }}}
 
 -- {{{ Vicious widgets
@@ -261,7 +264,7 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(vicious_mail)
     right_layout:add(separator)
-    right_layout:add(kbdcfg.widget)
+    right_layout:add(kbd.widget)
     right_layout:add(separator)
     right_layout:add(vicious_bat_icon)
     right_layout:add(vicious_bat)
@@ -408,7 +411,7 @@ globalkeys = awful.util.table.join(
     -- Prompt
     awful.key({ modkey, "Shift"   }, "x",
         function ()
-            kbdcfg.switch() 
+            kbd.switch() 
             awful.util.spawn("xmodmap .Xmodmaprc")
         end),
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
