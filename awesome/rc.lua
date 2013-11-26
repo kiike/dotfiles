@@ -21,9 +21,8 @@ local menubar = require("menubar")
 -- Keyboard map indicator and changer
 kbd = {}
 kbd.cmd = "setxkbmap"
-kbd.layout = { { "us", "-option compose:ralt" },
-               { "es", "-option" },
-               { "de", "-option" }
+kbd.layout = { { "us", "-option" },
+               { "es", "-option" }
              }
 kbd.current = 1
 kbd.time = 0
@@ -32,6 +31,9 @@ kbd.switch = function ()
         local t = kbd.layout[kbd.current]
         kbd.widget:set_text(t[1])
         os.execute(kbd.cmd .. " " .. t[1] .. " " .. t[2] )
+        if t[1] == "us" then
+            os.execute("xmodmap -e 'keysym Alt_R = Hangul'")
+        end
         os.execute("xmodmap .Xmodmaprc")
     end
 
