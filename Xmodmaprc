@@ -1,6 +1,3 @@
-# Map Alt_R to Hangul
-keysym Alt_R = Hangul
-
 ! Map Menu to Compose
 keysym Menu = Multi_key
 
