@@ -63,8 +63,6 @@ bind pager gg  top
 bind pager G  bottom
 bind index,pager R   list-reply
 
-
-macro pager q "<exit><sync-mailbox>"
 macro index,pager S ":toggle sidebar_visible<enter><redraw-screen>"
 
 subscribe awesome@naquadah.org \
