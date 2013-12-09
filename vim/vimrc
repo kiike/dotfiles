@@ -2,7 +2,6 @@ set nocompatible
 set autoindent
 set ignorecase
 set incsearch
-set relativenumber
 set smartcase
 "set clipboard=unnamed
 
@@ -49,9 +48,13 @@ filetype plugin indent on
 
 " Look and Feel {{{
 set showcmd
+set laststatus=2
+
 set cursorline
 set cursorcolumn
-set laststatus=2
+
+set number
+set relativenumber
 
 " Make sure the background is always transparent
 autocmd ColorScheme * highlight Normal ctermbg=None
@@ -92,6 +95,7 @@ if(&relativenumber == 1)
 elseif(&number == 1)
 	set nonumber
 else
+	set number
 	set relativenumber
 endif
 endfunc
