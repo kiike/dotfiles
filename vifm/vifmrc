@@ -1,17 +1,16 @@
-set incsearch
-set ignorecase
-set vicmd=vim
-set notrash
-set history=15
 set followlinks
-set nofastrun
-set nosortnumbers
-set undolevels=100
-set novimhelp
-set norunexec
-set noiec
 set fusehome=/tmp/vifm_FUSE
+set history=15
+set ignorecase
+set incsearch
+set nofastrun
+set noiec
+set norunexec
+set nosortnumbers
+set notrash
+set novimhelp
 set timefmt=%y/%m/%d\ %H:%M
+set undolevels=100
 set vicmd="vim"
 set vixcmd="urxvtc -e vim"
 colorscheme Default
@@ -21,7 +20,6 @@ command mmv mv %c %D
 
 nnoremap ms :mv<cr>
 nnoremap mm :mmv<cr>
-
 
 filetype *.jpeg,*.jpg,*.png sxiv -f %c &
 filetype *.mp3,*.mp4,*.m4v,*.mkv,*.avi,*.mov mplayer %c &
