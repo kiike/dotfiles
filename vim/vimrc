@@ -107,37 +107,28 @@ nnoremap <C-n> :call NumberToggle()<cr>
 let g:UltiSnipsSnippetDirectories=["UltiSnips","snippets"]
 "}}}
 
-"Add "a" to formatoptions and remove it automatically {{{
-function! Prose()
-	augroup PROSE
-		autocmd InsertEnter * set formatoptions+=a
-		autocmd InsertLeave * set formatoptions-=a
-	augroup END
-endfunc
-" }}}
-
 " File-type functions {{{
 function! MailInit()
 	set tw=72 ft=mail
 	exe "normal O"
 	exe "normal O"
-	call Prose()
 	set spell
 	start
 endfunc
 
-function! MarkdownInit()
+function! PandocInit()
 	set tw=72 ts=4 sts=4 et
 	let g:pandoc_use_hard_wraps = 1
 	let g:pandoc_auto_format = 1
+	let g:pandoc_use_conceal = 0
+	set ft=pandoc
 	set spell
-	syn off		" Pandoc slows down Vim a lot.
 endfun
 " }}}
 
 " Auto-commands {{{
 au BufNewFile,BufRead /tmp/mutt* :call MailInit() 
-au BufNewFile,BufRead *.markdown,*.md :call MarkdownInit()
+au BufNewFile,BufRead *.markdown,*.md :call PandocInit()
 au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=79 spell
 " }}}
 
