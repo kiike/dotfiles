@@ -21,7 +21,7 @@ inoremap : :<C-g>u
 
 " Vundle Config {{{
 filetype off
-set rtp+=~/.vim/bundle/vundle/ 
+set rtp+=~/.vim/,~/.vim/bundle/vundle/ 
 call vundle#rc()
 
 if has("python")
@@ -40,10 +40,15 @@ Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'utl.vim'
-Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'vim-pandoc/vim-pantondoc'
+Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'ervandew/supertab'
 
 filetype plugin indent on
+
+" prepend this dir for a correct spellfiles location
+set rtp-=~/.vim  
+set rtp^=~/.vim  
 " }}}
 
 " Look and Feel {{{
@@ -85,6 +90,10 @@ map <C-l> <C-W>l
 
 " Leader mappings {{{
 map <leader>t :NERDTree<CR>
+"}}}
+
+" Custom mappings {{{
+nnoremap K i<CR><Esc>
 "}}}
 
 " Toggle between relative, absolute, and no line numbers {{{
