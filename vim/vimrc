@@ -3,7 +3,7 @@ set autoindent
 set ignorecase
 set incsearch
 set smartcase
-"set clipboard=unnamed
+set clipboard=unnamed
 
 " Undo and backups {{{
 " This enables backups and undo and creates an undo point after 
