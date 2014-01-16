@@ -35,6 +35,9 @@ check_or_mkdir() {
 deploy awesome ${XDG_CONFIG_HOME}/awesome
 deploy awesome ${XDG_DATA_HOME}/awesome
 
+deploy bspwm ${XDG_CONFIG_HOME}/bspwm
+deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
+
 deploy compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
 check_or_mkdir ${HOME}/.mplayer && \

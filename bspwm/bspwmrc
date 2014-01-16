@@ -1,0 +1,17 @@
+#! /bin/sh
+
+bspc monitor -d 1 2 3 4
+
+bspc config border_width          2
+bspc config window_gap            5
+bspc config split_ratio           0.50
+bspc config borderless_monocle    true
+bspc config gapless_monocle       true
+bspc config focus_follows_pointer true
+bspc config history_aware_focus   true
+bspc config apply_floating_atom   true
+
+bspc rule -a Gimp desktop=^4 follow=on floating=on
+bspc rule -a mpv floating=on
+
+~/scripts/bspwm/panel &
