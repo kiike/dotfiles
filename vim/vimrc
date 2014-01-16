@@ -40,6 +40,8 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
+Bundle 'chriskempson/base16-vim'
+Bundle 'altercation/vim-colors-solarized'
 Bundle 'utl.vim'
 Bundle 'vim-pandoc/vim-pantondoc'
 Bundle 'vim-pandoc/vim-pandoc-syntax'
@@ -67,7 +69,7 @@ autocmd ColorScheme * highlight Normal ctermbg=None
 autocmd ColorScheme * highlight NonText ctermbg=None
 
 set background=dark
-colorscheme jellybeans
+colorscheme base16-chalk
 
 set guifont="Inconsolata-dz for Powerline Medium 10"
 set guioptions=""
