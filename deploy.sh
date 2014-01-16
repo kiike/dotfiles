@@ -53,6 +53,9 @@ deploy pentadactylrc ${HOME}/.pentadactylrc
 
 deploy tmux.conf ${HOME}/.tmux.conf
 
+deploy xinitrc ${HOME}/.xinitrc
+deploy Xresources ${HOME}/.Xresources
+
 deploy vifm ${HOME}/.vifm
 
 deploy vim ${HOME}/.vim
