@@ -1,9 +1,13 @@
-# Exports {{{ 
+# Exports {{{
 if [[ -f ${HOME}/.pyenv/bin/activate ]] && [[ -z $VIRTUAL_ENV ]]; then
-	VIRTUAL_ENV_DISABLE_PROMPT=1
-	source ${HOME}/.pyenv/bin/activate
+    VIRTUAL_ENV_DISABLE_PROMPT=1
+    source ${HOME}/.pyenv/bin/activate
 fi
 # }}}
+
+# Look and Feel {{{
+[[ $TERM == "linux" ]] || source "${HOME}/dotfiles/base16.sh"
+#}}}
 
 # Modules {{{
 autoload -U colors && colors
@@ -14,23 +18,23 @@ setopt extendedglob
 
 # Functions {{{
 format_seconds () {
-		# Formats seconds into minutes and seconds where seconds is $1.
-		s=$1
-		if [[ s -gt 60 ]]; then
-				m=$(($s / 60))
-				s=$(($s % 60))
-				echo ${m}m${s}
-		else
-				echo ${s}s
-		fi
+    # Formats seconds into minutes and seconds where seconds is $1.
+    s=$1
+    if [[ s -gt 60 ]]; then
+        m=$(($s / 60))
+        s=$(($s % 60))
+        echo ${m}m${s}
+    else
+        echo ${s}s
+    fi
 }
 
 zle-init zle-keymap-select () {
-	case $KEYMAP in
-		vicmd) echo -ne "\033]12;6\007";;
-		viins|main) echo -ne "\033]12;7\007";;
-	esac
-	zle reset-prompt
+case $KEYMAP in
+    vicmd) echo -ne "\033]12;6\007";;
+viins|main) echo -ne "\033]12;7\007";;
+    esac
+    zle reset-prompt
 }
 zle -N zle-keymap-select
 zle -N zle-init
@@ -75,44 +79,44 @@ setopt incappendhistory
 
 # PS1, window title and long process notification {{{
 if [ -z ${SSH_CONNECTION} ];
-	then    PS1="%B%F{4}%1//%f%b "
-		EXTRA=""
+then    PS1="%B%F{4}%1//%f%b "
+    EXTRA=""
 
-	else    PS1="%B$HOST:%F{4}%1//%f%b "
-		EXTRA="$HOST "
+else    PS1="%B$HOST:%F{4}%1//%f%b "
+    EXTRA="$HOST "
 fi
 
 if [[ $TERM == screen* ]] || [[ $TERM == rxvt* ]]; then
-	CMD_NOTIFY_THRESHOLD=60
-    BLACKLIST='(top|nmon|g?vi.*|less.*|cmus)'
+    CMD_NOTIFY_THRESHOLD=60
+    BLACKLIST='(man.*|top|nmon|g?vi.*|less.*|cmus)'
 
-	preexec () {
-		CMD_START_DATE=$(date +%s)
-		CMD_NAME=$1
-		print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a"
-	}
-	precmd () {
-		if ! [[ -z $CMD_START_DATE ]]; then
-			CMD_END_DATE=$(date +%s)
-			CMD_ELAPSED_TIME=$(($CMD_END_DATE - $CMD_START_DATE))
-			CMD_ELAPSED_TIME_NICE=$(format_seconds $CMD_ELAPSED_TIME)
+    preexec () {
+        CMD_START_DATE=$(date +%s)
+        CMD_NAME=$1
+        print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a"
+    }
+    precmd () {
+        if ! [[ -z $CMD_START_DATE ]]; then
+            CMD_END_DATE=$(date +%s)
+            CMD_ELAPSED_TIME=$(($CMD_END_DATE - $CMD_START_DATE))
+            CMD_ELAPSED_TIME_NICE=$(format_seconds $CMD_ELAPSED_TIME)
 
-			if [[ $CMD_ELAPSED_TIME -gt $CMD_NOTIFY_THRESHOLD ]]; then
-				print -n '\a'
+            if [[ $CMD_ELAPSED_TIME -gt $CMD_NOTIFY_THRESHOLD ]]; then
+                print -n '\a'
 
-				if ! [[ $CMD_NAME =~ $BLACKLIST ]]; then
-						notify-send "Job finished" "$CMD_NAME has finished in ${CMD_ELAPSED_TIME_NICE}."
-				fi
-			fi
-			unset CMD_START_DATE
-		fi
-		print -Pn "\e]0;${EXTRA}%1//\a"
+                if ! [[ $CMD_NAME =~ $BLACKLIST ]]; then
+                    notify-send "Job finished" "$CMD_NAME has finished in ${CMD_ELAPSED_TIME_NICE}."
+                fi
+            fi
+            unset CMD_START_DATE
+        fi
+        print -Pn "\e]0;${EXTRA}%1//\a"
 
-		# Set window title of RXVT windows
-		if [[ $TERM == rxvt* ]]; then
-			print -n "\e]12;7\007"
-		fi
-	}
+        # Set window title of RXVT windows
+        if [[ $TERM == rxvt* ]]; then
+            print -n "\e]12;7\007"
+        fi
+    }
 fi
 
 #}}}
@@ -128,10 +132,10 @@ alias pacman="sudo pacman"
 alias systemctl="sudo systemctl"
 
 if [[ $HOST == "bison.*" ]]; then
-	alias git="hub"
-	alias sxiv="sxiv -f"
+    alias git="hub"
+    alias sxiv="sxiv -f"
 fi
 
 # }}}
 
-# vim: foldmethod=marker ts=4 sts=4
+# vim: foldmethod=marker ts=4 sts=4 tw=4
