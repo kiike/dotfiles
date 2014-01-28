@@ -38,4 +38,6 @@ imlibsetroot -s f ~/pictures/wallpaper
 
 #exec awesome
 sxhkd &
+panel &
+panel_parser &
 exec bspwm
