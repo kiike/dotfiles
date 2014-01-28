@@ -6,7 +6,7 @@ set smartcase
 set clipboard=unnamed
 
 " Undo and backups {{{
-" This enables backups and undo and creates an undo point after 
+" This enables backups and undo and creates an undo point after
 " the end of every sentence.
 set undofile
 set undodir=~/.cache/vim/
@@ -21,7 +21,7 @@ inoremap : :<C-g>u
 
 " Vundle Config {{{
 filetype off
-set rtp+=~/.vim/,~/.vim/bundle/vundle/ 
+set rtp+=~/.vim/,~/.vim/bundle/vundle/
 call vundle#rc()
 
 if has("python")
@@ -50,8 +50,8 @@ Bundle 'ervandew/supertab'
 filetype plugin indent on
 
 " prepend this dir for a correct spellfiles location
-set rtp-=~/.vim  
-set rtp^=~/.vim  
+set rtp-=~/.vim
+set rtp^=~/.vim
 " }}}
 
 " Look and Feel {{{
@@ -139,7 +139,7 @@ endfun
 " }}}
 
 " Auto-commands {{{
-au BufNewFile,BufRead /tmp/mutt* :call MailInit() 
+au BufNewFile,BufRead /tmp/mutt* :call MailInit()
 au BufNewFile,BufRead *.markdown,*.md :call PandocInit()
 au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=79 spell
 " }}}
