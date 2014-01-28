@@ -69,6 +69,7 @@ autocmd ColorScheme * highlight Normal ctermbg=None
 autocmd ColorScheme * highlight NonText ctermbg=None
 
 set background=dark
+let base16colorspace=256
 colorscheme base16-chalk
 
 set guifont="Inconsolata-dz for Powerline Medium 10"
