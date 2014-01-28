@@ -13,5 +13,3 @@ bspc config apply_floating_atom   true
 
 bspc rule -a Gimp desktop=^4 follow=on floating=on
 bspc rule -a mpv floating=on
-
-~/scripts/bspwm/panel &
