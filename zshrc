@@ -1,5 +1,5 @@
 # Exports {{{
-if [[ -f ${HOME}/.pyenv/bin/activate ]] && [[ -z $VIRTUAL_ENV ]]; then
+if [[ $TERM != linux ]] && [[ -f ${HOME}/.pyenv/bin/activate ]] && [[ -z $VIRTUAL_ENV ]]; then
     VIRTUAL_ENV_DISABLE_PROMPT=1
     source ${HOME}/.pyenv/bin/activate
 fi
