@@ -76,14 +76,12 @@ super + !button{1-3}
 super + @button{1-3}
     bspc pointer -u
 
+# Jump to next urgent desktop and window
 super + u
-    bscp monitor next.urgent
-    bscp desktop next.urgent
-    bscp window next.urgent
+    bspc desktop -f next.urgent
+    bspc window -f next.urgent
 
-#
-# wm independent hotkeys
-#
+# Global combos {{{
 
 super + Return
     urxvtc
@@ -95,14 +93,24 @@ super + space
 super + Escape
     pkill -USR1 -x sxhkd
 
+# cmus control
+XF86AudioNext
+    remote next
+XF86AudioPrev
+    remote prev
+XF86AudioPlay
+    remote pause
+XF86AudioStop
+    remote stop
+
+# Volume
 XF86AudioRaiseVolume
     volume s 3dB+
-
 XF86AudioLowerVolume
     volume s 3dB-
-
 XF86AudioMute
     volume m
 
 alt + k
     kbdlayout
+#}}}
