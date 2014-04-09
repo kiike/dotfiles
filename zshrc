@@ -11,7 +11,10 @@ fi
 
 # Modules {{{
 autoload -U colors && colors
-autoload -U compinit && compinit
+
+fpath=(~/.zsh/completion $fpath)
+autoload -U compinit
+compinit
 
 setopt extendedglob
 #}}}
@@ -70,8 +73,8 @@ bindkey -M viins '\ed'   kill-word         # Alt-d
 HISTCONTROL=erasedups
 HISTFILE=~/.zsh_history
 test -f $HISTFILE || touch $HISTFILE
-HISTSIZE="1000"
-SAVEHIST="1000"
+HISTSIZE="10000"
+SAVEHIST="10000"
 setopt histignorealldups
 setopt sharehistory
 setopt incappendhistory
