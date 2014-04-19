@@ -125,18 +125,22 @@ fi
 #}}}
 
 # Aliases {{{
-alias ccp="rsync -aAPh"
+alias ccp="rsync -aPh"
 alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
-alias ls='ls --color=auto'
-alias nmon="echo -cdnm | nmon"
-alias pacman="sudo pacman"
-alias systemctl="sudo systemctl"
 
-if [[ $HOST == "bison.*" ]]; then
-    alias git="hub"
-    alias sxiv="sxiv -f"
+# GNU-coreutils-specific aliases
+if [[ $(uname -s) == "Linux"]]; then
+		alias ls='ls --color=auto'
+		alias nmon="echo -cdnm | nmon"
+		alias pacman="sudo pacman"
+		alias systemctl="sudo systemctl"
+
+		if [[ $HOST == "bison.*" ]]; then
+			alias git="hub"
+			alias sxiv="sxiv -f"
+		fi
 fi
 
 # }}}
