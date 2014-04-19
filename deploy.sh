@@ -75,8 +75,13 @@ function deploy_all {
 
 function deploy_basic {
 	deploy tmux.conf ${HOME}/.tmux.conf
+
 	deploy vim ${HOME}/.vim
 	deploy vim/vimrc ${HOME}/.vimrc
+	[[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]] && \
+		cd ${HOME}/.vim/bundle/ && \
+		git clone https://github.com/gmarik/vundle.git
+
 	deploy zprofile ${HOME}/.zprofile
 	deploy zshrc ${HOME}/.zshrc
 }
