@@ -131,7 +131,7 @@ alias df="df -h"
 alias du="du -h"
 
 # GNU-coreutils-specific aliases
-if [[ $(uname -s) == "Linux"]]; then
+if [[ $(uname -s) == "Linux" ]]; then
 		alias ls='ls --color=auto'
 		alias nmon="echo -cdnm | nmon"
 		alias pacman="sudo pacman"
