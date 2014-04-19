@@ -6,7 +6,6 @@ fi
 # }}}
 
 # Look and Feel {{{
-[[ $TERM == "linux" ]] || source "${HOME}/dotfiles/base16.sh"
 #}}}
 
 # Modules {{{
