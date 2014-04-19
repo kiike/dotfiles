@@ -9,9 +9,9 @@ set clipboard=unnamed
 " This enables backups and undo and creates an undo point after
 " the end of every sentence.
 set undofile
-set undodir=~/.cache/vim/
-set backupdir=~/.cache/vim/
-set directory=~/.cache/vim/
+set undodir=~/.vim/undo
+set backupdir=~/.vim/backup
+set directory=~/.vim/swap
 
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
@@ -25,9 +25,10 @@ set rtp+=~/.vim/,~/.vim/bundle/vundle/
 call vundle#rc()
 
 if has("python")
-	Bundle 'SirVer/ultisnips'
-	Bundle 'klen/python-mode'
-	let g:pymode_rope = 0
+    Bundle 'SirVer/ultisnips'
+    Bundle 'klen/python-mode'
+    let g:pymode_virtualenv_enabled=1
+    let g:pymode_doc=0
 endif
 
 Bundle 'gmarik/vundle'
@@ -46,6 +47,7 @@ Bundle 'utl.vim'
 Bundle 'vim-pandoc/vim-pantondoc'
 Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'ervandew/supertab'
+Bundle 'dhruvasagar/vim-table-mode'
 
 filetype plugin indent on
 
@@ -98,7 +100,7 @@ map <leader>w :w !sudo tee % >/dev/null
 "}}}
 
 " Custom mappings {{{
-nnoremap K i<CR><Esc>
+nnoremap <S-Return> i<CR><Esc>
 "}}}
 
 " Toggle between relative, absolute, and no line numbers {{{
@@ -118,7 +120,7 @@ nnoremap <C-n> :call NumberToggle()<cr>
 "}}}
 
 " UltiSnips Config {{{
-let g:UltiSnipsSnippetDirectories=["UltiSnips","snippets"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 "}}}
 
 " File-type functions {{{

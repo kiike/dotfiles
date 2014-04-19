@@ -24,7 +24,7 @@ function check_or_mkdir {
 
 	if ! [[ -e "$1" ]]; then
 		echo -n "Creating $1... "
-		mkdir "$1" && echo "OK"
+		mkdir -p "$1" && echo "OK"
 	fi
 }
  
@@ -55,8 +55,14 @@ function deploy_all {
 
 	deploy vifm ${HOME}/.vifm
 
+	check_or_mkdir ${HOME}/.vim/undo
+	check_or_mkdir ${HOME}/.vim/backup
+	check_or_mkdir ${HOME}/.vim/swap
 	deploy vim ${HOME}/.vim
 	deploy vim/vimrc ${HOME}/.vimrc
+	[[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]] && \
+		cd ${HOME}/.vim/bundle/ && \
+		git clone https://github.com/gmarik/vundle.git
 
 	deploy wgetrc ${HOME}/.wgetrc
 
