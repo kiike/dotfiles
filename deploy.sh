@@ -9,7 +9,7 @@ test -z $XDG_DATA_HOME && XDG_DATA_HOME="${HOME}/.local/share"
 test -e $XDG_DATA_HOME || mkdir -p $XDG_DATA_HOME
 
 
-deploy(){
+function deploy {
 	# Symlinks the first parameter into the second, as long as
 	# the destination folder doesn't exist.
 
@@ -19,7 +19,7 @@ deploy(){
 	fi
 }
 
-check_or_mkdir() {
+function check_or_mkdir {
 	# Checks whether the directory exists, otherwise creates it
 
 	if ! [[ -e "$1" ]]; then
@@ -27,8 +27,8 @@ check_or_mkdir() {
 		mkdir "$1" && echo "OK"
 	fi
 }
-
-function deploy_all(){
+ 
+function deploy_all {
 	deploy awesome ${XDG_CONFIG_HOME}/awesome
 	deploy awesome ${XDG_DATA_HOME}/awesome
 
@@ -67,7 +67,7 @@ function deploy_all(){
 
 }
 
-function deploy_basic() {
+function deploy_basic {
 	deploy tmux.conf ${HOME}/.tmux.conf
 	deploy vim ${HOME}/.vim
 	deploy vim/vimrc ${HOME}/.vimrc
