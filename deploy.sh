@@ -29,6 +29,9 @@ function check_or_mkdir {
 }
  
 function deploy_all {
+	deploy awesome ${XDG_CONFIG_HOME}/awesome
+	deploy awesome ${XDG_DATA_HOME}/awesome
+
 	deploy bspwm ${XDG_CONFIG_HOME}/bspwm
 	deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
 
