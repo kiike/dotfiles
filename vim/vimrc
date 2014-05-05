@@ -3,7 +3,7 @@ set autoindent
 set ignorecase
 set incsearch
 set smartcase
-set clipboard=unnamed
+set backspace=2
 
 " Undo and backups {{{
 " This enables backups and undo and creates an undo point after
@@ -21,7 +21,7 @@ inoremap : :<C-g>u
 
 " Vundle Config {{{
 filetype off
-set rtp+=~/.vim/,~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 if has("python")
@@ -33,21 +33,9 @@ endif
 
 Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'maksimr/vim-translator'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-speeddating'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
-Bundle 'chriskempson/base16-vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'utl.vim'
-Bundle 'vim-pandoc/vim-pantondoc'
-Bundle 'vim-pandoc/vim-pandoc-syntax'
 Bundle 'ervandew/supertab'
-Bundle 'dhruvasagar/vim-table-mode'
 
 filetype plugin indent on
 
@@ -60,31 +48,8 @@ set rtp^=~/.vim
 set showcmd
 set laststatus=2
 
-set cursorline
-set cursorcolumn
-
 set number
 set relativenumber
-
-" Make sure the background is always transparent
-autocmd ColorScheme * highlight Normal ctermbg=None
-autocmd ColorScheme * highlight NonText ctermbg=None
-
-set background=dark
-let base16colorspace=256
-colorscheme base16-chalk
-
-set guifont="Inconsolata-dz for Powerline Medium 10"
-set guioptions=""
-
-if has("gui_running")
-	set title
-	let &titlestring = "gvim %f"
-endif
-
-if has("syntax")
-	syntax on
-endif
 "}}}
 
 " Window mappings {{{
@@ -134,9 +99,6 @@ endfunc
 
 function! PandocInit()
 	set tw=72 ts=4 sts=4 et
-	let g:pandoc_use_hard_wraps = 1
-	let g:pandoc_auto_format = 1
-	let g:pandoc_use_conceal = 0
 	set ft=pandoc
 	set spell
 endfun
