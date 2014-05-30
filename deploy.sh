@@ -55,14 +55,15 @@ function deploy_all {
 
 	deploy vifm ${HOME}/.vifm
 
+	deploy vim ${HOME}/.vim
+	deploy vim/vimrc ${HOME}/.vimrc
 	check_or_mkdir ${HOME}/.vim/undo
 	check_or_mkdir ${HOME}/.vim/backup
 	check_or_mkdir ${HOME}/.vim/swap
-	deploy vim ${HOME}/.vim
-	deploy vim/vimrc ${HOME}/.vimrc
-	[[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]] && \
+	if [[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]]; then
 		cd ${HOME}/.vim/bundle/ && \
 		git clone https://github.com/gmarik/vundle.git
+	fi
 
 	deploy wgetrc ${HOME}/.wgetrc
 
