@@ -79,6 +79,13 @@ function deploy_basic {
 
 	deploy vim ${HOME}/.vim
 	deploy vim/vimrc ${HOME}/.vimrc
+	check_or_mkdir ${HOME}/.vim/undo
+	check_or_mkdir ${HOME}/.vim/backup
+	check_or_mkdir ${HOME}/.vim/swap
+	if [[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]]; then
+		cd ${HOME}/.vim/bundle/ && \
+		git clone https://github.com/gmarik/vundle.git
+	fi
 	[[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]] && \
 		cd ${HOME}/.vim/bundle/ && \
 		git clone https://github.com/gmarik/vundle.git
