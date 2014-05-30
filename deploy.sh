@@ -86,9 +86,6 @@ function deploy_basic {
 		cd ${HOME}/.vim/bundle/ && \
 		git clone https://github.com/gmarik/vundle.git
 	fi
-	[[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]] && \
-		cd ${HOME}/.vim/bundle/ && \
-		git clone https://github.com/gmarik/vundle.git
 
 	deploy zprofile ${HOME}/.zprofile
 	deploy zshrc ${HOME}/.zshrc
