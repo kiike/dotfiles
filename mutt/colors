@@ -4,11 +4,11 @@ color	body 		blue		default		[-a-z_0-9.]+@[-a-z_0-9.]+
 color	error 		brightred	default
 color 	hdrdefault 	white 		default
 color 	index 		brightwhite	default 	~N
-color 	index 		yellow		default		~F
-color	index 		white		default		~D
-color 	index 		white		default 	~O
-color 	index 		white	 	black		~T
-color 	indicator 	brightwhite	black
+color 	index 		cyan		default		~F
+color	index 		gray		default		~D
+color 	index 		brightwhite     default 	~O
+color 	index 		red	 	black		~T
+color 	indicator 	brightwhite	blue
 color 	markers 	brightcyan	default
 color 	message 	white 		default
 color 	normal 		white		default
