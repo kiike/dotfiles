@@ -24,6 +24,7 @@ set help                = no
 set pager_stop
 set postponed           = "~/mail/drafts"
 set query_command       = "abook --mutt-query %s"
+set rfc2047_parameters
 set record              = "~/mail/sent"
 set reverse_name
 set sendmail            = "/usr/bin/msmtp"
