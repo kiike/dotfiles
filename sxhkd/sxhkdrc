@@ -8,6 +8,9 @@ super + alt + Escape
 super + w
     bspc window -c
 
+super + r
+    bspc desktop -R 90
+
 super + t
     bspc desktop -l next
 
@@ -78,8 +81,7 @@ super + @button{1-3}
 
 # Jump to next urgent desktop and window
 super + u
-    bspc desktop -f next.urgent
-    bspc window -f next.urgent
+    bspc desktop -f next.urgent; bspc window -f next.urgent
 
 # Global combos {{{
 
@@ -88,6 +90,9 @@ super + Return
 
 super + space
     dmenu_run
+
+super + shift + space
+    dmenu_term_run
 
 # make sxhkd reload its configuration files:
 super + Escape
