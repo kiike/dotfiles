@@ -26,9 +26,6 @@ call vundle#rc()
 
 if has("python")
     Bundle 'SirVer/ultisnips'
-    Bundle 'klen/python-mode'
-    let g:pymode_virtualenv_enabled=1
-    let g:pymode_doc=0
 endif
 
 Bundle 'gmarik/vundle'
@@ -107,7 +104,7 @@ endfun
 " Auto-commands {{{
 au BufNewFile,BufRead /tmp/mutt* :call MailInit()
 au BufNewFile,BufRead *.markdown,*.md :call PandocInit()
-au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=79 spell
+au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=79
 " }}}
 
 " vim: fdm=marker
