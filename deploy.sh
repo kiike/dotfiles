@@ -14,7 +14,7 @@ function deploy {
 	# the destination folder doesn't exist.
 
 	if ! [[ -e "$2" ]]; then
-		echo -n "Linking "$1" to "$2"... "
+		echo -n "Linking $1 to $2... "
 		ln -s "${PWD}/$1" "$2" && echo "OK"
 	fi
 }
@@ -29,8 +29,7 @@ function check_or_mkdir {
 }
  
 function deploy_all {
-	deploy awesome ${XDG_CONFIG_HOME}/awesome
-	deploy awesome ${XDG_DATA_HOME}/awesome
+	deploy fonts ${HOME}/.fonts
 
 	deploy vimperatorrc ${HOME}/.vimperatorrc
 
