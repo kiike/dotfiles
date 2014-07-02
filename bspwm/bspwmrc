@@ -20,7 +20,7 @@ bspc rule -a Gimp desktop=^4 follow=on floating=on
 bspc rule -a mpv floating=on
 bspc rule -a Firefox desktop=^3
 
-bscp desktop -l 1.monocle
-bscp desktop -l 3.monocle
+bspc desktop -l 1.monocle
+bspc desktop -l 3.monocle
 
 lemonbartender.py &
