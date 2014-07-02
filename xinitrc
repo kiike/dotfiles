@@ -2,6 +2,7 @@
 export GTK_IM_MODULE='uim'
 export QT_IM_MODULE='uim'
 export XMODIFIERS=@im=uim
+xmodmap ~/.Xmodmaprc
 uim-xim &
 
 # Wallpaper
@@ -16,6 +17,5 @@ compton -b
 
 # Keyboard shortcuts
 sxhkd &
-
 
 exec bspwm
