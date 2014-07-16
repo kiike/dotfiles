@@ -5,6 +5,9 @@ export XMODIFIERS=@im=uim
 xmodmap ~/.Xmodmaprc
 uim-xim &
 
+# Fonts
+xset +fp ~/.fonts && xset rehash
+
 # Wallpaper
 imlibsetroot -s f ~/pictures/wallpaper 2>&1 > /dev/null
 
