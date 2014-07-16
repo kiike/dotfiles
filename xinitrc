@@ -6,7 +6,7 @@ xmodmap ~/.Xmodmaprc
 uim-xim &
 
 # Fonts
-xset +fp ~/.fonts && xset rehash
+xset +fp ~/.fonts && xset fp rehash
 
 # Wallpaper
 imlibsetroot -s f ~/pictures/wallpaper 2>&1 > /dev/null
