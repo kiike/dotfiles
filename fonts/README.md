@@ -1,5 +1,5 @@
-This directory contains files with this copyright holders:
+This directory contains a binary packages of these fonts, which are released under the [SIL Open Font License](http://scripts.sil.org/cms/scripts/page.php?item_id=OFL_web):
 
-- [Typicons](https://github.com/stephenhutchings/typicons.font): Font files are licenced using the SIL Open Font Licence.
-  This means that the font can be used, studied, modified and
-  redistributed freely as long as they are not sold by themselves.
+- [Typicons](https://github.com/stephenhutchings/typicons.font)
+
+- [Source Code Pro Regular](http://store1.adobe.com/cfusion/store/html/index.cfm?store=OLS-US&event=displayFont&code=SOUC10005050)
