@@ -27,7 +27,7 @@ set query_command       = "abook --mutt-query %s"
 set rfc2047_parameters
 set record              = "~/mail/sent"
 set reverse_name
-set sendmail            = "/usr/bin/msmtp"
+set sendmail            = "msmtp"
 set send_charset        = "us-ascii:utf-8"
 set sidebar_delim       = " "
 set sidebar_width       = 24
