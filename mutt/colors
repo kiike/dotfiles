@@ -5,7 +5,7 @@ color	error 		brightred	default
 color 	hdrdefault 	white 		default
 color 	index 		brightwhite	default 	~N
 color 	index 		cyan		default		~F
-color	index 		gray		default		~D
+color	index 		brightblack	default		~D
 color 	index 		brightwhite     default 	~O
 color 	index 		red	 	black		~T
 color 	indicator 	brightwhite	blue
