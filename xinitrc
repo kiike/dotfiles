@@ -29,6 +29,9 @@ urxvtd -q -f -o
 # Compositor
 compton -b
 
+# Panel
+panel &
+
 # Keyboard shortcuts
 sxhkd &
 
