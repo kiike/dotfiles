@@ -38,15 +38,13 @@ function deploy_all {
 
 	deploy compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
-	check_or_mkdir ${HOME}/.mplayer && \
-		deploy mplayer.conf ${HOME}/.mplayer/config
-
 	deploy mutt ${HOME}/.mutt
 
 	check_or_mkdir ${XDG_CONFIG_HOME}/newsbeuter/
-		deploy newsbeuter/config ${XDG_CONFIG_HOME}/newsbeuter/config
-		deploy newsbeuter/urls ${XDG_CONFIG_HOME}/newsbeuter/urls
+	deploy newsbeuter/config ${XDG_CONFIG_HOME}/newsbeuter/config
+	deploy newsbeuter/urls ${XDG_CONFIG_HOME}/newsbeuter/urls
 
+	deploy panelrc ${HOME}/.panelrc
 	deploy pentadactylrc ${HOME}/.pentadactylrc
 
 	deploy tmux.conf ${HOME}/.tmux.conf
