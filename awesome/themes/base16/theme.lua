@@ -29,8 +29,12 @@ theme.menu_width  = 120
 
 theme.wallpaper = "/home/kiike/pictures/wallpaper"
 
-theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+-- Hide Awesome menu icon
+theme.awesome_icon = nil
 
 theme.icon_theme = nil
+
+-- Remove icons from tasklist
+theme.tasklist_disable_icon = true
 
 return theme
