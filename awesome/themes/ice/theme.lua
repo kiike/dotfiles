@@ -1,6 +1,6 @@
 theme = {}
 
-theme.font = "Ubuntu 10"
+theme.font = "Source Code Pro 10"
 
 theme.bg_normal   = "#00000060"
 theme.bg_systray  = theme.bg_normal
