@@ -29,6 +29,9 @@ function check_or_mkdir {
 }
  
 function deploy_all {
+	deploy awesome ${XDG_CONFIG_HOME}/awesome
+	deploy awesome ${XDG_DATA_HOME}/awesome
+
 	deploy fonts ${HOME}/.fonts
 
 	deploy vimperatorrc ${HOME}/.vimperatorrc
@@ -60,8 +63,7 @@ function deploy_all {
 	check_or_mkdir ${HOME}/.vim/backup
 	check_or_mkdir ${HOME}/.vim/swap
 	if [[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]]; then
-		cd ${HOME}/.vim/bundle/ && \
-		git clone https://github.com/gmarik/vundle.git
+		git clone https://github.com/gmarik/vundle.git ${HOME}/.vim/bundle/
 	fi
 
 	deploy wgetrc ${HOME}/.wgetrc
@@ -82,8 +84,7 @@ function deploy_basic {
 	check_or_mkdir ${HOME}/.vim/backup
 	check_or_mkdir ${HOME}/.vim/swap
 	if [[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]]; then
-		cd ${HOME}/.vim/bundle/ && \
-		git clone https://github.com/gmarik/vundle.git
+		git clone https://github.com/gmarik/vundle.git ${HOME}/.vim/bundle/
 	fi
 
 	deploy zprofile ${HOME}/.zprofile
