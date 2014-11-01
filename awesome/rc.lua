@@ -17,6 +17,10 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 
 -- Functions {{{
+local function _typicons(code)
+    -- Return a string that contains nice markup
+    return "<span font='Typicons 14'>&#" .. code .. ";</span>"
+end
 
 -- Keyboard map indicator and changer
 kbd = {}
@@ -164,10 +168,11 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
    vicious_bat = wibox.widget.textbox()
    vicious.register(vicious_bat, vicious.widgets.bat,
         function (widget, args)
-            if args[4] > 75 then return "<span font='Typicons 12'>&#57387;</span>"
-            elseif args[4] > 50 then return "<span font='Typicons 12'>&#57388;</span>"
-            elseif args[4] > 25 then return "<span font='Typicons 12'>&#57389;</span>"
-            else return "<span font='Typicons 12'>&#57386;</span>"
+            local charge = args[2]
+            if charge > 75 then return _typicons(57387)
+            elseif charge > 50 then return _typicons(57388)
+            elseif charge > 25 then return _typicons(57390)
+            else return _typicons(57389)
             end
         end, 30, "BAT0")
 
@@ -400,11 +405,7 @@ globalkeys = awful.util.table.join(
         function () awful.util.spawn("./scripts/remote.sh -r togglePause") end),
 
     -- Prompt
-    awful.key({ modkey, "Shift"   }, "x",
-        function ()
-            kbd.switch() 
-            awful.util.spawn("xmodmap .Xmodmaprc")
-        end),
+    awful.key({ modkey, "Shift"   }, "x", function () kbd.switch() end ) ,
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
