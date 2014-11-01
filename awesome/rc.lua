@@ -180,7 +180,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
    vicious_mail = wibox.widget.textbox()
    vicious.register(vicious_mail, vicious.widgets.mdir,
        function (widget, args)
-           if args[1] > 0 then return "<span font='Typicons 12'>&#57509;</span>"
+           if args[1] > 0 then return _typicons(57509)
            else return ""
            end
        end, 60, {home .. '/mail/inbox'})
