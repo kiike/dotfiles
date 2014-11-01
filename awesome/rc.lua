@@ -16,7 +16,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
--- Functions {{{
+-- Helper functions {{{
 local function _typicons(code)
     -- Return a string that contains nice markup
     return "<span font='Typicons 14'>&#" .. code .. ";</span>"
@@ -29,16 +29,17 @@ kbd.layout = { { "us", "-option" },
                { "es", "-option" }
              }
 kbd.current = 1
-kbd.time = 0
 kbd.switch = function ()
         kbd.current = kbd.current % #(kbd.layout) + 1
         local t = kbd.layout[kbd.current]
         kbd.widget:set_text(t[1])
-        os.execute(kbd.cmd .. " " .. t[1] .. " " .. t[2] )
+        os.execute(kbd.cmd .. " " .. t[1] .. " " .. t[2])
+        os.execute("xmodmap ~/.Xmodmaprc")
+        print("xmodmap ~/.Xmodmaprc")
         if t[1] == "us" then
+            os.execute("xmodmap -e 'remove mod1 = Alt_R'")
             os.execute("xmodmap -e 'keysym Alt_R = Hangul'")
         end
-        os.execute("xmodmap .Xmodmaprc")
     end
 
 -- }}}
@@ -70,15 +71,21 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-terminal = "urxvtc"
-term_exec = terminal .. " -e "
-editor = os.getenv("EDITOR")
-editor_cmd = term_exec .. editor
-modkey = "Mod4"
 home = os.getenv("HOME")
 awehome = home .. "/.local/share/awesome"
+
+modkey = "Mod4"
+
+terminal = "urxvtc"
+term_exec = terminal .. " -e "
+
+editor = os.getenv("EDITOR")
+editor_cmd = term_exec .. editor
+
+-- Theme {{{
 beautiful.init(awehome .. "/themes/base16/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
+-- }}}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
