@@ -19,9 +19,6 @@ xsetroot -cursor_name left_ptr
 # Fonts
 xset +fp ~/.fonts && xset fp rehash
 
-# Wallpaper
-imlibsetroot -s f ~/pictures/wallpaper 2>&1 > /dev/null
-
 # URxvt config and daemon
 xrdb -load ~/.Xresources
 urxvtd -q -f -o
@@ -29,10 +26,4 @@ urxvtd -q -f -o
 # Compositor
 compton -b
 
-# Panel
-panel &
-
-# Keyboard shortcuts
-sxhkd &
-
-exec bspwm
+exec awesome
