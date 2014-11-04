@@ -91,15 +91,6 @@ if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, tr
 awful.layout.layouts = {
     awful.layout.suit.max,
     awful.layout.suit.tile
-    --awful.layout.suit.tile.left,
-    --awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
-    --awful.layout.suit.fair,
-    --awful.layout.suit.fair.horizontal,
-    --awful.layout.suit.spiral,
-    --awful.layout.suit.spiral.dwindle,
-    --awful.layout.suit.max.fullscreen,
-    --awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -359,8 +350,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",
         function () awful.tag.incncol(-1)         end),
 
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1) end),
+    -- Toggle tiling mode
+    awful.key({ modkey,           }, "t", function () awful.layout.inc(1) end),
 
     awful.key({ }, "XF86AudioLowerVolume",
         function () awful.util.spawn("./scripts/volume.sh s 3dB-") end),
@@ -406,7 +397,7 @@ globalkeys = awful.util.table.join(
 
     -- Prompt
     awful.key({ modkey, "Shift"   }, "x", function () kbd.switch() end ) ,
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey            }, "space",  function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -433,7 +424,8 @@ clientkeys = awful.util.table.join(
 
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen ),
 
-    awful.key({ modkey,           }, "t",
+    -- Toggle "Always-on-top"
+    awful.key({ modkey, "Shift"   }, "t",
         function (c) c.ontop = not c.ontop            end),
 
     awful.key({ modkey,           }, "n",
