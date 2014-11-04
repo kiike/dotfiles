@@ -88,8 +88,7 @@ if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, tr
 -- }}}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
-{
+awful.layout.layouts = {
     awful.layout.suit.max,
     awful.layout.suit.tile
     --awful.layout.suit.tile.left,
@@ -107,13 +106,10 @@ local layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {}
-s = 1
--- Each screen has its own tag table.
-tags[s] = awful.tag( -- Tag names:
-                     { '1', '2', '3', '4'}, s,
-                     -- Default layouts per tag:
-                     {layouts[1], layouts[2], layouts[1], layouts[1]}
-                   )
+for s = 1, screen.count() do
+    -- Each screen has its own tag table.
+    tags[s] = awful.tag({ '1', '2', '3', '4'}, s, awful.layout.layouts[1])
+end
 -- }}}
 
 -- {{{ Menu
@@ -363,11 +359,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",
         function () awful.tag.incncol(-1)         end),
 
-    awful.key({ modkey,           }, "space",
-        function () awful.layout.inc(layouts,  1) end),
-
-    awful.key({ modkey, "Shift"   }, "space",
-        function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(1) end),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1) end),
 
     awful.key({ }, "XF86AudioLowerVolume",
         function () awful.util.spawn("./scripts/volume.sh s 3dB-") end),
