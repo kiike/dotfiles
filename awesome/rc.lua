@@ -141,7 +141,7 @@ main_menu = {
     { "w&eechat", term_exec .. "weechat-curses"}
 }
 
-awesome_menu = awful.menu({ items =  main_menu})
+awesome_menu = awful.menu({ items = main_menu})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = awful.menu({ items = main_menu })
@@ -256,10 +256,12 @@ mytasklist.buttons = awful.util.table.join(
     left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
+    left_layout:add(separator)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(separator)
     right_layout:add(vicious_mail)
     right_layout:add(separator)
     right_layout:add(kbd.widget)
@@ -309,11 +311,8 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j",
-        function () awful.client.swap.byidx(  1)    end),
-
-    awful.key({ modkey, "Shift"   }, "k",
-        function () awful.client.swap.byidx( -1)    end),
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
 
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
@@ -332,72 +331,30 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
-    awful.key({ modkey,           }, "l",
-        function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey,           }, "l", function () awful.tag.incmwfact( 0.05) end), 
+    awful.key({ modkey,           }, "h", function () awful.tag.incmwfact(-0.05) end), 
 
-    awful.key({ modkey,           }, "h",
-        function () awful.tag.incmwfact(-0.05)    end),
+    awful.key({ modkey, "Shift"   }, "h", function () awful.tag.incnmaster( 1)   end), 
+    awful.key({ modkey, "Shift"   }, "l", function () awful.tag.incnmaster(-1)   end),
 
-    awful.key({ modkey, "Shift"   }, "h",
-        function () awful.tag.incnmaster( 1)      end),
-
-    awful.key({ modkey, "Shift"   }, "l",
-        function () awful.tag.incnmaster(-1)      end),
-
-    awful.key({ modkey, "Control" }, "h",
-        function () awful.tag.incncol( 1)         end),
-
-    awful.key({ modkey, "Control" }, "l",
-        function () awful.tag.incncol(-1)         end),
+    awful.key({ modkey, "Control" }, "h", function () awful.tag.incncol( 1)      end),
+    awful.key({ modkey, "Control" }, "l", function () awful.tag.incncol(-1)      end),
 
     -- Toggle tiling mode
     awful.key({ modkey,           }, "t", function () awful.layout.inc(1) end),
 
-    awful.key({ }, "XF86AudioLowerVolume",
-        function () awful.util.spawn("./scripts/volume.sh s 3dB-") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("volume s 3dB-") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("volume s 3dB+") end),
+    awful.key({}, "XF86AudioMute",        function () awful.util.spawn("volume m") end),
 
-    awful.key({ }, "XF86AudioRaiseVolume",
-        function () awful.util.spawn("./scripts/volume.sh s 3dB+") end),
-
-    awful.key({ }, "XF86AudioMute",
-        function () awful.util.spawn("./scripts/volume.sh m") end),
-
-    awful.key({ }, "XF86AudioPrev",
-        function () awful.util.spawn("./scripts/remote.sh prev") end),
-
-    awful.key({ }, "XF86AudioNext",
-        function () awful.util.spawn("./scripts/remote.sh next") end),
-
-    awful.key({ }, "XF86AudioStop",
-        function () awful.util.spawn("./scripts/remote.sh stop") end),
-
-    awful.key({ }, "XF86AudioPlay",
-        function () awful.util.spawn("./scripts/remote.sh togglePause") end),
-
-    awful.key({ modkey, "Shift" }, "<",
-        function () awful.util.spawn("./scripts/volume.sh -r s 3dB-") end),
-
-    awful.key({ modkey, "Shift" }, ">",
-        function () awful.util.spawn("./scripts/volume.sh -r s 3dB+") end),
-
-    awful.key({ "Shift" }, "XF86AudioMute",
-        function () awful.util.spawn("./scripts/volume.sh m") end),
-
-    awful.key({ "Shift" }, "XF86AudioPrev",
-        function () awful.util.spawn("./scripts/remote.sh -r prev") end),
-
-    awful.key({ "Shift" }, "XF86AudioNext",
-        function () awful.util.spawn("./scripts/remote.sh -r next") end),
-
-    awful.key({ "Shift" }, "XF86AudioStop",
-        function () awful.util.spawn("./scripts/remote.sh -r stop") end),
-
-    awful.key({ "Shift" }, "XF86AudioPlay",
-        function () awful.util.spawn("./scripts/remote.sh -r togglePause") end),
+    awful.key({}, "XF86AudioPrev", function () awful.util.spawn("remote prev") end),
+    awful.key({}, "XF86AudioNext", function () awful.util.spawn("remote next") end),
+    awful.key({}, "XF86AudioStop", function () awful.util.spawn("remote stop") end), 
+    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote togglePause") end), 
 
     -- Prompt
-    awful.key({ modkey, "Shift"   }, "x", function () kbd.switch() end ) ,
-    awful.key({ modkey            }, "space",  function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey, "Shift" }, "x", function () kbd.switch() end ) ,
+    awful.key({ modkey          }, "space",  function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -414,15 +371,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",
         function (c) c.fullscreen = not c.fullscreen  end),
 
-    awful.key({ modkey,           }, "w",
-        function (c) c:kill()                         end),
-
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle ),
-
-    awful.key({ modkey, "Control" }, "Return",
-        function (c) c:swap(awful.client.getmaster()) end),
-
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen ),
+    awful.key({ modkey, }, "w", function (c) c:kill()  end),
 
     -- Toggle "Always-on-top"
     awful.key({ modkey, "Shift"   }, "t",
