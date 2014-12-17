@@ -57,7 +57,7 @@ deploy_basic() {
 		git clone https://github.com/gmarik/vundle.git ${HOME}/.vim/bundle/
 	fi
 
-	deploy zprofile ${HOME}/.zlogin
+	deploy zlogin ${HOME}/.zlogin
 	deploy zprofile ${HOME}/.zprofile
 	deploy zshrc ${HOME}/.zshrc
 }
