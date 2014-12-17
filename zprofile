@@ -1,8 +1,17 @@
-export EDITOR=vim
+# My scripts
 export PATH=$HOME/bin:$PATH
-export PATH=$HOME/projects/go/bin:$PATH
+
+# Local tex
+export PATH=/usr/local/texlive/2014/bin/x86_64-linux/:$PATH
+
+# Haskell
 export PATH=$HOME/.cabal/bin:$PATH
-export MANPATH=$HOME/.cabal/share/man:
+
+# Go
+export PATH=$HOME/projects/go/bin:$PATH
+export GOPATH=$HOME/projects/go
+
+# Main settings
 export PAGER=less
 export BROWSER=firefox
-export GPG_TTY=$(tty)
+export EDITOR=vim
