@@ -64,8 +64,6 @@ deploy_basic() {
 
 # Main program starts here
 
-HOME=/tmp/home
-
 # Check if the XDG CONFIG and DATA location variables are set...
 # ... and create them if they don't exist
 test -z $XDG_CONFIG_HOME && XDG_CONFIG_HOME="${HOME}/.config"
