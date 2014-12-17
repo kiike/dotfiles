@@ -23,7 +23,7 @@ nnoremap mm :mmv<cr>
 
 filetype *.jpeg,*.jpg,*.png sxiv -f %c &
 filetype *.mp3,*.mp4,*.m4v,*.mkv,*.avi,*.mov mplayer %c &
-filetype *.pdf,*.ps zathura %c &
+filetype *.pdf,*.ps zathura -l error %c &
 filetype *.cr2,*.CR2 ufraw %c &
 filetype *.smc snes9x-gtk %c &
 filetype *.docx,*.doc,*.odt libreoffice --writer %c &

@@ -33,6 +33,7 @@ Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'ervandew/supertab'
+Bundle 'lepture/vim-jinja'
 
 filetype plugin indent on
 
@@ -47,6 +48,10 @@ set laststatus=2
 
 set number
 set relativenumber
+
+if has("syntax")
+	syntax on
+endif
 "}}}
 
 " Window mappings {{{
@@ -95,16 +100,17 @@ function! MailInit()
 endfunc
 
 function! PandocInit()
-	set tw=72 ts=4 sts=4 et
+	set tw=80 ts=4 sts=4 sw=4 et
 	set ft=pandoc
 	set spell
+	autocmd BufWritePre,FileWritePre * :%s/\s\+$//e
 endfun
 " }}}
 
 " Auto-commands {{{
 au BufNewFile,BufRead /tmp/mutt* :call MailInit()
 au BufNewFile,BufRead *.markdown,*.md :call PandocInit()
-au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4 tw=79
+au FileType python setlocal et ts=4 sw=4 sts=4 tw=72
 " }}}
 
 " vim: fdm=marker

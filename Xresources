@@ -6,7 +6,7 @@ URxvt.inputMethod:   uim
 URxvt.font:          xft:Source Code Pro:size=10, \
                      xft:Baekmuk Gulim
 URxvt.urgentOnBell:  true
-URxvt.preeditType:   None
+URxvt.preeditType:   Root
 URxvt.underlineURLs: false
 URxvt.iso14755:      false
 URxvt.depth:         32
