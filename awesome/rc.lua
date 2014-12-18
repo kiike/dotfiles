@@ -118,6 +118,7 @@ session_menu = {
 games_menu = {
     { "openttd", "openttd" },
     { "pioneer", "pioneer" },
+    { "steam", "steam" },
     { "ticket to ride", "/opt/ticket-to-ride/ticket-to-ride" },
     { "rct2", "wineexec '.wine/drive_c/Program Files/Infogrames/RollerCoaster Tycoon 2/rct2.exe'" },
     { "terraria", "wineexec '.wine/drive_c/Program Files/Terraria/Terraria.exe'" },
@@ -282,7 +283,6 @@ mytasklist.buttons = awful.util.table.join(
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
