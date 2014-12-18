@@ -10,3 +10,8 @@ export PATH=$HOME/.cabal/bin:$PATH
 # Go
 export PATH=$HOME/projects/go/bin:$PATH
 export GOPATH=$HOME/projects/go
+
+# Global settings
+export BROWSER="/usr/bin/firefox"
+export PAGER="less"
+export EDITOR="vim"
