@@ -14,6 +14,7 @@ local beautiful = require("beautiful")
 
 -- Notification library
 local naughty = require("naughty")
+local menubar = require("menubar")
 
 -- Helper functions {{{
 local function _typicons(code)
@@ -182,6 +183,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
    -- Date widget
    vicious_date = wibox.widget.textbox()
    vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
+
+    -- Menubar configuration
+    menubar.utils.terminal = terminal
     -- }}}
 
 -- {{{ Wibox
@@ -201,6 +205,40 @@ mytaglist.buttons = awful.util.table.join(
     awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end))
 
 mytasklist = {}
+mytasklist.buttons = awful.util.table.join(
+     awful.button({ }, 1, function (c)
+              if c == client.focus then
+                  c.minimized = true
+              else
+                  -- Without this, the following
+                  -- :isvisible() makes no sense
+                  c.minimized = false
+                  if not c:isvisible() then
+                      awful.tag.viewonly(c:tags()[1])
+                  end
+                  -- This will also un-minimize
+                  -- the client, if needed
+                  client.focus = c
+                  c:raise()
+              end
+          end),
+     awful.button({ }, 3, function ()
+              if instance then
+                  instance:hide()
+                  instance = nil
+              else
+                  instance = awful.menu.clients({ width=250 })
+              end
+          end),
+     awful.button({ }, 4, function ()
+              awful.client.focus.byidx(1)
+              if client.focus then client.focus:raise() end
+          end),
+     awful.button({ }, 5, function ()
+              awful.client.focus.byidx(-1)
+              if client.focus then client.focus:raise() end
+          end))
+
     s = 1
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
@@ -209,7 +247,7 @@ mytasklist = {}
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
@@ -314,7 +352,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("remote prev") end),
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("remote next") end),
     awful.key({}, "XF86AudioStop", function () awful.util.spawn("remote stop") end), 
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote pause") end), 
+    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote togglePause") end), 
 
     -- Keyboard layout switching
     awful.key({ modkey, "Shift" }, "x", function () kbd.switch() end),
@@ -329,6 +367,8 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
+    -- Menubar
+    awful.key({ modkey }, "p", function() menubar.show() end)
 )
 
 clientkeys = awful.util.table.join(
