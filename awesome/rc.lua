@@ -305,17 +305,21 @@ globalkeys = awful.util.table.join(
     -- Toggle tiling mode
     awful.key({ modkey,           }, "t", function () awful.layout.inc(1) end),
 
+    -- Manage volume
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("volume s 3dB-") end),
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("volume s 3dB+") end),
     awful.key({}, "XF86AudioMute",        function () awful.util.spawn("volume m") end),
 
+    -- Manage cmus
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("remote prev") end),
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("remote next") end),
     awful.key({}, "XF86AudioStop", function () awful.util.spawn("remote stop") end), 
     awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote pause") end), 
 
-    -- Prompt
-    awful.key({ modkey, "Shift" }, "x", function () kbd.switch() end ) ,
+    -- Keyboard layout switching
+    awful.key({ modkey, "Shift" }, "x", function () kbd.switch() end),
+
+    -- Launcher prompt
     awful.key({ modkey          }, "space",  function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
