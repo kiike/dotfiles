@@ -34,7 +34,6 @@ kbd.switch = function ()
         kbd.widget:set_text(t[1])
         os.execute(kbd.cmd .. " " .. t[1] .. " " .. t[2])
         os.execute("xmodmap ~/.Xmodmaprc")
-        print("xmodmap ~/.Xmodmaprc")
         if t[1] == "us" then
             os.execute("xmodmap -e 'remove mod1 = Alt_R'")
             os.execute("xmodmap -e 'keysym Alt_R = Hangul'")
