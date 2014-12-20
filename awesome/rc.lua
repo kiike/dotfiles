@@ -14,7 +14,6 @@ local beautiful = require("beautiful")
 
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 
 -- Helper functions {{{
 local function _typicons(code)
@@ -183,9 +182,6 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
    -- Date widget
    vicious_date = wibox.widget.textbox()
    vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
-
-    -- Menubar configuration
-    menubar.utils.terminal = terminal
     -- }}}
 
 -- {{{ Wibox
@@ -366,9 +362,7 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+              end)
 )
 
 clientkeys = awful.util.table.join(
