@@ -21,7 +21,7 @@ local function _typicons(code)
     return "<span font='Typicons 14'>&#" .. code .. ";</span>"
 end
 
-local centered = require("centered")
+local cardstack = require("cardstack")
 
 -- Keyboard map indicator and changer
 kbd = {}
@@ -50,8 +50,9 @@ kbd.switch = function ()
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Startup errors:",
-                     text = awesome.startup_errors })
+		     title = "Startup errors:",
+		     text = awesome.startup_errors
+		   })
 end
 
 -- Handle runtime errors after startup
@@ -89,7 +90,7 @@ if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, tr
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    centered,
+    cardstack,
     awful.layout.suit.max,
     awful.layout.suit.tile
 }
