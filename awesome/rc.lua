@@ -21,6 +21,8 @@ local function _typicons(code)
     return "<span font='Typicons 14'>&#" .. code .. ";</span>"
 end
 
+local centered = require("centered")
+
 -- Keyboard map indicator and changer
 kbd = {}
 kbd.cmd = "setxkbmap"
@@ -87,6 +89,7 @@ if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, tr
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    centered,
     awful.layout.suit.max,
     awful.layout.suit.tile
 }
