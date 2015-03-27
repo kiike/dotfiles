@@ -1,5 +1,4 @@
 set nocompatible
-set autoindent
 set ignorecase
 set incsearch
 set smartcase
@@ -34,6 +33,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'ervandew/supertab'
 Bundle 'lepture/vim-jinja'
+Bundle 'klen/python-mode'
+Bundle 'chriskempson/base16-vim'
 
 filetype plugin indent on
 
@@ -48,6 +49,10 @@ set laststatus=2
 
 set number
 set relativenumber
+
+let base16colorspace=256
+set background=dark
+colorscheme base16-chalk
 
 if has("syntax")
 	syntax on
