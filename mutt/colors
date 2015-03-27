@@ -1,6 +1,6 @@
 color	attachment 	blue		default
 color	body		blue		default 	"(ftp|http)://[^ ]+"
-color	body 		blue		default		[-a-z_0-9.]+@[-a-z_0-9.]+
+color	body 		blue		default		"\w+@\w+"
 color	error 		brightred	default
 color 	hdrdefault 	white 		default
 color 	index 		brightwhite	default 	~N
@@ -17,7 +17,7 @@ color 	search		brightgreen	default
 color 	signature 	yellow		default
 color 	status		blue		default
 color 	tilde 		blue		default
-color 	tree 		black		default
+color 	tree 		blue		default
 color 	underline 	yellow		default
 
 # vim: ft=muttrc
