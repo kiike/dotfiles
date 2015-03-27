@@ -1,3 +1,6 @@
 [submodule "xcompose"]
 	path = xcompose
 	url = https://github.com/kragen/xcompose.git
+[submodule "zsh/base16-shell"]
+	path = zsh/base16-shell
+	url = https://github.com/chriskempson/base16-shell.git
