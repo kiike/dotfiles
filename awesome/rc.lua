@@ -15,13 +15,15 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 
+-- Custom layouts
+local cardstack = require("cardstack")
+
 -- Helper functions {{{
 local function _typicons(code)
     -- Return a string that contains nice markup
     return "<span font='Typicons 14'>&#" .. code .. ";</span>"
 end
 
-local cardstack = require("cardstack")
 
 -- Keyboard map indicator and changer
 kbd = {}
@@ -43,7 +45,6 @@ kbd.switch = function ()
     end
 
 -- }}}
-
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -131,6 +132,7 @@ main_menu = {
     { "session", session_menu },
     { "games", games_menu },
     { "", ""},
+    { "&bitwig", "bitwig-studio"},
     { "&cmus", term_exec .. "cmus"},
     { "&firefox", "firefox" },
     { "&gimp", "gimp-2.8"},
@@ -191,10 +193,10 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Create a wibox for each screen and add it
 mywibox = {}
-
 mypromptbox = {}
-
+mytasklist = {}
 mytaglist = {}
+
 mytaglist.buttons = awful.util.table.join(
     awful.button({ }, 1, awful.tag.viewonly),
     awful.button({ modkey }, 1, awful.client.movetotag),
@@ -203,40 +205,6 @@ mytaglist.buttons = awful.util.table.join(
     awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
     awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end))
 
-mytasklist = {}
-mytasklist.buttons = awful.util.table.join(
-     awful.button({ }, 1, function (c)
-              if c == client.focus then
-                  c.minimized = true
-              else
-                  -- Without this, the following
-                  -- :isvisible() makes no sense
-                  c.minimized = false
-                  if not c:isvisible() then
-                      awful.tag.viewonly(c:tags()[1])
-                  end
-                  -- This will also un-minimize
-                  -- the client, if needed
-                  client.focus = c
-                  c:raise()
-              end
-          end),
-     awful.button({ }, 3, function ()
-              if instance then
-                  instance:hide()
-                  instance = nil
-              else
-                  instance = awful.menu.clients({ width=250 })
-              end
-          end),
-     awful.button({ }, 4, function ()
-              awful.client.focus.byidx(1)
-              if client.focus then client.focus:raise() end
-          end),
-     awful.button({ }, 5, function ()
-              awful.client.focus.byidx(-1)
-              if client.focus then client.focus:raise() end
-          end))
 
     s = 1
     -- Create a promptbox for each screen
@@ -353,7 +321,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote togglePause") end),
 
     -- Keyboard layout switching
-    awful.key({ modkey, "Shift" }, "x", function () kbd.switch() end),
+    awful.key({ modkey, "Shift" }, "l", function () kbd.switch() end),
 
     -- Launcher prompt
     awful.key({ modkey          }, "space",  function () mypromptbox[mouse.screen]:run() end)
@@ -423,11 +391,6 @@ for i = 1, 9 do
                       end
                   end))
 end
-
-clientbuttons = awful.util.table.join(
-    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
 
 -- Set keys
 root.keys(globalkeys)
@@ -530,3 +493,4 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+-- vim: fdm=marker ts=4 sts=4 sw=4
