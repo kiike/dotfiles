@@ -27,4 +27,14 @@ compton -b
 # Turn down the blue gamma (less eye strain???)
 xgamma -bgamma 0.8
 
-exec awesome
+# Notifications
+dunst &
+
+# Wallpaper
+imlibsetroot -s f ~/pictures/wallpaper
+
+# Panel
+panel &
+
+sxhkd &
+exec bspwm
