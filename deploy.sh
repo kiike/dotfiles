@@ -30,6 +30,7 @@ deploy_all() {
 
 	deploy bspwm ${XDG_CONFIG_HOME}/bspwm
 	deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
+	deploy panelrc ${HOME}/.panelrc
 
 	deploy vimperatorrc ${HOME}/.vimperatorrc
 
