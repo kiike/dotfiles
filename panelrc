@@ -19,7 +19,7 @@ COLOR_URGENT_BG="#FF${red}"
 
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_HEIGHT=18
-PANEL_FONT_FAMILY="typicons-18,sourcecodepro-14"
+PANEL_FONT_FAMILY="Typicons,Source Code Pro-10"
 
-DATE_FORMAT="%a %m %b, %H:%M"
+DATE_FORMAT="%a %d %b, %H:%M"
 ITEM_SEPARATOR="%{F#FF${blue}}|%{F$reset}"
