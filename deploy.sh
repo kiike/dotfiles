@@ -29,7 +29,7 @@ deploy_all() {
 	deploy awesome ${XDG_DATA_HOME}/awesome
 
 	deploy bspwm ${XDG_CONFIG_HOME}/bspwm
-	deploy sxhkd ${XDG_DATA_HOME}/sxhkd
+	deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
 
 	deploy vimperatorrc ${HOME}/.vimperatorrc
 
