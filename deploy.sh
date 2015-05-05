@@ -28,9 +28,6 @@ deploy_all() {
 	deploy zprofile ${HOME}/.zprofile
 	deploy zshrc ${HOME}/.zshrc
 
-	deploy awesome ${XDG_CONFIG_HOME}/awesome
-	deploy awesome ${XDG_DATA_HOME}/awesome
-
 	# BSPWM, hotkey daemon, panel
 	deploy bspwm ${XDG_CONFIG_HOME}/bspwm
 	deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
@@ -74,19 +71,8 @@ test -z $XDG_DATA_HOME && XDG_DATA_HOME="${HOME}/.local/share"
 test -e $XDG_DATA_HOME || mkdir -p $XDG_DATA_HOME
 
 if [[ $2 == "-r" ]]; then
-	export REMOVE="true"
-	shift
+	REMOVE="true" deploy_all
 else
-	REMOVE="false"
+	REMOVE="false" deploy_all
 fi
 
-case "$1" in
-	all)
-		deploy_all
-		;;
-
-	*)
-		[[ $1 == "-r" ]] && export REMOVE="true"
-		deploy_basic
-		;;
-esac
