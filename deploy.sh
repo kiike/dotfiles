@@ -23,23 +23,25 @@ _mkdir() {
 }
 
 deploy_all() {
-	deploy_basic
+	# ZSH
+	deploy zlogin ${HOME}/.zlogin
+	deploy zprofile ${HOME}/.zprofile
+	deploy zshrc ${HOME}/.zshrc
 
 	deploy awesome ${XDG_CONFIG_HOME}/awesome
 	deploy awesome ${XDG_DATA_HOME}/awesome
 
+	# BSPWM, hotkey daemon, panel
 	deploy bspwm ${XDG_CONFIG_HOME}/bspwm
 	deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
 	deploy panelrc ${HOME}/.panelrc
-
-	deploy vimperatorrc ${HOME}/.vimperatorrc
 
 	deploy compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
 	deploy mutt ${HOME}/.mutt
 
-	deploy newsbeuter/config ${XDG_CONFIG_HOME}/newsbeuter/config
-	deploy newsbeuter/urls ${XDG_CONFIG_HOME}/newsbeuter/urls
+	deploy newsbeuter/config ${HOME}/.newsbeuter/config
+	deploy newsbeuter/urls ${HOME}/.newsbeuter/urls
 
 	deploy pentadactylrc ${HOME}/.pentadactylrc
 
@@ -49,9 +51,6 @@ deploy_all() {
 	deploy vifm ${HOME}/.vifm
 
 	deploy Xmodmaprc ${HOME}/.Xmodmaprc
-}
-
-deploy_basic() {
 	deploy tmux.conf ${HOME}/.tmux.conf
 
 	deploy vim ${HOME}/.vim
@@ -61,9 +60,6 @@ deploy_basic() {
 		git clone https://github.com/gmarik/vundle.git ${HOME}/.vim/bundle/
 	fi
 
-	deploy zlogin ${HOME}/.zlogin
-	deploy zprofile ${HOME}/.zprofile
-	deploy zshrc ${HOME}/.zshrc
 }
 
 # Main program starts here
