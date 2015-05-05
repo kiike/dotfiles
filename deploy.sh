@@ -17,8 +17,8 @@ deploy() {
 _mkdir() {
 	# Check whether the directory exists, otherwise create it
 
-	for i in $*; do
-		[[ -e "$1" ]] || mkdir -p "$1"
+	for dir in $*; do
+		[[ -e "$dir" ]] || mkdir -p "$dir"
 	done
 }
 
@@ -47,6 +47,7 @@ deploy_all() {
 
 	deploy xinitrc ${HOME}/.xinitrc
 	deploy Xresources ${HOME}/.Xresources
+	deploy Xcompose ${HOME}/.Xcompose
 
 	deploy vifm ${HOME}/.vifm
 
