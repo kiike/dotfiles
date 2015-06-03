@@ -1,0 +1,32 @@
+bspwm, xdg_conf, bspwm
+
+compton.conf, xdg_conf, compton.conf
+
+fonts, xdg_data, fonts
+
+mutt, home, .mutt
+
+newsbeuter/urls, home, .newsbeuter/urls
+newsbeuter/config, home, .newsbeuter/config
+
+panelrc, home, .panelrc
+
+pentadactylrc, home, .pentadactylrc
+
+sxhkd, xdg_conf, sxhkd
+
+tmux.conf, home, .tmux.conf
+
+vifm, home, .vifm
+
+vim/vimrc, home, .vimrc
+
+xinitrc, home, .xinitrc
+
+zlogin, home, .zlogin
+zprofile, home, .zprofile
+zshrc, home, .zshrc
+
+Xcompose, home, .Xcompose
+Xmodmaprc, home, .Xmodmaprc
+Xresources, home, .Xresources
