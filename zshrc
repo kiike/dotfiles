@@ -14,6 +14,7 @@ autoload -U colors && colors
 fpath=(~/.zsh/completion $fpath)
 autoload -U compinit
 compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 setopt extendedglob
 #}}}
@@ -113,6 +114,10 @@ alias ccp="rsync -aPh"
 alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
+vim="nvim"
+vi="nvim"
+alias du="du -h"
+alias ttyqr="ttyqr -b"
 
 # GNU-coreutils-specific aliases
 if [[ $(uname -s) == "Linux" ]]; then
