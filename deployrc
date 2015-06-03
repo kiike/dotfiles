@@ -17,7 +17,7 @@ sxhkd, xdg_conf, sxhkd
 
 tmux.conf, home, .tmux.conf
 
-vifm, home, .vifm
+vifm/vifmrc, home, .vifm/vifmrc
 
 vim/vimrc, home, .nvimrc
 vim/vimrc, home, .vimrc
