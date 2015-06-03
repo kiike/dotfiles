@@ -17,9 +17,10 @@ def uninstall(src, dst):
 
 
 def install(src, dst):
-    if not os.path.exists(os.path.dirname(dst)):
+    dst_dirname = os.path.dirname(dst)
+    if not os.path.exists(dst_dirname):
         logging.info('makedir\t{}'.format(dst))
-        os.makedirs(dst)
+        os.makedirs(dst_dirname)
 
     src = os.path.abspath(src)
     if not os.path.exists(dst):
@@ -41,7 +42,7 @@ dirs['xdg_data'] = os.getenv('XDG_DATA_HOME',
 
 logging.basicConfig(format='[%(levelname)s] %(message)s', level=logging.INFO)
 
-with open('install.list') as f:
+with open('deployrc') as f:
     reader = csv.reader(f)
     for row in reader:
         if row:
