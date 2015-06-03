@@ -19,6 +19,7 @@ tmux.conf, home, .tmux.conf
 
 vifm, home, .vifm
 
+vim/vimrc, home, .nvimrc
 vim/vimrc, home, .vimrc
 
 xinitrc, home, .xinitrc
