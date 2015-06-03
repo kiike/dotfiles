@@ -76,3 +76,4 @@ else
 	REMOVE="false" deploy_all
 fi
 
+deploy SourceCodePro-Regular+NanumGothicCoding.ttf ${XDG_DATA_HOME}/.local/share/fonts

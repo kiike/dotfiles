@@ -1,22 +1,6 @@
-URxvt.buffered:      true
-URxvt.scrollBar:     false
-URxvt.colorUL: 	     #dc322f
-URxvt.lineSpace:     0
-URxvt.inputMethod:   uim
-URxvt.font:          xft:Source Code Pro:size=10, \
-                     xft:Baekmuk Gulim
-URxvt.urgentOnBell:  true
-URxvt.preeditType:   Root
-URxvt.underlineURLs: false
-URxvt.iso14755:      false
-URxvt.depth:         32
-
 Xft.hinting:   0
 Xft.hintstyle: hintfull
 Xft.dpi:       100
-
-XTerm.background: black
-XTerm.foreground: white
 
 ! Base16 Chalk
 ! Scheme: Chris Kempson (http://chriskempson.com)
@@ -68,3 +52,20 @@ XTerm.foreground: white
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
+
+! URxvt overrides
+URxvt.buffered:      true
+URxvt.scrollBar:     false
+URxvt.colorUL: 	     #dc322f
+URxvt.lineSpace:     0
+URxvt.inputMethod:   uim
+URxvt.font:          xft:Source Code Pro+NanumGothicCoding:size=10
+URxvt.urgentOnBell:  true
+URxvt.preeditType:   Root
+URxvt.underlineURLs: false
+URxvt.iso14755:      false
+URxvt.transparent:   true
+URxvt.shading:       60
+
+!URxvt.depth:         32
+!URxvt.background: [80]#151515
