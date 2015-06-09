@@ -1,79 +1,83 @@
 #!/bin/sh
 
-deploy() {
-	src="$1"
-	dest="$2"
+set +eu
 
-	if [[ $REMOVE == "true" ]]; then
-		# Unlink destination path if destination path is link
-		[[ -h "${dest}" ]] && unlink "${dest}"
-	else
+install() {
+	src="$1"
+	shift
+
+	for dest in $*; do
 		# Symlink $1 to $2
 		[[ -d "$(dirname ${dest})" ]] || _mkdir "${dest}"
-		[[ -e "${dest}" ]] || ln -s "${PWD}/${src}" "${dest}"
-	fi
+		[[ -e "${dest}" ]] || ln -s ${FLAGS} "${PWD}/${src}" "${dest}"
+	done
+}
+
+uninstall() {
+	shift
+	for dest in $*; do
+		# Unlink destination path if destination path is link
+		[[ -h "${dest}" ]] && rm ${FLAGS} "${dest}"
+	done
 }
 
 _mkdir() {
-	# Check whether the directory exists, otherwise create it
-
 	for dir in $*; do
-		[[ -e "$dir" ]] || mkdir -p "$dir"
+		# Check whether the directory exists, otherwise create it
+		[[ -e "$dir" ]] || mkdir ${FLAGS} -p "$dir"
 	done
 }
 
 deploy_all() {
 	# ZSH
-	deploy zlogin ${HOME}/.zlogin
-	deploy zprofile ${HOME}/.zprofile
-	deploy zshrc ${HOME}/.zshrc
+	$action zlogin ${HOME}/.zlogin
+	$action zprofile ${HOME}/.zprofile
+	$action zshrc ${HOME}/.zshrc
 
 	# BSPWM, hotkey daemon, panel
-	deploy bspwm ${XDG_CONFIG_HOME}/bspwm
-	deploy sxhkd ${XDG_CONFIG_HOME}/sxhkd
-	deploy panelrc ${HOME}/.panelrc
+	$action bspwm ${XDG_CONFIG_HOME}/bspwm
+	$action sxhkd ${XDG_CONFIG_HOME}/sxhkd
+	$action panelrc ${HOME}/.panelrc
 
-	deploy compton.conf ${XDG_CONFIG_HOME}/compton.conf
+	$action compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
-	deploy mutt ${HOME}/.mutt
+	$action newsbeuter/config ${HOME}/.newsbeuter/config
+	$action newsbeuter/urls ${HOME}/.newsbeuter/urls
 
-	deploy newsbeuter/config ${HOME}/.newsbeuter/config
-	deploy newsbeuter/urls ${HOME}/.newsbeuter/urls
+	$action pentadactylrc ${HOME}/.pentadactylrc
 
-	deploy pentadactylrc ${HOME}/.pentadactylrc
+	$action xinitrc ${HOME}/.xinitrc
+	$action Xresources ${HOME}/.Xresources
+	$action Xcompose ${HOME}/.Xcompose
 
-	deploy xinitrc ${HOME}/.xinitrc
-	deploy Xresources ${HOME}/.Xresources
-	deploy Xcompose ${HOME}/.Xcompose
+	$action vifm ${HOME}/.vifm
 
-	deploy vifm ${HOME}/.vifm
+	$action Xmodmaprc ${HOME}/.Xmodmaprc
+	$action tmux.conf ${HOME}/.tmux.conf
 
-	deploy Xmodmaprc ${HOME}/.Xmodmaprc
-	deploy tmux.conf ${HOME}/.tmux.conf
-
-	deploy vim ${HOME}/.vim
-	deploy vim/vimrc ${HOME}/.vimrc
-	_mkdir ${HOME}/.vim/{undo,backup,swap}
-	if [[ ! -e "${HOME}/.vim/bundle/vundle/.git" ]] && [[ REMOVE == "false" ]]; then
-		git clone https://github.com/gmarik/vundle.git ${HOME}/.vim/bundle/
-	fi
-
+	_mkdir ${HOME}/.vim ${HOME}/.nvim
+	$action vimrc ${HOME}/.{,n}vimrc
 }
 
 # Main program starts here
 
 # Check if the XDG CONFIG and DATA location variables are set...
 # ... and create them if they don't exist
-test -z $XDG_CONFIG_HOME && XDG_CONFIG_HOME="${HOME}/.config"
-test -e $XDG_CONFIG_HOME || mkdir $XDG_CONFIG_HOME
+[[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME="${HOME}/.config"
+[[ -e $XDG_CONFIG_HOME ]] || mkdir $XDG_CONFIG_HOME
 
-test -z $XDG_DATA_HOME && XDG_DATA_HOME="${HOME}/.local/share"
-test -e $XDG_DATA_HOME || mkdir -p $XDG_DATA_HOME
+[[ -z $XDG_DATA_HOME ]] && XDG_DATA_HOME="${HOME}/.local/share"
+[[ -e $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
 
-if [[ $2 == "-r" ]]; then
-	REMOVE="true" deploy_all
-else
-	REMOVE="false" deploy_all
-fi
+while getopts rv flag; do
+	case $flag in
+		r)    action=uninstall;;
+		v)    FLAGS="-v";;
+	esac
+done
 
-deploy SourceCodePro-Regular+NanumGothicCoding.ttf ${XDG_DATA_HOME}/.local/share/fonts
+shift
+
+[[ $action != uninstall ]] && action=install
+
+deploy_all
