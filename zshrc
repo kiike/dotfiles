@@ -3,6 +3,8 @@ if [[ $TERM != linux ]] && [[ -f ${HOME}/.pyenv/bin/activate ]] && [[ -z $VIRTUA
     VIRTUAL_ENV_DISABLE_PROMPT=1
     source ${HOME}/.pyenv/bin/activate
 fi
+
+export WINEPREFIX="${HOME}/.wine/default"
 # }}}
 
 # Look and Feel {{{
@@ -114,24 +116,9 @@ alias ccp="rsync -aPh"
 alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
-alias vim="nvim"
-alias vi="nvim"
 alias du="du -h"
 alias ttyqr="ttyqr -b"
-
-# GNU-coreutils-specific aliases
-if [[ $(uname -s) == "Linux" ]]; then
-		alias ls='ls --color=auto'
-		alias nmon="echo -cdnm | nmon"
-		alias pacman="sudo pacman"
-		alias systemctl="sudo systemctl"
-
-		if [[ $HOST == "bison.*" ]]; then
-			alias git="hub"
-			alias sxiv="sxiv -f"
-		fi
-fi
-
+alias paclean="pacman -Rsn $(pacman -Qdtq)"
 # }}}
 
 # vim: foldmethod=marker ts=4 sts=4 tw=4
