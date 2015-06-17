@@ -1,2 +1,5 @@
-[[ $TERM == linux ]] && startx
-[[ -n $SSH_CONNECTION ]] && tmux attach || tmux
+which startx && [[ $TERM == linux ]] && startx
+
+if [[ ! -z $SSH_CONNECTION ]]; then
+	tmux attach || tmux
+fi
