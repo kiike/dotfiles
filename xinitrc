@@ -24,8 +24,8 @@ urxvtd -q -f -o
 # Compositor
 compton -b
 
-# Turn down the blue gamma (less eye strain???)
-xgamma -bgamma 0.8
+# Turn down the blue gamma (less eye strain???) on laptop displays
+grep -q LVDS1 <(xrandr) && xgamma -bgamma 0.8
 
 # Notifications
 dunst &
