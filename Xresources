@@ -59,13 +59,11 @@ URxvt.scrollBar:     false
 URxvt.colorUL: 	     #dc322f
 URxvt.lineSpace:     0
 URxvt.inputMethod:   uim
-URxvt.font:          xft:Source Code Pro+NanumGothicCoding:size=10
+URxvt.font:          xft:Potipoti:size=10
 URxvt.urgentOnBell:  true
 URxvt.preeditType:   Root
 URxvt.underlineURLs: false
 URxvt.iso14755:      false
-URxvt.transparent:   true
-URxvt.shading:       60
 
-!URxvt.depth:         32
-!URxvt.background: [80]#151515
+URxvt.depth:         32
+URxvt.background: [80]#151515
