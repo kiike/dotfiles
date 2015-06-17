@@ -9,7 +9,7 @@ gray='151515'
 reset='-'
 
 COLOR_DEFAULT_FG="#FF${white}"
-COLOR_DEFAULT_BG="#80${gray}"
+COLOR_DEFAULT_BG="#A0${gray}"
 
 COLOR_FOCUSED_FG="#FF${cyan}"
 COLOR_FOCUSED_BG="$COLOR_DEFAULT_BG"
@@ -19,7 +19,12 @@ COLOR_URGENT_BG="#FF${red}"
 
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_HEIGHT=18
-PANEL_FONT_FAMILY="Typicons,Source Code Pro-10"
+PANEL_FONT_FAMILY="Potipoti-10"
 
 DATE_FORMAT="%a %d %b, %H:%M"
-ITEM_SEPARATOR="%{F#FF${blue}}|%{F$reset}"
+
+# Separators
+SEP=" %{F#FF${blue}}|%{F$reset} "
+SEP_L="  "
+
+KBD_LAYOUT_PREFIX=K
