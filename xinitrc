@@ -26,7 +26,7 @@ urxvtd -q -f -o
 which compton && compton -b
 
 # Turn down the blue gamma (less eye strain???) on laptop displays
-grep -q LVDS1 <(xrandr) && xgamma -bgamma 0.8
+xrandr | grep -q LVDS1 && xgamma -bgamma 0.8
 
 # Notifications
 which compton && dunst &
