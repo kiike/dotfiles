@@ -118,7 +118,15 @@ alias df="df -h"
 alias du="du -h"
 alias du="du -h"
 alias ttyqr="ttyqr -b"
-alias paclean="pacman -Rsn $(pacman -Qdtq)"
 # }}}
+
+OS=$(grep NAME "/etc/os-release")
+case $OS in
+		*Arch*)
+				alias pacman="sudo pacman"
+				alias iptables="sudo iptables"
+				alias systemctl="sudo systemctl"
+				;;
+esac
 
 # vim: foldmethod=marker ts=4 sts=4 tw=4
