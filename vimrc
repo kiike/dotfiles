@@ -8,39 +8,49 @@ set backspace=2
 " This enables backups and undo and creates an undo point after
 " the end of every sentence.
 set undofile
-set undodir=~/.vim/undo
-set backupdir=~/.vim/backup
-set directory=~/.vim/swap
+set undodir=~/.cache/vim/undo
+set nobackup
 
 inoremap . .<C-g>u
 inoremap ! !<C-g>u
 inoremap ? ?<C-g>u
 inoremap : :<C-g>u
-"}}}
 
-" Vundle Config {{{
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-if has("python")
-    Bundle 'SirVer/ultisnips'
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p", 0700)
 endif
 
-Bundle 'gmarik/vundle'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'ervandew/supertab'
-Bundle 'lepture/vim-jinja'
-Bundle 'klen/python-mode'
-Bundle 'chriskempson/base16-vim'
+"}}}
 
-filetype plugin indent on
+" vim-plug Config {{{
 
-" prepend this dir for a correct spellfiles location
-set rtp-=~/.vim
-set rtp^=~/.vim
+if !filereadable(expand("~/.vim/autoload/plug.vim"))
+    !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
+endif
+
+
+call plug#begin('~/.vim/plugged')
+
+if has("python")
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    "Plug 'Valloric/YouCompleteMe'
+    "Plug 'klen/python-mode'
+    Plug 'davidhalter/jedi-vim'
+endif
+
+Plug 'bling/vim-airline'
+Plug 'chriskempson/base16-vim'
+Plug 'ervandew/supertab'
+Plug 'lepture/vim-jinja'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
+call plug#end()
 " }}}
 
 " Look and Feel {{{
