@@ -9,7 +9,7 @@ install() {
 	for dest in $*; do
 		# Symlink $1 to $2
 		[[ -d "$(dirname ${dest})" ]] || _mkdir "${dest}"
-		[[ -e "${dest}" ]] || ln -s ${FLAGS} "${PWD}/${src}" "${dest}"
+		[[ -e "${dest}" ]] || ln -sf ${FLAGS} "${PWD}/${src}" "${dest}"
 	done
 }
 
@@ -55,7 +55,8 @@ deploy_all() {
 	$action Xmodmaprc ${HOME}/.Xmodmaprc
 	$action tmux.conf ${HOME}/.tmux.conf
 
-	_mkdir ${HOME}/.vim ${HOME}/.nvim
+	_mkdir ${HOME}/.vim
+	ln -s ${FLAGS} ${HOME}/.vim ${HOME}/.nvim
 	$action vimrc ${HOME}/.{,n}vimrc
 }
 
