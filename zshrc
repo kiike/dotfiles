@@ -33,42 +33,10 @@ format_seconds () {
         echo ${s}s
     fi
 }
-
-zle-init zle-keymap-select () {
-case $KEYMAP in
-    vicmd) echo -ne "\033]12;6\007";;
-viins|main) echo -ne "\033]12;7\007";;
-    esac
-    zle reset-prompt
-}
-zle -N zle-keymap-select
-zle -N zle-init
-
 # }}}
 
 # Keybindings {{{
-bindkey -v
-
-bindkey -M viins '^a'    beginning-of-line
-bindkey -M viins '^e'    end-of-line
-bindkey -M viins '^k'    kill-line
-bindkey -M viins '^r'    history-incremental-pattern-search-backward
-bindkey -M viins '^s'    history-incremental-pattern-search-forward
-bindkey -M viins '^p'    up-line-or-history
-bindkey -M viins '^n'    down-line-or-history
-bindkey -M viins '^y'    yank
-bindkey -M viins '^w'    backward-kill-word
-bindkey -M viins '^u'    backward-kill-line
-bindkey -M viins '^h'    backward-delete-char
-bindkey -M viins '^?'    backward-delete-char
-bindkey -M viins '^_'    undo
-bindkey -M viins '^x^r'  redisplay
-bindkey -M viins '\eOH'  beginning-of-line # Home
-bindkey -M viins '\eOF'  end-of-line       # End
-bindkey -M viins '\e[2~' overwrite-mode    # Insert
-bindkey -M viins '\ef'   forward-word      # Alt-f
-bindkey -M viins '\eb'   backward-word     # Alt-b
-bindkey -M viins '\ed'   kill-word         # Alt-d
+bindkey -e
 # }}}
 
 # History {{{
