@@ -51,32 +51,45 @@ setopt incappendhistory
 # }}}
 
 # PS1, window title and long process notification {{{
-if [ -z ${SSH_CONNECTION} ];
-then    PS1="%B%F{4}%1//%f%b "
-    EXTRA=""
+TIMEFMT=$'\a'"$fg[green]%J$reset_color time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
+REPORTTIME=10
 
-else    PS1="%B$HOST:%F{4}%1//%f%b "
-    EXTRA="$HOST "
-fi
+local host_if_inside_ssh=${SSH_CONNECTION+${HOST} }
 
-TIMEFMT="$fg[green]%J$reset_color time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
-REPORTTIME=5
+# If SSH_CONNECTION is set, prepend PS1 with the hostname
+PS1="%B${host_if_inside_ssh}%F{4}%1//%f%b "
 
-if [[ $TERM == screen* ]] || [[ $TERM == rxvt* ]]; then
-    preexec () {
-        CMD_NAME=$1
-        print -Pn "\e]0;${EXTRA}${~1:gs/%/%%}\a"
-    }
-    precmd () {
-        print -Pn "\e]0;${EXTRA}%1//\a"
+# Adapted snippet from http://scarff.id.au/blog/2011/window-titles-in-screen-and-rxvt-from-zsh/ {{{
+function preexec() {
+  local a=${${1## *}[(w)1]}  # get the command
+  local b=${a##*\/}   # get the command basename
+  a="${b}${1#$a}"     # add back the parameters
+  a=${a//\%/\%\%}     # escape print specials
+  a=$(print -Pn "$a" | tr -d "\t\n\v\f\r")  # remove fancy whitespace
+  a=${(V)a//\%/\%\%}  # escape non-visibles and print specials
 
-        # Set window title of RXVT windows
-        if [[ $TERM == rxvt* ]]; then
-            print -n "\e]12;7\007"
-        fi
-    }
-fi
+  case "$TERM" in
+    screen|screen.*)
+      # See screen(1) "TITLES (naming windows)".
+      # "\ek" and "\e\" are the delimiters for screen(1) window titles
+      print -Pn "\ek%-3~ $a\e\\" # set screen title.  Fix vim: ".
+      ;;
+    rxvt*|xterm*)
+      print -Pn "\e]2;${host_if_inside_ssh}$a\a" # set xterm title, via screen "Operating System Command"
+      ;;
+  esac
+}
 
+function precmd() {
+  case "$TERM" in
+    rxvt*)
+      print -Pn "\ek%-3~\e\\" # set screen title
+      print -Pn "\e]2;${host_if_inside_ssh}%1//\a" # set xterm title, via screen "Operating System Command"
+      ;;
+  esac
+}
+
+#}}}
 #}}}
 
 # Aliases {{{
