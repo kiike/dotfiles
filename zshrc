@@ -110,4 +110,4 @@ case $OS in
 				;;
 esac
 
-# vim: foldmethod=marker ts=4 sts=4 tw=4
+# vim: foldmethod=marker ts=4 sts=4 sw=4
