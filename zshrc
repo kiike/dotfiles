@@ -97,13 +97,22 @@ alias du="du -h"
 alias ttyqr="ttyqr -b"
 # }}}
 
-OS=$(grep NAME "/etc/os-release")
-case $OS in
-		*Arch*)
-				alias pacman="sudo pacman"
-				alias iptables="sudo iptables"
-				alias systemctl="sudo systemctl"
-				;;
+case $(uname) in
+	OpenBSD)
+		:
+		;;
+	Linux)
+		if [[ -f "/etc/os-release" ]]; then
+			OS=$(grep NAME "/etc/os-release")
+			case $OS in
+				*Arch*)
+					alias pacman="sudo pacman"
+					alias iptables="sudo iptables"
+					alias systemctl="sudo systemctl"
+					;;
+			esac
+		fi
+		;;
 esac
 
 # vim: foldmethod=marker ts=4 sts=4 sw=4
