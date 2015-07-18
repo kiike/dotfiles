@@ -40,14 +40,10 @@ bindkey -e
 # }}}
 
 # History {{{
-HISTCONTROL=erasedups
-HISTFILE=~/.zsh_history
-test -f $HISTFILE || touch $HISTFILE
+HISTFILE=${HOME}/.zsh_history
 HISTSIZE="10000"
-SAVEHIST="10000"
-setopt histignorealldups
-setopt sharehistory
-setopt incappendhistory
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_SPACE
 # }}}
 
 # PS1, window title and long process notification {{{
