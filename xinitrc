@@ -1,4 +1,4 @@
-if which uim-xim; then
+if hash uim-xim &>/dev/null; then
 	# Input method
 	export GTK_IM_MODULE='xim'
 	export QT_IM_MODULE='uim'
@@ -9,7 +9,7 @@ fi
 xmodmap ~/.Xmodmaprc
 xmodmap -e 'keysym Alt_R = Hangul'
 
-if which autocutsel; then
+if hash autocutsel; then
 	# Sync clipboard and primary selection
 	autocutsel -selection CLIPBOARD -fork
 	autocutsel -selection PRIMARY -fork
@@ -23,13 +23,13 @@ xrdb -load ~/.Xresources
 urxvtd -q -f -o
 
 # Compositor
-which compton && compton -b
+hash compton && compton -b
 
 # Turn down the blue gamma (less eye strain???) on laptop displays
 xrandr | grep -q LVDS1 && xgamma -bgamma 0.8
 
 # Notifications
-which compton && dunst &
+hash dunst && dunst &
 
 # Wallpaper
 imlibsetroot -s f ~/pictures/wallpaper
