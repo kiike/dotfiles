@@ -22,3 +22,5 @@ bspc rule -a Firefox desktop=^3
 
 bspc desktop -l 1.monocle
 bspc desktop -l 3.monocle
+
+panel &

@@ -34,8 +34,5 @@ which compton && dunst &
 # Wallpaper
 imlibsetroot -s f ~/pictures/wallpaper
 
-# Panel
-panel &
-
 sxhkd &
 exec bspwm
