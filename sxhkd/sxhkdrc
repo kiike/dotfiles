@@ -1,4 +1,4 @@
-#
+# --type
 # bspwm hotkeys
 #
 
@@ -62,15 +62,6 @@ super + ctrl + {1-9}
 super + {_,shift + }{1-9,0}
     bspc {desktop -f,window -d} ^{1-9,10}
 
-super + button{1-3}
-    bspc pointer -g {move,resize_side,resize_corner}
-
-super + !button{1-3}
-    bspc pointer -t %i %i
-
-super + @button{1-3}
-    bspc pointer -u
-
 # Jump to next urgent desktop and window
 super + u
     bspc desktop -f next.urgent; bspc window -f next.urgent
@@ -83,8 +74,14 @@ super + Return
 super + space
     dmenu_run_recent
 
+super + p
+    passmenu
+
 super + shift + space
     dmenu_term_run_recent
+
+super + Insert
+    x t
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -102,11 +99,11 @@ XF86AudioStop
 
 # Volume
 XF86AudioRaiseVolume
-    volume s 3dB+
+    volume up
 XF86AudioLowerVolume
-    volume s 3dB-
+    volume down
 XF86AudioMute
-    volume m
+    volume mute
 
 super + x
     kbdlayout
