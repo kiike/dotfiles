@@ -1,84 +1,62 @@
 #!/bin/sh
-
 set +eu
 
-install() {
-	src="$1"
-	shift
-
-	for dest in $*; do
-		# Symlink $1 to $2
-		[[ -d "$(dirname ${dest})" ]] || _mkdir "${dest}"
-		[[ -e "${dest}" ]] || ln -sf ${FLAGS} "${PWD}/${src}" "${dest}"
-	done
-}
-
-uninstall() {
-	shift
-	for dest in $*; do
-		# Unlink destination path if destination path is link
-		[[ -h "${dest}" ]] && rm ${FLAGS} "${dest}"
-	done
-}
-
-_mkdir() {
-	for dir in $*; do
-		# Check whether the directory exists, otherwise create it
-		[[ -e "$dir" ]] || mkdir ${FLAGS} -p "$dir"
-	done
-}
-
-deploy_all() {
-	# ZSH
-	$action zlogin ${HOME}/.zlogin
-	$action zprofile ${HOME}/.zprofile
-	$action zshrc ${HOME}/.zshrc
-
-	# BSPWM, hotkey daemon, panel
-	$action bspwm ${XDG_CONFIG_HOME}/bspwm
-	$action sxhkd ${XDG_CONFIG_HOME}/sxhkd
-	$action panelrc ${HOME}/.panelrc
-
-	$action compton.conf ${XDG_CONFIG_HOME}/compton.conf
-
-	$action newsbeuter/config ${HOME}/.newsbeuter/config
-	$action newsbeuter/urls ${HOME}/.newsbeuter/urls
-
-	$action pentadactylrc ${HOME}/.pentadactylrc
-
-	$action xinitrc ${HOME}/.xinitrc
-	$action Xresources ${HOME}/.Xresources
-	$action Xcompose ${HOME}/.Xcompose
-
-	$action vifm ${HOME}/.vifm
-
-	$action Xmodmaprc ${HOME}/.Xmodmaprc
-	$action tmux.conf ${HOME}/.tmux.conf
-
-	_mkdir ${HOME}/.vim
-	ln -s ${FLAGS} ${HOME}/.vim ${HOME}/.nvim
-	$action vimrc ${HOME}/.{,n}vimrc
-}
-
-# Main program starts here
-
-# Check if the XDG CONFIG and DATA location variables are set...
-# ... and create them if they don't exist
+REMOVE=no
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME="${HOME}/.config"
-[[ -e $XDG_CONFIG_HOME ]] || mkdir $XDG_CONFIG_HOME
-
 [[ -z $XDG_DATA_HOME ]] && XDG_DATA_HOME="${HOME}/.local/share"
-[[ -e $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
+
+_action() {
+	if [[ $REMOVE == yes ]]; then
+		[[ -h $2 ]] && rm ${FLAGS} "$2"
+	else
+		ln -sf ${FLAGS} "${PWD}/$1" "$2"
+	fi
+}
+
 
 while getopts rv flag; do
 	case $flag in
-		r)    action=uninstall;;
+		r)    REMOVE=yes;;
 		v)    FLAGS="-v";;
 	esac
 done
+[[ $# -gt 0 ]] && shift
 
-shift
+if [[ $REMOVE == no ]]; then
+	# Check if the XDG CONFIG and DATA location variables are set...
+	# ... and create them if they don't exist
+	[[ -e $XDG_CONFIG_HOME ]] || mkdir $XDG_CONFIG_HOME
+	[[ -e   $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
+fi
 
-[[ $action != uninstall ]] && action=install
+# ZSH
+_action zlogin ${HOME}/.zlogin
+_action zprofile ${HOME}/.zprofile
+_action zshrc ${HOME}/.zshrc
 
-deploy_all
+# BSPWM, hotkey daemon, panel
+_action bspwm ${XDG_CONFIG_HOME}/bspwm
+_action sxhkd ${XDG_CONFIG_HOME}/sxhkd
+_action panelrc ${HOME}/.panelrc
+
+_action compton.conf ${XDG_CONFIG_HOME}/compton.conf
+
+_action newsbeuter/config ${HOME}/.newsbeuter/config
+_action newsbeuter/urls ${HOME}/.newsbeuter/urls
+
+_action pentadactylrc ${HOME}/.pentadactylrc
+
+_action xinitrc ${HOME}/.xinitrc
+_action Xresources ${HOME}/.Xresources
+_action Xcompose ${HOME}/.Xcompose
+
+_action vifm ${HOME}/.vifm
+
+_action Xmodmaprc ${HOME}/.Xmodmaprc
+_action tmux.conf ${HOME}/.tmux.conf
+
+if [[ ! -e ${HOME}/.vim ]]; then
+	mkdir ${HOME}/.vim
+	_action ${HOME}/.vim ${HOME}/.nvim
+fi
+_action vimrc ${HOME}/.vimrc ${HOME}/.nvimrc
