@@ -29,6 +29,10 @@ if [[ $REMOVE == no ]]; then
 	[[ -e   $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
 fi
 
+# Awesome WM
+_action awesome $XDG_CONFIG_HOME/awesome
+_action awesome $XDG_DATA_HOME/awesome
+
 # ZSH
 _action zlogin ${HOME}/.zlogin
 _action zprofile ${HOME}/.zprofile
