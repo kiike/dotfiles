@@ -18,6 +18,12 @@ local naughty = require("naughty")
 -- Custom layouts
 local cardstack = require("cardstack")
 
+local host = io.popen("hostname"):read("l")
+local host_conf = io.open(host .. ".rc.lua", "r")
+if host_conf then
+	require(host_conf)
+end
+
 -- Helper functions {{{
 local function _typicons(code)
     -- Return a string that contains nice markup
@@ -26,7 +32,7 @@ end
 
 
 -- Keyboard map indicator and changer
-kbd = {}
+local kbd = {}
 kbd.cmd = "setxkbmap"
 kbd.layout = { { "us", "-option" },
                { "es", "-option" }
@@ -89,12 +95,13 @@ beautiful.init(awehome .. "/themes/base16/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
 -- }}}
 
--- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
+local layouts = {
     cardstack,
     awful.layout.suit.max,
     awful.layout.suit.tile
 }
+
+
 -- }}}
 
 -- {{{ Tags
@@ -102,7 +109,7 @@ awful.layout.layouts = {
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ '1', '2', '3', '4'}, s, awful.layout.layouts[1])
+    tags[s] = awful.tag({ '1', '2', '3', '4'}, s, layouts[1])
 end
 -- }}}
 
@@ -110,9 +117,9 @@ end
 
 -- Create a laucher widget and a main menu
 session_menu = {
-    { "sys restart", "sudo systemctl reboot" },
-    { "sys poweroff", "sudo systemctl poweroff" },
-    { "sys suspend", "sudo pm-suspend" },
+    { "sys restart",  {{"confirm", "sudo systemctl reboot"}} },
+    { "sys poweroff", {{"confirm", "sudo systemctl poweroff"}} },
+    { "sys suspend", "sudo systemctl suspend" },
     { "sys lock", term_exec .. "i3lock" },
     { "wm restart", awesome.restart },
     { "wm quit", awesome.quit }
@@ -120,11 +127,10 @@ session_menu = {
 
 games_menu = {
     { "openttd", "openttd" },
-    { "pioneer", "pioneer" },
     { "steam", "steam" },
     { "ticket to ride", "/opt/ticket-to-ride/ticket-to-ride" },
-    { "rct2", "wineexec '.wine/drive_c/Program Files/Infogrames/RollerCoaster Tycoon 2/rct2.exe'" },
-    { "terraria", "wineexec '.wine/drive_c/Program Files/Terraria/Terraria.exe'" },
+    { "rct2", "launch_game rct2" },
+    { "terraria", "steam -applaunch 105600" },
     { "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
 }
 
@@ -132,13 +138,13 @@ main_menu = {
     { "session", session_menu },
     { "games", games_menu },
     { "", ""},
+    { "&alot", term_exec .. "alot"},
     { "&bitwig", "bitwig-studio"},
     { "&cmus", term_exec .. "cmus"},
     { "&firefox", "firefox" },
     { "&gimp", "gimp-2.8"},
     { "&jaikoz", "./Jaikoz/jaikoz.sh"},
     { "&newsbeuter", term_exec .. "newsbeuter" },
-    { "&mutt", term_exec .. "mutt"},
     { "&snes9x", "snes9x-gtk" },
     { "&vifm", term_exec .. "vifm" },
     { "&world clock", "scripts/tzdate a" },
@@ -157,6 +163,10 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
    -- Separator
    separator = wibox.widget.textbox()
    separator:set_text(' ')
+
+   uim_widget = wibox.widget.textbox()
+   uim_widget:set_text("")
+   awful.util.spawn("uim-eye.py")
 
    kbd.widget = wibox.widget.textbox()
    kbd.widget:set_text(kbd.layout[kbd.current][1])
@@ -234,6 +244,8 @@ mytaglist.buttons = awful.util.table.join(
     right_layout:add(separator)
     right_layout:add(kbd.widget)
     right_layout:add(separator)
+    right_layout:add(uim_widget)
+    right_layout:add(separator)
     right_layout:add(vicious_bat)
     right_layout:add(separator)
     right_layout:add(vicious_date)
@@ -306,25 +318,28 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "h", function () awful.tag.incncol( 1)      end),
     awful.key({ modkey, "Control" }, "l", function () awful.tag.incncol(-1)      end),
 
-    -- Toggle tiling mode
-    awful.key({ modkey,           }, "t", function () awful.layout.inc(1) end),
+    -- Cycle tiling modes
+    awful.key({ modkey,           }, "t", function () awful.layout.inc(layouts, 1) end),
 
     -- Manage volume
-    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("volume s 3dB-") end),
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("volume s 3dB+") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("volume d") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("volume u") end),
     awful.key({}, "XF86AudioMute",        function () awful.util.spawn("volume m") end),
 
     -- Manage cmus
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("remote prev") end),
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("remote next") end),
     awful.key({}, "XF86AudioStop", function () awful.util.spawn("remote stop") end),
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote togglePause") end),
+    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote pause") end),
 
-    -- Keyboard layout switching
-    awful.key({ modkey, "Shift" }, "l", function () kbd.switch() end),
+    -- Keyboard layout/input method switching
+    awful.key({ modkey,         }, "i", function () kbd.switch() end),
 
     -- Launcher prompt
-    awful.key({ modkey          }, "space",  function () mypromptbox[mouse.screen]:run() end)
+    awful.key({ modkey,         }, "space",  function () awful.util.spawn("dmenu_run_recent") end),
+    awful.key({ modkey, "Shift" }, "space",  function () awful.util.spawn("dmenu_term_run_recent") end),
+    awful.key({ modkey, "Shift" }, "p",      function () awful.util.spawn("passmenu") end),
+    awful.key({ modkey,         }, "p",      function () awful.util.spawn("passmenu --type") end)
 )
 
 clientkeys = awful.util.table.join(
