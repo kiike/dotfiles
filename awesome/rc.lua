@@ -1,54 +1,25 @@
--- Standard awesome library
+-- Awesome libraries
 local gears = require("gears")
-
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
 
--- Widget and layout library
 local wibox = require("wibox")
-vicious = require("vicious")
-
--- Theme handling library
+local vicious = require("vicious")
 local beautiful = require("beautiful")
-
--- Notification library
 local naughty = require("naughty")
 
--- Custom layouts
 local cardstack = require("cardstack")
+
+local typicons = require("typicons")
 
 local host = io.popen("hostname"):read("l")
 local host_conf = io.open(host .. ".rc.lua", "r")
+local kbd = require("kbd")
+local uim = require("uim")
 if host_conf then
 	require(host_conf)
 end
-
--- Helper functions {{{
-local function _typicons(code)
-    -- Return a string that contains nice markup
-    return "<span font='Typicons 14'>&#" .. code .. ";</span>"
-end
-
-
--- Keyboard map indicator and changer
-local kbd = {}
-kbd.cmd = "setxkbmap"
-kbd.layout = { { "us", "-option" },
-               { "es", "-option" }
-             }
-kbd.current = 1
-kbd.switch = function ()
-        kbd.current = kbd.current % #(kbd.layout) + 1
-        local t = kbd.layout[kbd.current]
-        kbd.widget:set_text(t[1])
-        os.execute(kbd.cmd .. " " .. t[1] .. " " .. t[2])
-        os.execute("xmodmap ~/.Xmodmaprc")
-        if t[1] == "us" then
-            os.execute("xmodmap -e 'remove mod1 = Alt_R'")
-            os.execute("xmodmap -e 'keysym Alt_R = Hangul'")
-        end
-    end
 
 -- }}}
 
@@ -159,44 +130,49 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                   })
 -- }}}
 
--- {{{ Misc widgets
-   -- Separator
-   separator = wibox.widget.textbox()
-   separator:set_text(' ')
+-- {{{ Widgets
 
-   uim_widget = wibox.widget.textbox()
-   uim_widget:set_text("")
-   awful.util.spawn("uim-eye.py")
+-- Input method
+uim.widget = wibox.widget.textbox()
+uim.start()
 
-   kbd.widget = wibox.widget.textbox()
-   kbd.widget:set_text(kbd.layout[kbd.current][1])
+-- Icon for the keyboard layout and IM indicators
+widget_kbd_typicon = wibox.widget.textbox()
+widget_kbd_typicon:set_markup(typicons.render("flag_outline"))
+
+-- Separator
+separator = wibox.widget.textbox()
+separator:set_text(' ')
+
+widget_kbd = wibox.widget.textbox()
+widget_kbd:set_text(kbd.layout[kbd.current][1])
 -- }}}
 
 -- {{{ Vicious widgets
    -- Battery widget
-   vicious_bat = wibox.widget.textbox()
-   vicious.register(vicious_bat, vicious.widgets.bat,
+   widget_battery = wibox.widget.textbox()
+   vicious.register(widget_battery, vicious.widgets.bat,
         function (widget, args)
             local charge = args[2]
-            if charge > 75 then return _typicons(57387)
-            elseif charge > 50 then return _typicons(57388)
-            elseif charge > 25 then return _typicons(57390)
+            if charge > 75 then return typicons.render("battery_full")
+            elseif charge > 50 then return typicons.render("battery_mid")
+            elseif charge > 25 then return typicons.render("battery_low")
             else return _typicons(57389)
             end
         end, 30, "BAT0")
 
    -- Mail widget
-   vicious_mail = wibox.widget.textbox()
-   vicious.register(vicious_mail, vicious.widgets.mdir,
+   widget_mail = wibox.widget.textbox()
+   vicious.register(widget_mail, vicious.widgets.mdir,
        function (widget, args)
-           if args[1] > 0 then return _typicons(57509)
+           if args[1] > 0 then return typicons.render("mail")
            else return ""
            end
        end, 60, {home .. '/mail/inbox'})
 
    -- Date widget
-   vicious_date = wibox.widget.textbox()
-   vicious.register(vicious_date, vicious.widgets.date, '%a %d %b, %H:%M')
+   widget_datetime = wibox.widget.textbox()
+   vicious.register(widget_datetime, vicious.widgets.date, '%a %d %b, %H:%M')
     -- }}}
 
 -- {{{ Wibox
@@ -240,15 +216,20 @@ mytaglist.buttons = awful.util.table.join(
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(separator)
-    right_layout:add(vicious_mail)
+    right_layout:add(widget_mail)
     right_layout:add(separator)
-    right_layout:add(kbd.widget)
     right_layout:add(separator)
-    right_layout:add(uim_widget)
+	right_layout:add(widget_kbd_typicon)
     right_layout:add(separator)
-    right_layout:add(vicious_bat)
+    right_layout:add(widget_kbd)
     right_layout:add(separator)
-    right_layout:add(vicious_date)
+    right_layout:add(uim.widget)
+    right_layout:add(separator)
+    right_layout:add(separator)
+    right_layout:add(widget_battery)
+    right_layout:add(separator)
+    right_layout:add(separator)
+    right_layout:add(widget_datetime)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
@@ -333,7 +314,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote pause") end),
 
     -- Keyboard layout/input method switching
-    awful.key({ modkey,         }, "i", function () kbd.switch() end),
+    awful.key({ modkey, "Shift" }, "i", function () kbd.switch() end),
 
     -- Launcher prompt
     awful.key({ modkey,         }, "space",  function () awful.util.spawn("dmenu_run_recent") end),
