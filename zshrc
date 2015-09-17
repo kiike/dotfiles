@@ -1,26 +1,3 @@
-# Exports {{{
-if [[ $TERM != linux ]] && [[ -f ${HOME}/.pyenv/bin/activate ]] && [[ -z $VIRTUAL_ENV ]]; then
-    VIRTUAL_ENV_DISABLE_PROMPT=1
-    source ${HOME}/.pyenv/bin/activate
-fi
-
-export WINEPREFIX="${HOME}/.wine/default"
-# }}}
-
-# Look and Feel {{{
-#}}}
-
-# Modules {{{
-autoload -U colors && colors
-
-fpath=(~/.zsh/completion $fpath)
-autoload -U compinit
-compinit
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-setopt extendedglob
-#}}}
-
 # Functions {{{
 format_seconds () {
     # Formats seconds into minutes and seconds where seconds is $1.
@@ -34,18 +11,27 @@ format_seconds () {
     fi
 }
 # }}}
+# Modules {{{
+autoload -U colors && colors
 
+fpath=(~/.zsh/completion $fpath)
+autoload -U compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+setopt extendedglob
+#}}}
+# History {{{
+HISTFILE=$HOME/.zsh_history
+[[ ! -f $HISTFILE ]] && touch $HISTFILE
+SAVEHIST=10000
+setopt share_history
+setopt histignoredups
+setopt histignorespace
+# }}}
 # Keybindings {{{
 bindkey -e
 # }}}
-
-# History {{{
-HISTFILE=${HOME}/.zsh_history
-HISTSIZE="10000"
-setopt SHARE_HISTORY
-setopt HIST_IGNORE_SPACE
-# }}}
-
 # PS1, window title and long process notification {{{
 TIMEFMT=$'\a'"$fg[green]%J$reset_color time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
 REPORTTIME=10
@@ -84,10 +70,6 @@ function precmd() {
       ;;
   esac
 }
-
-#}}}
-#}}}
-
 # Aliases {{{
 alias ccp="rsync -aPh"
 alias cp="cp -R"
@@ -95,11 +77,11 @@ alias df="df -h"
 alias du="du -h"
 alias du="du -h"
 alias ttyqr="ttyqr -b"
-# }}}
+alias speedtest="curl -o /dev/null http://cachefly.cachefly.net/100mb.test"
 
 case $(uname) in
 	OpenBSD)
-		:
+		alias sudo="doas"
 		;;
 	Linux)
 		if [[ -f "/etc/os-release" ]]; then
@@ -115,4 +97,5 @@ case $(uname) in
 		;;
 esac
 
-# vim: foldmethod=marker ts=4 sts=4 sw=4
+# }}}
+# vim: fdm=marker
