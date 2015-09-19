@@ -155,9 +155,9 @@ widget_kbd:set_text(kbd.layout[kbd.current][1])
         function (widget, args)
             local charge = args[2]
             if charge > 75 then return typicons.render("battery_full")
-            elseif charge > 50 then return typicons.render("battery_mid")
-            elseif charge > 25 then return typicons.render("battery_low")
-            else return _typicons(57389)
+            elseif charge > 50 then return typicons.render("battery_high")
+            elseif charge > 25 then return typicons.render("battery_mid")
+            else return typicons.render("battery_low")
             end
         end, 30, "BAT0")
 
