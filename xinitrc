@@ -32,7 +32,7 @@ fi
 xsetroot -cursor_name left_ptr
 
 # URxvt config and daemon
-xrdb -load ~/.Xresources
+xrdb -merge ~/.Xresources
 urxvtd -q -f -o
 
 # Compositor
