@@ -1,4 +1,0 @@
-set! browser.tabs.closeWindowWithLastTab=false
-set go=bCs
-set showtabline=never
-set defsearch=duckduckgo
