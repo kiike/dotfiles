@@ -1,3 +1,11 @@
+# Source all files in /etc/X11/xinit/xinitrc.d
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
+
 if hash uim-xim &>/dev/null; then
 	# Input method
 	export GTK_IM_MODULE='xim'
