@@ -6,6 +6,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+touchpad=$(xinput | grep TouchPad | cut -f 2 | cut -d = -f 2)
+[[ -n "$touchpad" ]] && xinput --disable $touchpad
+
+xset m 4/1 4
+
 if hash uim-xim &>/dev/null; then
 	# Input method
 	export GTK_IM_MODULE='xim'
