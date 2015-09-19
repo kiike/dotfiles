@@ -48,5 +48,7 @@ hash dunst && dunst &
 # Wallpaper
 imlibsetroot -s f ~/pictures/wallpaper
 
-sxhkd &
-exec bspwm
+[[ $(uname) == Linux ]] && pulseaudio --start
+
+exec awesome
+# vim: ft=sh
