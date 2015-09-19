@@ -87,6 +87,11 @@ super + Insert
 super + Escape
     pkill -USR1 -x sxhkd
 
+super + shift + Escape
+    pkill panel
+    panel
+
+
 # cmus control
 XF86AudioNext
     remote next
