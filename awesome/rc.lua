@@ -163,12 +163,12 @@ widget_kbd:set_text(kbd.layout[kbd.current][1])
 
    -- Mail widget
    widget_mail = wibox.widget.textbox()
-   vicious.register(widget_mail, vicious.widgets.mdir,
+   vicious.register(widget_mail, vicious.contrib.notmuch,
        function (widget, args)
-           if args[1] > 0 then return typicons.render("mail")
+           if args["count"] > 0 then return typicons.render("mail")
            else return ""
            end
-       end, 60, {home .. '/mail/inbox'})
+       end, 60, 'tag:inbox AND tag:unread AND NOT tag:killed')
 
    -- Date widget
    widget_datetime = wibox.widget.textbox()
