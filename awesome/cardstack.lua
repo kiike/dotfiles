@@ -2,6 +2,8 @@
 -- card stack layout by Enric Morales
 -- based on max.lua by Julien Danjou
 ------------------------------------------------------------------------
+--
+tag = require("awful.tag")
 
 -- Grab environment we need
 local pairs = pairs
@@ -9,18 +11,19 @@ local client = require("awful.client")
 
 --- card stack layout
 local cardstack = {}
+local mwfact = tag.getmwfact(t)
 
 local function fcardstack(p)
     area = p.workarea
     for k, c in pairs(p.clients) do
-		local x_offset = 18 * k
+        local x_offset = 18 * k
         local g = {
-			x = x_offset + area.width / 6,
-			y = area.y,
-			width = (area.width - c.border_width * 2) * (2 / 3),
-			height = area.height - c.border_width * 2
-			}
-			c:geometry(g)
+            x = x_offset + area.width / 6,
+            y = area.y,
+            width = (area.width - c.border_width * 2) * (2 / 3),
+            height = area.height - c.border_width * 2
+        }
+        c:geometry(g)
     end
 end
 
@@ -31,3 +34,5 @@ function cardstack.arrange(p)
 end
 
 return cardstack
+
+-- vim: ft=lua sw=4 ts=4 sts=4 et
