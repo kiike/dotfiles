@@ -40,10 +40,7 @@ urxvtd -q -f -o
 hash compton && compton -b
 
 # Turn down the blue gamma (less eye strain???) on laptop displays
-xrandr | grep -q LVDS1 && xgamma -bgamma 0.8
-
-# Notifications
-hash dunst && dunst &
+hash redshift && redshift &
 
 # Wallpaper
 imlibsetroot -s f ~/pictures/wallpaper
