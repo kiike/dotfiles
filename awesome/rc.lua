@@ -307,6 +307,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("volume u") end),
     awful.key({}, "XF86AudioMute",        function () awful.util.spawn("volume m") end),
 
+    awful.key({ modkey,           }, "r", function () awful.util.spawn("dmenu_raise -i") end),
+
     -- Manage cmus
     awful.key({}, "XF86AudioPrev", function () awful.util.spawn("remote prev") end),
     awful.key({}, "XF86AudioNext", function () awful.util.spawn("remote next") end),
@@ -319,8 +321,8 @@ globalkeys = awful.util.table.join(
     -- Launcher prompt
     awful.key({ modkey,         }, "space",  function () awful.util.spawn("dmenu_run_recent") end),
     awful.key({ modkey, "Shift" }, "space",  function () awful.util.spawn("dmenu_term_run_recent") end),
-    awful.key({ modkey, "Shift" }, "p",      function () awful.util.spawn("passmenu") end),
-    awful.key({ modkey,         }, "p",      function () awful.util.spawn("passmenu --type") end)
+    awful.key({ modkey,         }, "p",      function () awful.util.spawn("passmenu --type") end),
+    awful.key({ modkey, "Shift" }, "p",      function () awful.util.spawn("passmenu") end)
 )
 
 clientkeys = awful.util.table.join(
