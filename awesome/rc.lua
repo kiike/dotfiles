@@ -134,7 +134,10 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 -- Input method
 uim.widget = wibox.widget.textbox()
-uim.start()
+local uim_exists = awful.util.file_readable("/usr/bin/uim-sh")
+if uim_exists then
+    uim.start()
+end
 
 -- Icon for the keyboard layout and IM indicators
 widget_kbd_typicon = wibox.widget.textbox()
@@ -151,24 +154,30 @@ widget_kbd:set_text(kbd.layout[kbd.current][1])
 -- {{{ Vicious widgets
    -- Battery widget
    widget_battery = wibox.widget.textbox()
-   vicious.register(widget_battery, vicious.widgets.bat,
-        function (widget, args)
-            local charge = args[2]
-            if charge > 75 then return typicons.render("battery_full")
-            elseif charge > 50 then return typicons.render("battery_high")
-            elseif charge > 25 then return typicons.render("battery_mid")
-            else return typicons.render("battery_low")
-            end
-        end, 30, "BAT0")
+   battery_exists = awful.util.file_readable("/sys/class/power_supply/BAT0")
+   if battery_exists then
+       vicious.register(widget_battery, vicious.widgets.bat,
+            function (widget, args)
+                local charge = args[2]
+                if charge > 75 then return typicons.render("battery_full")
+                elseif charge > 50 then return typicons.render("battery_high")
+                elseif charge > 25 then return typicons.render("battery_mid")
+                else return typicons.render("battery_low")
+                end
+            end, 30, "BAT0")
+    end
 
    -- Mail widget
    widget_mail = wibox.widget.textbox()
-   vicious.register(widget_mail, vicious.contrib.notmuch,
-       function (widget, args)
-           if args["count"] > 0 then return typicons.render("mail")
-           else return ""
-           end
-       end, 60, 'tag:inbox AND tag:unread AND NOT tag:killed')
+   local notmuch_exists = awful.util.file_readable("/usr/bin/notmuch")
+   if notmuch_exists then
+       vicious.register(widget_mail, vicious.contrib.notmuch,
+           function (widget, args)
+               if args["count"] > 0 then return typicons.render("mail")
+               else return ""
+               end
+           end, 60, 'tag:inbox AND tag:unread AND NOT tag:killed')
+   end
 
    -- Date widget
    widget_datetime = wibox.widget.textbox()
@@ -216,18 +225,27 @@ mytaglist.buttons = awful.util.table.join(
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(separator)
-    right_layout:add(widget_mail)
-    right_layout:add(separator)
+    if notmuch_exists then
+        right_layout:add(widget_mail)
+        right_layout:add(separator)
+    end
     right_layout:add(separator)
 	right_layout:add(widget_kbd_typicon)
     right_layout:add(separator)
     right_layout:add(widget_kbd)
     right_layout:add(separator)
-    right_layout:add(uim.widget)
-    right_layout:add(separator)
-    right_layout:add(separator)
-    right_layout:add(widget_battery)
-    right_layout:add(separator)
+
+    if uim_exists then
+        right_layout:add(uim.widget)
+        right_layout:add(separator)
+        right_layout:add(separator)
+    end
+
+    if battery_exists then
+        right_layout:add(widget_battery)
+        right_layout:add(separator)
+    end
+
     right_layout:add(separator)
     right_layout:add(widget_datetime)
 
