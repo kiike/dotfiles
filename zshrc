@@ -1,3 +1,8 @@
+# Overrides
+setopt nolistbeep
+setopt nohistbeep
+setopt nobeep
+
 # Functions {{{
 format_seconds () {
     # Formats seconds into minutes and seconds where seconds is $1.
@@ -24,6 +29,7 @@ setopt extendedglob
 # History {{{
 HISTFILE=$HOME/.zsh_history
 [[ ! -f $HISTFILE ]] && touch $HISTFILE
+HISTSIZE=10000
 SAVEHIST=10000
 setopt share_history
 setopt histignoredups
@@ -64,7 +70,7 @@ function preexec() {
 
 function precmd() {
   case "$TERM" in
-    rxvt*)
+    rxvt*|xterm*)
       print -Pn "\ek%-3~\e\\" # set screen title
       print -Pn "\e]2;${host_if_inside_ssh}%1//\a" # set xterm title, via screen "Operating System Command"
       ;;
