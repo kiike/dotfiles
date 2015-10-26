@@ -4,6 +4,10 @@ setopt nohistbeep
 setopt nobeep
 
 # Functions {{{
+function cless () {
+    pygmentize -f terminal -N $@ | less -R
+}
+
 format_seconds () {
     # Formats seconds into minutes and seconds where seconds is $1.
     s=$1
