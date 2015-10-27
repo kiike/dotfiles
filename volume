@@ -1,0 +1,51 @@
+#!/bin/sh
+# vim: ts=4 sts=4 sw=4 et
+
+get_sink() {
+    echo -e "$STATE" | grep set-default-sink | cut -d " " -f 2
+}
+
+up() {
+	pactl set-sink-mute ${SINK} false
+	pactl set-sink-volume ${SINK} +${STEP}
+	notify_volume
+}
+
+down() {
+	pactl set-sink-mute ${SINK} false
+	pactl set-sink-volume ${SINK} -${STEP}
+	notify_volume
+}
+
+mute() {
+    IS_MUTED=$(echo -e "$STATE" | grep set-sink-mute | cut -f 3 -d ' ')
+	case $IS_MUTED in
+		yes)
+			pactl set-sink-mute ${SINK} false
+			notify-send mute unmuted
+			;;
+
+		no)
+			pactl set-sink-mute ${SINK} true
+			notify-send mute muted
+			;;
+	esac
+}
+
+notify_volume() {
+	volume_hex=$(echo -e "$STATE" | grep "set-sink-volume ${SINK}" | cut -f3 -d' ')
+	volume=$((16#${volume_hex#0x}))
+	notify-send -u low "volume" "$((100 * volume / 65536))%"
+}
+
+STATE=$(pacmd dump)
+SINK=$(echo -e "$STATE" | grep set-default-sink | cut -d " " -f 2)
+
+STEP=10%
+
+case $1 in
+	u|up) up ;;
+	d|down) down ;;
+	m|mute) mute ;;
+	*) echo "$0 usage: u[p]|d[own]|m[ute]"
+esac
