@@ -1,36 +1,17 @@
-set nocompatible
 set ignorecase
 set incsearch
 set smartcase
 set backspace=2
 
-" Undo and backups {{{
-" This enables backups and undo and creates an undo point after
-" the end of every sentence.
-set undofile
-set undodir=~/.cache/vim/undo
-set nobackup
-
-inoremap . .<C-g>u
-inoremap ! !<C-g>u
-inoremap ? ?<C-g>u
-inoremap : :<C-g>u
-
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p", 0700)
-endif
-
-"}}}
-
 " vim-plug Config {{{
 
-if !filereadable(expand("~/.vim/autoload/plug.vim"))
-    !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if !filereadable(expand("~/.config/nvim/autoload/plug.vim"))
+    !curl --create-dirs -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall
 endif
 
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 if has("python")
     Plug 'SirVer/ultisnips'
@@ -41,6 +22,7 @@ if has("python")
 endif
 
 Plug 'bling/vim-airline'
+Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 Plug 'ervandew/supertab'
 Plug 'lepture/vim-jinja'
@@ -62,7 +44,7 @@ set relativenumber
 
 let base16colorspace=256
 set background=dark
-colorscheme base16-chalk
+colorscheme solarized
 
 if has("syntax")
 	syntax on
