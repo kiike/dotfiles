@@ -55,7 +55,7 @@ awehome = home .. "/.local/share/awesome"
 
 modkey = "Mod4"
 
-terminal = "urxvtc"
+terminal = "sakura"
 term_exec = terminal .. " -e "
 
 editor = os.getenv("EDITOR")
