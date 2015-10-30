@@ -154,7 +154,7 @@ widget_kbd:set_text(kbd.layout[kbd.current][1])
 -- {{{ Vicious widgets
    -- Battery widget
    widget_battery = wibox.widget.textbox()
-   battery_exists = awful.util.file_readable("/sys/class/power_supply/BAT0")
+   battery_exists = awful.util.dir_readable("/sys/class/power_supply/BAT0")
    if battery_exists then
        vicious.register(widget_battery, vicious.widgets.bat,
             function (widget, args)
