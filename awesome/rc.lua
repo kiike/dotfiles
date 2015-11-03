@@ -62,7 +62,7 @@ editor = os.getenv("EDITOR")
 editor_cmd = term_exec .. editor
 
 -- Theme {{{
-beautiful.init(awehome .. "/themes/base16/theme.lua")
+beautiful.init(awehome .. "/themes/sola/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
 -- }}}
 
