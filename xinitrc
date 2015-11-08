@@ -17,10 +17,9 @@ xset m 4/1 4
 # Input method {{{
 xmodmap ~/.Xmodmaprc
 if hash uim-xim &>/dev/null; then
-	export GTK_IM_MODULE='xim'
+	export GTK_IM_MODULE='uim'
 	export QT_IM_MODULE='uim'
 	export XMODIFIERS=@im=uim
-	uim-xim &
 	xmodmap -e 'keysym Alt_R = Hangul'
 fi
 
