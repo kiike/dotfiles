@@ -41,9 +41,6 @@ hash compton && compton -b
 # Turn down the blue gamma (less eye strain???) on laptop displays
 hash redshift && redshift &
 
-# Wallpaper
-imlibsetroot -s f ~/pictures/wallpaper
-
 [[ $(uname) == Linux ]] && pulseaudio --start
 
 exec awesome
