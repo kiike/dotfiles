@@ -146,7 +146,7 @@ pomodoro.init()
 
 -- Icon for the keyboard layout and IM indicators
 widget_kbd_typicon = wibox.widget.textbox()
-widget_kbd_typicon:set_markup(typicons.render("flag_outline"))
+widget_kbd_typicon:set_markup(typicons.render("keyboard"))
 
 -- Separator
 separator = wibox.widget.textbox()
