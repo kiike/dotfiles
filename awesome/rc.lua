@@ -197,24 +197,15 @@ mypromptbox = {}
 mytasklist = {}
 mytaglist = {}
 
-mytaglist.buttons = awful.util.table.join(
-    awful.button({ }, 1, awful.tag.viewonly),
-    awful.button({ modkey }, 1, awful.client.movetotag),
-    awful.button({ }, 3, awful.tag.viewtoggle),
-    awful.button({ modkey }, 3, awful.client.toggletag),
-    awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-    awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end))
-
-
     s = 1
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt()
 
     -- Create a taglist widget
-    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+    mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all)
 
     -- Create a tasklist widget
-    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+    mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused)
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
