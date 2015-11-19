@@ -17,6 +17,7 @@ local host = io.popen("hostname"):read("l")
 local host_conf = io.open(host .. ".rc.lua", "r")
 local kbd = require("kbd")
 local uim = require("uim")
+local pomodoro = require("pomodoro")
 if host_conf then
 	require(host_conf)
 end
@@ -139,6 +140,9 @@ if uim_exists then
     uim.start()
 end
 
+-- Pomodoro
+pomodoro.init()
+
 -- Icon for the keyboard layout and IM indicators
 widget_kbd_typicon = wibox.widget.textbox()
 widget_kbd_typicon:set_markup(typicons.render("flag_outline"))
@@ -230,6 +234,7 @@ mytaglist.buttons = awful.util.table.join(
         right_layout:add(separator)
     end
     right_layout:add(separator)
+    right_layout:add(pomodoro.widget, separator)
 	right_layout:add(widget_kbd_typicon)
     right_layout:add(separator)
     right_layout:add(widget_kbd)
