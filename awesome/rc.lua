@@ -330,6 +330,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioStop", function () awful.util.spawn("remote stop") end),
     awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote pause") end),
 
+    awful.key({ modkey, "Shift"}, "c", function () awful.util.spawn("toggle_compton") end),
+
     -- Keyboard layout/input method switching
     awful.key({ modkey, "Shift" }, "i", function () kbd.switch() end),
 

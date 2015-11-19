@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set +eu
+
+if pgrep -u $UID compton; then
+	notify-send "toggle_compton" "compton was killed"
+	pkill -u $UID -KILL compton
+else
+	notify-send "toggle_compton" "compton was spawned"
+	compton -b
+fi
