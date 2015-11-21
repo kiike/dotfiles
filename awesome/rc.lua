@@ -239,7 +239,7 @@ mytaglist = {}
         right_layout:add(separator)
     end
     right_layout:add(separator)
-    right_layout:add(pomodoro.widget, separator)
+    right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator)
 	right_layout:add(widget_kbd_typicon)
     right_layout:add(separator)
     right_layout:add(widget_kbd)
