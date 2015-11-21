@@ -164,10 +164,17 @@ widget_kbd:set_text(kbd.layout[kbd.current][1])
        vicious.register(widget_battery, vicious.widgets.bat,
             function (widget, args)
                 local charge = args[2]
-                if charge > 75 then return typicons.render("battery_full")
-                elseif charge > 50 then return typicons.render("battery_high")
-                elseif charge > 25 then return typicons.render("battery_mid")
-                else return typicons.render("battery_low")
+                if     charge > 75 then icon = typicons.render("battery_full")
+                elseif charge > 50 then icon = typicons.render("battery_high")
+                elseif charge > 25 then icon = typicons.render("battery_mid")
+                else                    icon = typicons.render("battery_low")
+				end
+
+				local state = args[1]
+				if state == "−" then
+					return string.format("%s %s", icon, args[3])
+				else
+					return icon
                 end
             end, 30, "BAT0")
     end
