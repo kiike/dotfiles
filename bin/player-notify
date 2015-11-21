@@ -18,7 +18,7 @@ formatted_output="$(printf '"%s" (%s)\nby %s\non %s\n' "$title" "$totaltime" "$a
 notify-send "Now playing" "$formatted_output"
 
 if [[ -n ${title} ]] && [[ -n ${artist} ]]; then
-	printf 'now_playing_widget:set_text("\\\"%s\\\" by %s")' \
+	printf 'now_playing_widget:set_markup("<span font=\\\"Typicons 14\\\">&#57520;</span> <span color=\\\"#b16286\\\">\\\"%s\\\"</span> by <span color=\\\"#689d6a\\\">%s</span>")' \
 		"$title" "$artist" \
 		| awesome-client
 fi
