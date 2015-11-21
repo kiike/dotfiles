@@ -133,6 +133,8 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 -- }}}
 
 -- {{{ Widgets
+-- Now playing widget: to be set by scripts via awesome-client
+now_playing_widget = wibox.widget.textbox()
 
 -- Input method
 uim.widget = wibox.widget.textbox()
@@ -228,6 +230,10 @@ mytaglist = {}
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(separator)
+
+
+	right_layout:add(now_playing_widget)
+
     if notmuch_exists then
         right_layout:add(widget_mail)
         right_layout:add(separator)
