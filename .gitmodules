@@ -4,3 +4,6 @@
 [submodule "awesome/vicious"]
 	path = awesome/vicious
 	url = http://git.sysphere.org/vicious
+[submodule "awesome/pomodoro"]
+	path = awesome/pomodoro
+	url = git@github.com:kiike/awesome-pomodoro.git
