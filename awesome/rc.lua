@@ -56,7 +56,15 @@ awehome = home .. "/.local/share/awesome"
 
 modkey = "Mod4"
 
-terminal = "sakura"
+-- Find terminals and set the first available one
+if awful.util.file_readable("/usr/bin/sakura") then
+	terminal = "sakura"
+	elseif awful.util.file_readable("/usr/bin/urxvt") then
+	terminal = "urxvt"
+	elseif awful.util.file_readable("/usr/bin/st") then
+	terminal = "st"
+end
+
 term_exec = terminal .. " -e "
 
 editor = os.getenv("EDITOR")
@@ -110,7 +118,7 @@ games_menu = {
 main_menu = {
     { "session", session_menu },
     { "games", games_menu },
-    { "", ""},
+    { "", nil},
     { "&alot", term_exec .. "alot"},
     { "&bitwig", "bitwig-studio"},
     { "&cmus", term_exec .. "cmus"},
@@ -229,34 +237,25 @@ mytaglist = {}
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(separator)
 
-
-	right_layout:add(now_playing_widget)
+	right_layout:add(now_playing_widget, separator)
 
     if notmuch_exists then
-        right_layout:add(widget_mail)
-        right_layout:add(separator)
+        right_layout:add(widget_mail, separator)
     end
-    right_layout:add(separator)
+
     right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator)
-	right_layout:add(widget_kbd_typicon)
-    right_layout:add(separator)
-    right_layout:add(widget_kbd)
-    right_layout:add(separator)
+	right_layout:add(widget_kbd_typicon, separator)
+    right_layout:add(widget_kbd, separator)
 
     if uim_exists then
-        right_layout:add(uim.widget)
-        right_layout:add(separator)
-        right_layout:add(separator)
+        right_layout:add(uim.widget, separator)
     end
 
     if battery_exists then
-        right_layout:add(widget_battery)
-        right_layout:add(separator)
+        right_layout:add(widget_battery, separator)
     end
 
-    right_layout:add(separator)
     right_layout:add(widget_datetime)
 
     -- Now bring it all together (with the tasklist in the middle)
