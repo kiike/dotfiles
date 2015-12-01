@@ -6,11 +6,15 @@ ifndef $(XDG_DATA)
 	XDG_DATA_HOME=$(HOME)/.local
 endif
 
-all: minimum awesome bspwm compton newsbeuter X vifm
 minimum: vim zsh tmux bin
+all: minimum awesome bspwm compton newsbeuter X vifm submodules
 
 bin:
 	ln -Tsf $(PWD)/bin $(HOME)/bin
+
+mksh:
+	ln -Tsf $(PWD)/mksh/mkshrc $(HOME)/.mkshrc
+	ln -Tsf $(PWD)/mksh/profile $(HOME)/.profile
 
 zsh:
 	ln -Tsf $(PWD)/zlogin $(HOME)/.zlogin
@@ -63,5 +67,7 @@ clean:
 	rm -f $(HOME)/.vimrc
 	rm -f $(HOME)/.nvimrc
 
+submodules:
+	git submodule update --recursive
 
 .PHONY: vim tmux vifm X newsbeuter compton bspwm awesome zsh mpv clean nvim bin
