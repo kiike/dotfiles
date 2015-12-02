@@ -2,14 +2,21 @@
 export PATH=$HOME/bin:$PATH
 
 # Local tex
-export PATH=/usr/local/texlive/2014/bin/x86_64-linux/:$PATH
+if [[ -d /usr/local/texlive/2014/bin/x86_64-linux/ ]]; then
+	export PATH=/usr/local/texlive/2014/bin/x86_64-linux/:$PATH
+fi
 
 # Haskell
-export PATH=$HOME/.cabal/bin:$PATH
+if [[ -d HOME/.cabal/bin ]]; then
+	export PATH=$HOME/.cabal/bin:$PATH
+fi
 
 # Go
-export PATH=$HOME/projects/go/bin:$PATH
-export GOPATH=$HOME/projects/go
+GOPATH=$HOME/projects/go
+if [[ -d $GOPATH ]]; then
+	export PATH=$HOME/projects/go/bin:$PATH
+	export GOPATH
+fi
 
 # Global settings
 export BROWSER="/usr/bin/qutebrowser"
@@ -23,6 +30,6 @@ export EDITOR="vim"
 if [[ ! -z $SSH_CONNECTION ]] && [[ -z $TMUX ]]; then
 	tmux attach || tmux
 
-elif ! pgrep -u $UID -x Xorg &>/dev/null && hash startx && [[ $TERM == linux ]]; then
+elif ! pgrep -u $UID -x Xorg 2>&1 >/dev/null && hash startx && [[ $TERM == linux ]]; then
 	startx
 fi
