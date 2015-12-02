@@ -9,15 +9,17 @@ _action() {
 	if [[ $REMOVE == yes ]]; then
 		[[ -h $2 ]] && rm ${FLAGS} "$2"
 	else
-		ln -sf ${FLAGS} "${PWD}/$1" "$2"
+		[[ -h $2 ]] && rm ${FLAGS} "$2"
+		ln -s ${FLAGS} "$1" "$2"
 	fi
 }
 
 
-while getopts rv flag; do
+while getopts aRv flag; do
 	case $flag in
-		r)    REMOVE=yes;;
+		R)    REMOVE=yes;;
 		v)    FLAGS="-v";;
+		a)    ALL=yes;;
 	esac
 done
 [[ $# -gt 0 ]] && shift
@@ -29,38 +31,35 @@ if [[ $REMOVE == no ]]; then
 	[[ -e   $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
 fi
 
-# Awesome WM
-_action awesome $XDG_CONFIG_HOME/awesome
-_action awesome $XDG_DATA_HOME/awesome
 
-# ZSH
-_action zlogin ${HOME}/.zlogin
-_action zprofile ${HOME}/.zprofile
-_action zshrc ${HOME}/.zshrc
+_action ${PWD}/bin ${HOME}/bin
 
-# BSPWM, hotkey daemon, panel
-_action bspwm ${XDG_CONFIG_HOME}/bspwm
-_action sxhkd ${XDG_CONFIG_HOME}/sxhkd
-_action panelrc ${HOME}/.panelrc
+_action ${PWD}/mksh/mkshrc ${HOME}/.mkshrc
+_action ${PWD}/mksh/profile ${HOME}/.profile
 
-_action compton.conf ${XDG_CONFIG_HOME}/compton.conf
+_action ${PWD}/zlogin ${HOME}/.zlogin
+_action ${PWD}/zprofile ${HOME}/.zprofile
+_action ${PWD}/zshrc ${HOME}/.zshrc
+_action ${PWD}/tmux.conf ${HOME}/.tmux.conf
 
-_action newsbeuter/config ${HOME}/.newsbeuter/config
-_action newsbeuter/urls ${HOME}/.newsbeuter/urls
+if [[ $ALL == yes ]]; then
+	_action ${PWD}/awesome ${XDG_CONFIG_HOME}/awesome
+	_action ${PWD}/awesome ${XDG_DATA_HOME}/awesome
 
-_action pentadactylrc ${HOME}/.pentadactylrc
+	_action ${PWD}/compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
-_action xinitrc ${HOME}/.xinitrc
-_action Xresources ${HOME}/.Xresources
-_action Xcompose ${HOME}/.Xcompose
+	_action ${PWD}/newsbeuter/ ${HOME}/.newsbeuter
 
-_action vifm ${HOME}/.vifm
+	_action ${PWD}/xinitrc ${HOME}/.xinitrc
+	_action ${PWD}/Xresources ${HOME}/.Xresources
+	_action ${PWD}/Xcompose ${HOME}/.Xcompose
+	_action ${PWD}/Xmodmaprc ${HOME}/.Xmodmaprc
 
-_action Xmodmaprc ${HOME}/.Xmodmaprc
-_action tmux.conf ${HOME}/.tmux.conf
+	_action ${PWD}/vifm ${HOME}/.vifm
 
-if [[ ! -e ${HOME}/.vim ]]; then
-	mkdir ${HOME}/.vim
-	_action ${HOME}/.vim ${HOME}/.nvim
+	_action ${PWD}/vimrc ${HOME}/.vimrc
+
+	_action ${PWD}/nvim/init.vim ${HOME}/.config/nvim/init.vim
 fi
-_action vimrc ${HOME}/.vimrc ${HOME}/.nvimrc
+
+git submodule update --recursive
