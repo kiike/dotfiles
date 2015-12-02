@@ -6,7 +6,7 @@ ifndef $(XDG_DATA)
 	XDG_DATA_HOME=$(HOME)/.local
 endif
 
-minimum: vim zsh tmux bin
+minimum: vim zsh tmux bin mksh
 all: minimum awesome bspwm compton newsbeuter X vifm submodules
 
 bin:
@@ -70,4 +70,4 @@ clean:
 submodules:
 	git submodule update --recursive
 
-.PHONY: vim tmux vifm X newsbeuter compton bspwm awesome zsh mpv clean nvim bin
+.PHONY: vim tmux vifm X newsbeuter compton bspwm awesome zsh mpv clean nvim bin mksh
