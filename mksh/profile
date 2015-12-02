@@ -6,8 +6,13 @@ if [[ -d /usr/local/texlive/2014/bin/x86_64-linux/ ]]; then
 	export PATH=/usr/local/texlive/2014/bin/x86_64-linux/:$PATH
 fi
 
+# Luarocks
+if [[ -d $HOME/.luarocks/bin ]]; then
+	export PATH=$HOME/.luarocks/bin:$PATH
+fi
+
 # Haskell
-if [[ -d HOME/.cabal/bin ]]; then
+if [[ -d $HOME/.cabal/bin ]]; then
 	export PATH=$HOME/.cabal/bin:$PATH
 fi
 
