@@ -17,6 +17,8 @@ export PAGER="less"
 export EDITOR="vim"
 
 # Start tmux if running under SSH, else start X if it's installed and it's not already running
+[[ -z $UID ]] && export UID=$(id -u)
+
 if [[ ! -z $SSH_CONNECTION ]] && [[ -z $TMUX ]]; then
 	tmux attach || tmux
 
