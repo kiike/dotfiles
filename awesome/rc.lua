@@ -198,7 +198,7 @@ widget_kbd:set_text(kbd.layout[kbd.current][1])
                if args["count"] > 0 then return typicons.render("mail")
                else return ""
                end
-           end, 60, 'tag:inbox AND tag:unread AND NOT tag:killed')
+           end, 60, 'tag:inbox AND NOT tag:killed AND tag:unread AND NOT folder:trash')
    end
 
    -- Date widget
