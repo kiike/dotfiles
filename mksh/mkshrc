@@ -1,3 +1,7 @@
+function precmd {
+	\echo -ne "\033]0;TEST TEST\007"
+}
+
 PS1='${|
 	\typeset e=$?
 
@@ -12,3 +16,6 @@ PS1='${|
 
 	(( e )) && REPLY="$e|$REPLY"
 } '
+
+\alias please='sudo mksh -c "$(\builtin fc -ln -1)"'
+\alias omxplayer='omxplayer --no-ghost-box'
