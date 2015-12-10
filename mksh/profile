@@ -8,6 +8,7 @@ fi
 
 # Luarocks
 if [[ -d $HOME/.luarocks/bin ]]; then
+echo export lua
 	export PATH=$HOME/.luarocks/bin:$PATH
 fi
 
