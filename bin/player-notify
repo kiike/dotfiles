@@ -1,24 +1,44 @@
-#!/bin/sh
-# mocp notifier for Awesome WM
+#!/usr/bin/env lua
+-- mocp notifier for Awesome WM
 
-mocp_status=$(mocp -i)
-state=$(printf "$mocp_status"| grep "State" | cut -d ' ' -f 2)
+local function mocp_parse(mocp_info)
+	local state = string.match(mocp_info, "State: (%w+)")
+	if state == "STOP" then
+		local widget_cmd = "now_playing_widget:set_text('')"
+		local notify_cmd = nil
+		return widget_cmd, notify_cmd
 
-if [[ $state == STOP ]]; then
-	echo 'now_playing_widget:set_text("")' | awesome-client
-	exit
-fi
+	else
+		local artist = mocp_info:match("Artist: (%C+)")
+		local album = mocp_info:match("Album: (%C+)")
+		local title = mocp_info:match("SongTitle: (%C+)")
+		local totaltime = mocp_info:match("TotalTime: (%C+)")
 
-artist=$(printf "$mocp_status" | grep "Artist:" | cut -d ' ' -f 2-)
-album=$(printf "$mocp_status"| grep "Album: "| cut -d ' ' -f 2- | sed 's/\"/\\\"/g')
-title=$(printf "$mocp_status"| grep "SongTitle:" | cut -d ' ' -f 2- | sed 's/\"/\\\"/g')
-totaltime=$(printf "$mocp_status"| grep "TotalTime:" | cut -d ' ' -f 2-)
-formatted_output="$(printf '"%s" (%s)\nby %s\non %s\n' "$title" "$totaltime" "$artist" "$album")"
+		local notify_template = "%s (%s)\nby %s\non %s"
+		local notify_text = notify_template:format(title, totaltime, artist, album)
+		notify_text = notify_text:gsub("'", "\\'")
+		notify_text = notify_text:gsub("&", "&amp;")
+		local notify_cmd = string.format("notify-send 'Now playing' '%s'", notify_text)
 
-notify-send "Now playing" "$formatted_output"
+		local widget_template = "<span font='Noto Emoji'>&#9654;</span> <span color='#b16286'>%s</span> by <span color='#689d6a'>%s</span>"
+		local widget_markup = widget_template:format(title, artist)
+		local widget_cmd = string.format('now_playing_widget:set_markup("%s")', widget_markup)
 
-if [[ -n ${title} ]] && [[ -n ${artist} ]]; then
-	printf 'now_playing_widget:set_markup("<span font=\\\"Typicons 14\\\">&#57520;</span> <span color=\\\"#b16286\\\">\\\"%s\\\"</span> by <span color=\\\"#689d6a\\\">%s</span>")' \
-		"$title" "$artist" \
-		| awesome-client
-fi
+		return widget_cmd, notify_cmd
+	end
+
+end
+
+local mocp_handle = io.popen("mocp -i")
+local mocp_info = mocp_handle:read("*a")
+
+local widget_cmd, notify_cmd = mocp_parse(mocp_info)
+
+if widget_cmd then
+	local awesome_client = io.popen("awesome-client", "w")
+	awesome_client:write(widget_cmd)
+end
+
+if notify_cmd then
+	io.popen(notify_cmd)
+end
