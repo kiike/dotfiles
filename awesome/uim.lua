@@ -1,13 +1,17 @@
 -- Lua libraries
 local glib = require("lgi").GLib
 local gio = require("lgi").Gio
+local naughty = require("naughty")
 
-uim = {}
+local uim = {}
 
 uim.start = function ()
 	local runtime_dir = os.getenv("XDG_RUNTIME_DIR")
-	local socket_path = string.format("/var/%s/uim/socket/uim-helper", runtime_dir)
+	local socket_path = string.format("%s/uim/socket/uim-helper", runtime_dir)
+
 	local socket = gio.Socket.new(gio.SocketFamily.UNIX, gio.SocketType.STREAM, gio.SocketProtocol.DEFAULT)
+
+	--local success = false
 	local success = socket:connect(gio.UnixSocketAddress.new(socket_path))
 	if not success then return false end
 	local fd = socket:get_fd()
@@ -31,7 +35,7 @@ uim.start = function ()
 			socket:shutdown(true, true)
 		else
 			line = string.gsub(line, "\t", " ")
-			branch = string.match(line, "branch%s%S+%s(%S+)")
+			local branch = string.match(line, "branch%s%S+%s(%S+)")
 
 			if string.match(line, "^$") then
 				if #t == 2 then
