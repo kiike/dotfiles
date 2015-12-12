@@ -22,6 +22,8 @@ if has("python")
     Plug 'davidhalter/jedi-vim'
 endif
 
+Plug 'benekastah/neomake'
+Plug 'morhetz/gruvbox'
 Plug 'bling/vim-airline'
 Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
@@ -29,6 +31,7 @@ Plug 'ervandew/supertab'
 Plug 'lepture/vim-jinja'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'rhysd/vim-grammarous'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
@@ -45,7 +48,7 @@ set relativenumber
 
 let base16colorspace=256
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 
 if has("syntax")
 	syntax on
