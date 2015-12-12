@@ -13,4 +13,4 @@ _dmenu() {
        	| dmenu "$@" | tee -a "$CACHE"
 }
 
-urxvt -e "$(_dmenu)"
+sakura -e "$(_dmenu)"
