@@ -108,8 +108,13 @@ function! PandocInit()
 endfun
 " }}}
 
+function! Remove_Trailing_Space()
+	normal :%s/\s\+$//e
+endfunction
+
 " Auto-commands {{{
-autocmd BufWritePre * :%s/\s\+$//e
+autocmd! BufWritePost * Neomake
+
 au BufNewFile,BufRead /tmp/mutt* :call MailInit()
 au BufNewFile,BufRead *.markdown,*.md :call PandocInit()
 au FileType python setlocal et ts=4 sw=4 sts=4 tw=72
