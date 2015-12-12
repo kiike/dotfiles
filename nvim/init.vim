@@ -1,6 +1,7 @@
 set ignorecase
 set incsearch
 set smartcase
+set mouse=
 set backspace=2
 
 " vim-plug Config {{{
