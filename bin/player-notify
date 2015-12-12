@@ -2,6 +2,9 @@
 -- mocp notifier for Awesome WM
 
 local function mocp_parse(mocp_info)
+	-- Sanitize input
+	mocp_info = mocp_info:gsub("&", "&amp;")
+
 	local state = string.match(mocp_info, "State: (%w+)")
 	if state == "STOP" then
 		local widget_cmd = "now_playing_widget:set_text('')"
@@ -17,7 +20,6 @@ local function mocp_parse(mocp_info)
 		local notify_template = "%s (%s)\nby %s\non %s"
 		local notify_text = notify_template:format(title, totaltime, artist, album)
 		notify_text = notify_text:gsub("'", "\\'")
-		notify_text = notify_text:gsub("&", "&amp;")
 		local notify_cmd = string.format("notify-send 'Now playing' '%s'", notify_text)
 
 		local widget_template = "<span font='Noto Emoji'>&#9654;</span> <span color='#b16286'>%s</span> by <span color='#689d6a'>%s</span>"
