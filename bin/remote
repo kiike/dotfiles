@@ -1,16 +1,16 @@
 #!/bin/sh
-# Uncopyrighted. By Enric Morales. 2014
-# Control a running cmus instance and output its info via notify-send
 
-if ! pgrep -u $UID cmus >/dev/null; then
-	notify-send "remote" "No instance of cmus found."
-	exit 1
+if  [[ $1 == play ]] && ! pgrep -u $UID moc; then
+	notify-send "Spawning a mocp instance"
+	sakura -e mocp
 fi
 
-
 case $1 in
-	pause) cmus-remote $CMD --pause ;;
-	next)  cmus-remote $CMD --next ;;
-	prev)  cmus-remote $CMD --prev ;;
-	stop)  cmus-remote $CMD --stop ;;
+	pause) mocp -G ;;
+	next)  mocp -f ;;
+	prev)  mocp -r ;;
+	stop)  mocp -s ;;
 esac
+
+# Update widgets and notifications
+player-notify
