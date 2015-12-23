@@ -53,13 +53,6 @@ if has("syntax")
 endif
 "}}}
 
-" Window mappings {{{
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-"}}}
-
 " Leader mappings {{{
 map <leader>t :NERDTree<CR>
 map <leader>w :w !sudo tee % >/dev/null
@@ -67,6 +60,21 @@ map <leader>w :w !sudo tee % >/dev/null
 
 " Custom mappings {{{
 nnoremap <S-Return> i<CR><Esc>
+"}}}
+
+" Neovim Terminal emulation {{{
+tnoremap <Esc> <C-\><C-n>
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+"}}}
+
+" Window navigation {{{
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 "}}}
 
 " Toggle between relative, absolute, and no line numbers {{{
