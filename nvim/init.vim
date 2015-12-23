@@ -114,9 +114,46 @@ function! PandocInit()
 endfun
 " }}}
 
+" {{{ Remove trailing spaces function
 function! Remove_Trailing_Space()
 	normal :%s/\s\+$//e
 endfunction
+" }}}
+
+" Arduino neomaker {{{
+let g:neomake_arduino_avrgcc_maker = {
+	\ 'exe': '/usr/share/arduino/hardware/tools/avr/bin/avr-g++',
+	\ 'args': [
+		\ '-mmcu=atmega328p',
+		\ '-DF_CPU=16000000L',
+		\ '-DARDUINO=165',
+		\ '-DARDUINO_ARCH_AVR',
+		\ '-ffunction-sections',
+		\ '-fdata-sections',
+		\ '-g',
+		\ '-Os',
+		\ '-I/usr/share/arduino/hardware/arduino/cores/arduino',
+		\ '-I/usr/share/arduino/hardware/tools/avr/avr/include',
+		\ '-I/usr/share/arduino/hardware/arduino/avr/variants/standard',
+		\ '-include/usr/share/arduino/hardware/arduino/avr/cores/arduino/Arduino.h',
+		\ '-fsyntax-only',
+		\ '-Wextra',
+		\ '-Wall',
+		\ '-xc++',
+	\ ],
+        \ 'errorformat':
+            \ '%-G%f:%s:,' .
+            \ '%f:%l:%c: %trror: %m,' .
+            \ '%f:%l:%c: %tarning: %m,' .
+            \ '%f:%l:%c: %m,'.
+            \ '%f:%l: %trror: %m,'.
+            \ '%f:%l: %tarning: %m,'.
+            \ '%f:%l: %m',
+        \ }
+
+let g:neomake_arduino_enabled_makers = ['avrgcc']
+
+" }}}
 
 " Auto-commands {{{
 autocmd! BufWritePost * Neomake
