@@ -17,16 +17,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 if has("python")
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    "Plug 'Valloric/YouCompleteMe'
-    "Plug 'klen/python-mode'
     Plug 'davidhalter/jedi-vim'
 endif
 
+Plug 'sudar/vim-arduino-syntax'
 Plug 'benekastah/neomake'
-Plug 'morhetz/gruvbox'
 Plug 'bling/vim-airline'
-Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/base16-vim'
+Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
 Plug 'lepture/vim-jinja'
 Plug 'tpope/vim-fugitive'
@@ -35,6 +32,8 @@ Plug 'rhysd/vim-grammarous'
 
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 " }}}
@@ -46,7 +45,6 @@ set laststatus=2
 set number
 set relativenumber
 
-let base16colorspace=256
 set background=dark
 colorscheme gruvbox
 
