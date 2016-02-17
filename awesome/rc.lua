@@ -426,28 +426,21 @@ root.keys(globalkeys)
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
-    { rule = { },
+    { rule = {},
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
-    { rule = { instance = "plugin-container" },
+                     buttons = clientbuttons }
+      },
+
+    { rule_any = { class = {"MPlayer", "Terraria.bin.x86_64", "PrisonArchitect.x86_64" },
+                 },
       properties = { floating = true, fullscreen = true },
-      callback = awful.titlebar.add },
-    { rule = { class = "MPlayer" },
-      properties = { floating = true } },
-    { rule = { class = "Terraria.bin.x86_64" },
-      properties = { maximized=true} },
-    { rule = { class = "Terraria.bin" },
-      properties = { maximized=true} },
+                   },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { tag = tags[1][3],
-			floating = true,
-			switchtotag = true } },
-    { rule = { class = "Firefox" },
+    { rule_any = { class = { "Firefox", "qutebrowser" } },
       properties = { tag = tags[1][3], switchtotag = true} },
 }
 -- }}}
