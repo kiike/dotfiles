@@ -19,7 +19,7 @@ local kbd = require("kbd")
 local uim = require("uim")
 local pomodoro = require("pomodoro")
 if host_conf then
-	require(host_conf)
+    require(host_conf)
 end
 
 -- }}}
@@ -29,9 +29,9 @@ end
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
-		title = "Startup errors:",
-		text = awesome.startup_errors
-		})
+    title = "Startup errors:",
+    text = awesome.startup_errors
+})
 end
 
 -- Handle runtime errors after startup
@@ -147,8 +147,29 @@ now_playing_widget = wibox.widget.textbox()
 -- Input method
 uim.widget = wibox.widget.textbox()
 local uim_exists = awful.util.file_readable("/usr/bin/uim-sh")
+check_uim = function()
+    local uim_start_retries = 1
+    uim_timer = timer({timeout = 15})
+    uim_timer:connect_signal("timeout", function()
+        uim.start()
+        if uim.connected then
+            uim_timer:stop()
+        else
+            if uim_start_retries < 4 then
+                uim_timer:restart()
+            end
+        end
+        uim_start_retries = uim_start_retries + 1
+
+    end)
+    uim_timer:start()
+end
+
 if uim_exists then
     uim.start()
+    if not uim.connected then
+        check_uim()
+    end
 end
 
 -- Pomodoro

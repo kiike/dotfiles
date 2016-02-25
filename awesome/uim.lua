@@ -1,3 +1,8 @@
+-- uim.lua
+-- an Awesome WM plugin that monitors the UIM socket to listen for
+-- changes and output them within the WM.
+-- Credits: psychon, Enric Morales
+
 -- Lua libraries
 local glib = require("lgi").GLib
 local gio = require("lgi").Gio
@@ -12,8 +17,13 @@ uim.start = function ()
 	local socket = gio.Socket.new(gio.SocketFamily.UNIX, gio.SocketType.STREAM, gio.SocketProtocol.DEFAULT)
 
 	--local success = false
-	local success = socket:connect(gio.UnixSocketAddress.new(socket_path))
-	if not success then return false end
+	uim.connected = socket:connect(gio.UnixSocketAddress.new(socket_path))
+	if uim.connected then
+        naughty.notify({title="UIM Eye", text="UIM Eye active."})
+    else
+        naughty.notify({title="UIM Eye", text="Read Error: Socket unreadable. Retrying in 15 seconds."})
+        return false
+    end
 	local fd = socket:get_fd()
 	local stream = gio.DataInputStream.new(gio.UnixInputStream.new(fd, false))
 	local start_read, finish_read
