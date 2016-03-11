@@ -7,17 +7,17 @@ set backspace=2
 " vim-plug Config {{{
 
 if !filereadable(expand("~/.config/nvim/autoload/plug.vim"))
-	!curl --create-dirs -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall
+    !curl --create-dirs -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
 endif
 
 
 call plug#begin('~/.local/share/nvim/plugged')
 
 if has("python")
-	Plug 'SirVer/ultisnips'
-	Plug 'honza/vim-snippets'
-	Plug 'davidhalter/jedi-vim', {'for': 'python'}
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'davidhalter/jedi-vim', {'for': 'python'}
 endif
 
 Plug 'benekastah/neomake'
@@ -50,7 +50,7 @@ set background=dark
 colorscheme gruvbox
 
 if has("syntax")
-	syntax on
+    syntax on
 endif
 "}}}
 
@@ -80,15 +80,15 @@ nnoremap <A-l> <C-w>l
 
 " Toggle between relative, absolute, and no line numbers {{{
 function! NumberToggle()
-if(&relativenumber == 1)
-	set norelativenumber
-	set number
-elseif(&number == 1)
-	set nonumber
-else
-	set number
-	set relativenumber
-endif
+    if(&relativenumber == 1)
+        set norelativenumber
+        set number
+    elseif(&number == 1)
+        set nonumber
+    else
+        set number
+        set relativenumber
+    endif
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
@@ -100,49 +100,67 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips","ultisnippets"]
 
 " File-type functions {{{
 function! MailInit()
-	set tw=72 ft=mail
-	exe "normal O"
-	exe "normal O"
-	set spell
-	start
+    set tw=72 ft=mail
+    exe "normal O"
+    exe "normal O"
+    set spell
+    start
 endfunc
 
 function! PandocInit()
-	set tw=80 ts=4 sts=4 sw=4 et
-	set ft=pandoc
-	set spell
-	autocmd BufWritePre,FileWritePre * :%s/\s\+$//e
+    set tw=80 ts=4 sts=4 sw=4 et
+    set ft=pandoc
+    set fo=want
+    set spell
+    autocmd BufWritePre,FileWritePre * :%s/\s\+$//e
 endfun
+" }}}
+
+" Pandoc {{{
+let g:pandoc#command#autoexec_on_writes = 1
+let g:pandoc#command#custom_open = "PandocPdfHandler"
+let g:pandoc#command#autoexec_command = "Pandoc! pdf"
+
+function! PandocPdfHandler(file)
+    let cmd = "zathura " .a:file
+    let open_zathura_procs = system("pgrep -f -u $USER " .cmd)
+    if v:shell_error
+        return cmd
+    else
+        return "/bin/true"
+    endif
+endfunction
+
 " }}}
 
 " {{{ Remove trailing spaces function
 function! Remove_Trailing_Space()
-	normal :%s/\s\+$//e
+    normal :%s/\s\+$//e
 endfunction
 " }}}
 
 " Arduino neomaker {{{
 let g:neomake_arduino_avrgcc_maker = {
-	\ 'exe': '/usr/share/arduino/hardware/tools/avr/bin/avr-g++',
-	\ 'args': [
-		\ '-mmcu=atmega328p',
-		\ '-DF_CPU=16000000L',
-		\ '-DARDUINO=165',
-		\ '-DARDUINO_ARCH_AVR',
-		\ '-ffunction-sections',
-		\ '-fdata-sections',
-		\ '-g',
-		\ '-Os',
-		\ '-I/usr/share/arduino/hardware/arduino/cores/arduino',
-		\ '-I/usr/share/arduino/hardware/tools/avr/avr/include',
-		\ '-I/usr/share/arduino/hardware/arduino/avr/variants/standard',
-		\ '-include/usr/share/arduino/hardware/arduino/avr/cores/arduino/Arduino.h',
-		\ '-fsyntax-only',
-		\ '-Wextra',
-		\ '-Wall',
-		\ '-xc++',
-	\ ],
-        \ 'errorformat':
+            \ 'exe': '/usr/share/arduino/hardware/tools/avr/bin/avr-g++',
+            \ 'args': [
+            \ '-mmcu=atmega328p',
+            \ '-DF_CPU=16000000L',
+            \ '-DARDUINO=165',
+            \ '-DARDUINO_ARCH_AVR',
+            \ '-ffunction-sections',
+            \ '-fdata-sections',
+            \ '-g',
+            \ '-Os',
+            \ '-I/usr/share/arduino/hardware/arduino/cores/arduino',
+            \ '-I/usr/share/arduino/hardware/tools/avr/avr/include',
+            \ '-I/usr/share/arduino/hardware/arduino/avr/variants/standard',
+            \ '-include/usr/share/arduino/hardware/arduino/avr/cores/arduino/Arduino.h',
+            \ '-fsyntax-only',
+            \ '-Wextra',
+            \ '-Wall',
+            \ '-xc++',
+            \ ],
+            \ 'errorformat':
             \ '%-G%f:%s:,' .
             \ '%f:%l:%c: %trror: %m,' .
             \ '%f:%l:%c: %tarning: %m,' .
@@ -150,7 +168,7 @@ let g:neomake_arduino_avrgcc_maker = {
             \ '%f:%l: %trror: %m,'.
             \ '%f:%l: %tarning: %m,'.
             \ '%f:%l: %m',
-        \ }
+            \ }
 
 let g:neomake_arduino_enabled_makers = ['avrgcc']
 
