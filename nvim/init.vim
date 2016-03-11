@@ -29,6 +29,7 @@ Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-grammarous'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-rsi'
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTree'}
 Plug 'sudar/vim-arduino-syntax', {'for': 'arduino'}
