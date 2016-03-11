@@ -7,33 +7,33 @@ set backspace=2
 " vim-plug Config {{{
 
 if !filereadable(expand("~/.config/nvim/autoload/plug.vim"))
-    !curl --create-dirs -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall
+	!curl --create-dirs -fLo ~/.config/nvim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall
 endif
 
 
 call plug#begin('~/.local/share/nvim/plugged')
 
 if has("python")
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
-    Plug 'davidhalter/jedi-vim'
+	Plug 'SirVer/ultisnips'
+	Plug 'honza/vim-snippets'
+	Plug 'davidhalter/jedi-vim', {'for': 'python'}
 endif
 
-Plug 'sudar/vim-arduino-syntax'
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
-Plug 'scrooloose/nerdtree'
 Plug 'ervandew/supertab'
-Plug 'lepture/vim-jinja'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'morhetz/gruvbox'
+Plug 'rhysd/vim-grammarous'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'rhysd/vim-grammarous'
 
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-
-Plug 'morhetz/gruvbox'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTree'}
+Plug 'sudar/vim-arduino-syntax', {'for': 'arduino'}
+Plug 'vim-pandoc/vim-pandoc', {'for': 'markdown'}
+Plug 'vim-pandoc/vim-pandoc-syntax', {'for': 'markdown'}
 
 call plug#end()
 " }}}
@@ -157,6 +157,7 @@ let g:neomake_arduino_enabled_makers = ['avrgcc']
 
 " Auto-commands {{{
 autocmd! BufWritePost * Neomake
+autocmd! BufWritePost init.vim :so %
 
 au BufNewFile,BufRead /tmp/mutt* :call MailInit()
 au BufNewFile,BufRead *.markdown,*.md :call PandocInit()
