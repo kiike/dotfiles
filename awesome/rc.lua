@@ -13,11 +13,12 @@ local cardstack = require("cardstack")
 
 local typicons = require("typicons")
 
-local host = io.popen("hostname"):read("l")
-local host_conf = io.open(host .. ".rc.lua", "r")
 local kbd = require("kbd")
 local uim = require("uim")
 local pomodoro = require("pomodoro")
+
+local host = io.popen("hostname"):read("l")
+local host_conf = io.open(host .. ".rc.lua", "r")
 if host_conf then
     require(host_conf)
 end
@@ -51,26 +52,26 @@ end
 -- }}}
 
 -- {{{ Variable definitions
-home = os.getenv("HOME")
-awehome = home .. "/.local/share/awesome"
+local home = os.getenv("HOME")
+local awehome = home .. "/.local/share/awesome"
 
-modkey = "Mod4"
+local modkey = "Mod4"
 
 -- Find terminals and set the first available one
-if awful.util.file_readable("/usr/bin/sakura") then
-    terminal = "sakura"
-elseif awful.util.file_readable("/usr/bin/termite") then
+if awful.util.file_readable("/usr/bin/termite") then
     terminal = "termite"
+elseif awful.util.file_readable("/usr/bin/sakura") then
+    terminal = "sakura"
 elseif awful.util.file_readable("/usr/bin/urxvt") then
     terminal = "urxvt"
 elseif awful.util.file_readable("/usr/bin/st") then
     terminal = "st"
+elseif awful.util.file_readable("/usr/bin/xterm") then
+    terminal = "xterm"
 end
 
-term_exec = terminal .. " -e "
-
-editor = os.getenv("EDITOR")
-editor_cmd = term_exec .. editor
+term_exec = terminal .. "-e"
+editor_cmd = terminal .. os.getenv("EDITOR")
 
 -- Theme {{{
 beautiful.init(awehome .. "/themes/gruvbox/theme.lua")
@@ -98,7 +99,7 @@ end
 -- {{{ Menu
 
 -- Create a laucher widget and a main menu
-session_menu = {
+local session_menu = {
     { "sys restart", {{"confirm", "sudo systemctl reboot"}} },
     { "sys poweroff", {{"confirm", "sudo systemctl poweroff"}} },
     { "sys suspend", "sudo systemctl suspend" },
@@ -107,7 +108,7 @@ session_menu = {
     { "wm quit", awesome.quit }
 }
 
-games_menu = {
+local games_menu = {
     { "openttd", "openttd" },
     { "steam", "steam" },
     { "ticket to ride", "/opt/ticket-to-ride/ticket-to-ride" },
@@ -116,7 +117,7 @@ games_menu = {
     { "timeshock", "wine '.wine/drive_c/Timeshock!/Timeshock!.exe'" }
 }
 
-main_menu = {
+local main_menu = {
     { "session", session_menu },
     { "games", games_menu },
     { "", nil},
@@ -136,7 +137,7 @@ main_menu = {
 
 awesome_menu = awful.menu({ items = main_menu})
 
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
+awesome_launcher = awful.widget.launcher({ image = beautiful.awesome_icon,
     menu = awful.menu({ items = main_menu })
 })
 -- }}}
@@ -148,19 +149,15 @@ now_playing_widget = wibox.widget.textbox()
 -- Input method
 uim.widget = wibox.widget.textbox()
 local uim_exists = awful.util.file_readable("/usr/bin/uim-sh")
-check_uim = function()
-    local uim_start_retries = 1
+local check_uim = function()
     uim_timer = timer({timeout = 15})
     uim_timer:connect_signal("timeout", function()
         uim.start()
         if uim.connected then
             uim_timer:stop()
         else
-            if uim_start_retries < 4 then
-                uim_timer:restart()
-            end
+            uim_timer:restart()
         end
-        uim_start_retries = uim_start_retries + 1
 
     end)
     uim_timer:start()
@@ -251,7 +248,7 @@ mywibox[s] = awful.wibox({ position = "top", screen = s })
 
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
-left_layout:add(mylauncher)
+left_layout:add(awesome_launcher)
 left_layout:add(mytaglist[s])
 left_layout:add(mypromptbox[s])
 left_layout:add(separator)
