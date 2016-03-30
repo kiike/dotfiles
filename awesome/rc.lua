@@ -137,10 +137,9 @@ local main_menu = {
 
 awesome_menu = awful.menu({items = main_menu})
 
-awesome_icon = wibox.widget.textbox("<span font='18'>&#57680;</span>")
-
---TODO must fix
---awesome_icon:buttons({awful.button({ }, 1, function() awesome_menu:toggle() end),})
+awesome_icon_markup = "<span font='%d' fgcolor='%s'>&#57680;</span>"
+awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(beautiful.menu_height, beautiful.colors.blue))
+awesome_icon:buttons(awful.util.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
 
 -- {{{ Widgets
 -- Now playing widget: to be set by scripts via awesome-client
@@ -248,7 +247,9 @@ mywibox[s] = awful.wibox({ position = "top", screen = s })
 
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
+left_layout:add(separator)
 left_layout:add(awesome_icon)
+left_layout:add(separator)
 left_layout:add(mytaglist[s])
 left_layout:add(mypromptbox[s])
 left_layout:add(separator)
