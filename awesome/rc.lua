@@ -57,34 +57,30 @@ local awehome = home .. "/.local/share/awesome"
 
 local modkey = "Mod4"
 
--- Find terminals and set the first available one
-if awful.util.file_readable("/usr/bin/termite") then
-    terminal = "termite"
-elseif awful.util.file_readable("/usr/bin/sakura") then
-    terminal = "sakura"
-elseif awful.util.file_readable("/usr/bin/urxvt") then
-    terminal = "urxvt"
-elseif awful.util.file_readable("/usr/bin/st") then
-    terminal = "st"
-elseif awful.util.file_readable("/usr/bin/xterm") then
-    terminal = "xterm"
-end
-
-term_exec = terminal .. "-e"
-editor_cmd = terminal .. os.getenv("EDITOR")
-
 -- Theme {{{
 beautiful.init(awehome .. "/themes/gruvbox/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
---
 -- }}}
 
+-- Find terminals and set the first available one
+local terms = {"termite", "sakura", "urxvt", "st", "xterm"}
+for term in pairs(terms) do
+    if awful.util.file_readable("/usr/bin/" .. terms[term]) then
+        terminal = "/usr/bin/" .. terms[term]
+        break
+    end
+end
+
+term_exec = terminal .. " -e "
+editor_cmd = term_exec .. os.getenv("EDITOR")
+
+
+-- {{{
 local layouts = {
     cardstack,
     awful.layout.suit.max,
     awful.layout.suit.tile
 }
-
 -- }}}
 
 -- {{{ Tags
