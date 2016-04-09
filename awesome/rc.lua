@@ -64,7 +64,7 @@ if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, tr
 -- }}}
 
 -- Find terminals and set the first available one
-local terms = {"termite", "sakura", "urxvt", "st", "xterm"}
+local terms = {"termite", "urxvt", "st", "xterm"}
 for term in pairs(terms) do
     if awful.util.file_readable("/usr/bin/" .. terms[term]) then
         terminal = "/usr/bin/" .. terms[term]
