@@ -3,10 +3,11 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
-
+-- Widget and layout library
 local wibox = require("wibox")
 local vicious = require("vicious")
 local beautiful = require("beautiful")
+-- Notification library
 local naughty = require("naughty")
 
 local cardstack = require("cardstack")
@@ -88,12 +89,11 @@ local layouts = {
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ '1', '2', '3', '4'}, s, layouts[1])
+    tags[s] = awful.tag({'1', '2', '3', '4'}, s, layouts[1])
 end
 -- }}}
 
 -- {{{ Menu
-
 -- Create a laucher widget and a main menu
 local session_menu = {
     { "sys restart", {{"confirm", "sudo systemctl reboot"}} },
@@ -131,13 +131,14 @@ local main_menu = {
     { "w&eechat", term_exec .. "weechat-curses"}
 }
 
-awesome_menu = awful.menu({items = main_menu})
-
-awesome_icon_markup = "<span font='%d' fgcolor='%s'>&#57680;</span>"
-awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(beautiful.menu_height, beautiful.colors.blue))
-awesome_icon:buttons(awful.util.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
+local awesome_menu = awful.menu({items = main_menu})
 
 -- {{{ Widgets
+-- Draw an awesome Awesome icon (needs patched font)
+local awesome_icon_markup = "<span font='24' fgcolor='%s'>&#57680;</span>"
+local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(beautiful.colors.blue))
+awesome_icon:buttons(awful.util.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
+
 -- Now playing widget: to be set by scripts via awesome-client
 now_playing_widget = wibox.widget.textbox()
 
@@ -145,7 +146,7 @@ now_playing_widget = wibox.widget.textbox()
 uim.widget = wibox.widget.textbox()
 local uim_exists = awful.util.file_readable("/usr/bin/uim-sh")
 local check_uim = function()
-    uim_timer = timer({timeout = 15})
+    local uim_timer = timer({timeout = 15})
     uim_timer:connect_signal("timeout", function()
         uim.start()
         if uim.connected then
@@ -243,9 +244,7 @@ mywibox[s] = awful.wibox({ position = "top", screen = s })
 
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
-left_layout:add(separator)
-left_layout:add(awesome_icon)
-left_layout:add(separator)
+left_layout:add(separator, awesome_icon, separator)
 left_layout:add(mytaglist[s])
 left_layout:add(mypromptbox[s])
 left_layout:add(separator)
@@ -284,22 +283,15 @@ mywibox[s]:set_widget(layout)
 
 -- }}}
 
--- {{{ Mouse bindings
-root.buttons(awful.util.table.join(
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
--- }}}
-
 -- {{{ Key bindings
-globalkeys = awful.util.table.join(
+local globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "Left", awful.tag.viewprev ),
     awful.key({ modkey, }, "Right", awful.tag.viewnext ),
     awful.key({ modkey, }, "Escape", awful.tag.history.restore),
 
     awful.key({ modkey, }, "j",
         function ()
-            awful.client.focus.byidx( 1)
+            awful.client.focus.byidx(1)
             if client.focus then client.focus:raise() end
         end),
 
@@ -373,7 +365,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "c", function () awful.util.spawn("x t") end)
 )
 
-clientkeys = awful.util.table.join(
+local clientkeys = awful.util.table.join(
     awful.key({ modkey, }, "f", function (c) c.fullscreen = not c.fullscreen end),
 
     awful.key({ modkey, }, "w", function (c) c:kill() end),
