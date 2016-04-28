@@ -1,6 +1,6 @@
 -- Gruvbox-based theme
 
-theme = {}
+local theme = {}
 
 theme.font = "Potipoti 10"
 
@@ -24,29 +24,34 @@ theme.colors = {
     }
 
 
-theme.bg_normal     = theme.colors.black
+theme.bg_normal     = theme.colors.black .. "80"
 theme.bg_focus      = theme.bg_normal
-theme.bg_urgent     = theme.colors.red
+theme.bg_urgent     = theme.colors.red_dark .. "80"
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = theme.colors.grey_dark
-theme.fg_focus      = theme.colors.white
+theme.fg_normal     = theme.colors.white
+theme.fg_focus      = theme.colors.blue
 theme.fg_urgent     = theme.fg_normal
 theme.fg_minimize   = theme.fg_normal
 
 theme.border_width  = 4
-theme.border_normal = theme.colors.grey_dark
-theme.border_focus  = theme.fg_focus
+theme.border_normal = theme.colors.black
+theme.border_focus  = theme.colors.grey_dark
 theme.border_marked = theme.colors.blue
 
 theme.menu_height = 16
 theme.menu_width  = 140
 
 theme.wallpaper = "pictures/wallpaper"
+theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+
+theme.tasklist_bg_focus = theme.bg_normal
+theme.tasklist_fg_focus = theme.fg_normal
+theme.taglist_bg_focus = theme.fg_focus
+theme.taglist_fg_focus = theme.bg_focus
 
 -- Hide icons
-theme.awesome_icon = nil
 theme.icon_theme = nil
 theme.tasklist_disable_icon = true
 
