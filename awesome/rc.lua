@@ -173,9 +173,23 @@ pomodoro.init()
 widget_kbd_typicon = wibox.widget.textbox()
 widget_kbd_typicon:set_markup(typicons.render("keyboard"))
 
--- Separator
+-- Separators
+
+local function make_separator(color)
+    local separator = wibox.widget.textbox()
+    local markup = "<span fgcolor='%s'> | </span>"
+    separator:set_markup(markup:format(color))
+    return separator
+end
+
 separator = wibox.widget.textbox()
-separator:set_text(' ')
+separator:set_text(" ")
+
+separator_green = make_separator(beautiful.colors.green)
+separator_yellow = make_separator(beautiful.colors.yellow)
+separator_magenta = make_separator(beautiful.colors.magenta)
+separator_red = make_separator(beautiful.colors.red)
+separator_blue = make_separator(beautiful.colors.blue)
 
 widget_kbd = wibox.widget.textbox()
 widget_kbd:set_text(kbd.layout[kbd.current][1])
@@ -259,16 +273,16 @@ if notmuch_exists then
     right_layout:add(widget_mail, separator)
 end
 
-right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator)
+right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator_yellow)
 right_layout:add(widget_kbd_typicon, separator)
 right_layout:add(widget_kbd, separator)
 
 if uim_exists then
-    right_layout:add(uim.widget, separator)
+    right_layout:add(uim.widget)
 end
 
 if battery_exists then
-    right_layout:add(widget_battery, separator)
+    right_layout:add(separator_green, widget_battery, separator_blue)
 end
 
 right_layout:add(widget_datetime)
