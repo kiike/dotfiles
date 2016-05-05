@@ -37,6 +37,8 @@ _action ${PWD}/bin ${HOME}/bin
 _action ${PWD}/mksh/mkshrc ${HOME}/.mkshrc
 _action ${PWD}/mksh/profile ${HOME}/.profile
 
+_action ${PWD}/ksh/kshrc ${HOME}/.kshrc
+
 _action ${PWD}/zlogin ${HOME}/.zlogin
 _action ${PWD}/zprofile ${HOME}/.zprofile
 _action ${PWD}/zshrc ${HOME}/.zshrc
@@ -48,12 +50,16 @@ if [[ $ALL == yes ]]; then
 
 	_action ${PWD}/compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
+	_action ${PWD}/cmus ${HOME}/cmus
+
 	_action ${PWD}/newsbeuter/ ${HOME}/.newsbeuter
 
 	_action ${PWD}/xinitrc ${HOME}/.xinitrc
 	_action ${PWD}/Xresources ${HOME}/.Xresources
 	_action ${PWD}/Xcompose ${HOME}/.Xcompose
 	_action ${PWD}/Xmodmaprc ${HOME}/.Xmodmaprc
+
+	_action ${PWD}/termite ${XDG_CONFIG_HOME}/termite
 
 	_action ${PWD}/vifm ${HOME}/.vifm
 
