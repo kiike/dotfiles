@@ -5,5 +5,7 @@ sudo tar \
 	--exclude 'proc/*' \
 	--exclude 'dev/*' \
 	--exclude 'run/*' \
+	--exclude 'mnt/*' \
+	--exclude 'media/*' \
 	-cp --directory=/ . \
 	| nc bison 8080
