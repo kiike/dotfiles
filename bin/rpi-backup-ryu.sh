@@ -1,11 +1,14 @@
 #!/bin/sh
 sudo tar \
-	--exclude 'var/cache/*' \
-	--exclude 'sys/*' \
-	--exclude 'proc/*' \
+	--create \
+	--directory=/ . \
 	--exclude 'dev/*' \
-	--exclude 'run/*' \
-	--exclude 'mnt/*' \
 	--exclude 'media/*' \
-	-cp --directory=/ . \
+	--exclude 'mnt/*' \
+	--exclude 'proc/*' \
+	--exclude 'run/*' \
+	--exclude 'sys/*' \
+	--exclude 'tmp/*' \
+	--exclude 'var/cache/*' \
+	--preserve \
 	| nc bison 8080
