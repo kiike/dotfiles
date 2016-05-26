@@ -3,4 +3,4 @@
 nc -l 8080 \
 	| pv \
 	| pixz \
-	> /mnt/vault/rpi.tar.gz
+	> /mnt/vault/rpi.tar.pxz
