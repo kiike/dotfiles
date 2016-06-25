@@ -224,8 +224,10 @@ local notmuch_exists = awful.util.file_readable("/usr/bin/notmuch")
 if notmuch_exists then
     vicious.register(widget_mail, vicious.contrib.notmuch,
         function (widget, args)
-            if args["count"] > 0 then return typicons.render("mail")
-            else return ""
+            if args["count"] > 0 then
+                return typicons.render("mail")
+            else
+              return ""
             end
         end, 60, 'tag:inbox AND NOT tag:killed AND tag:unread AND NOT folder:trash')
 end
@@ -461,7 +463,7 @@ for i = 1, 4 do
                   end,
                   {description = "toggle tag #" .. i, group = "tag"}),
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+     awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
                           local tag = awful.tag.gettags(client.focus.screen)[i]
