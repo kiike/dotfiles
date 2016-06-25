@@ -21,7 +21,6 @@ uim.start = function ()
 	if uim.connected then
         naughty.notify({title="UIM Eye", text="UIM Eye active."})
     else
-        naughty.notify({title="UIM Eye", text="Read Error: Socket unreadable. Retrying in 15 seconds."})
         return false
     end
 	local fd = socket:get_fd()
