@@ -9,7 +9,13 @@ _action() {
 	if [[ $REMOVE == yes ]]; then
 		[[ -h $2 ]] && rm ${FLAGS} "$2"
 	else
-		[[ -h $2 ]] && rm ${FLAGS} "$2"
+		source_dir=$(dirname "$1")
+		target_dir=$(dirname "$2")
+		if [[ -d "${source_dir}" ]] && [[ ! -d "${target_dir}" ]]; then
+			mkdir -p "${target_dir}"
+		fi
+
+		[[ -h "$2" ]] && rm ${FLAGS} "$2"
 		ln -s ${FLAGS} "$1" "$2"
 	fi
 }
@@ -52,16 +58,18 @@ if [[ $ALL == yes ]]; then
 
 	_action ${PWD}/cmus ${HOME}/cmus
 
-	_action ${PWD}/newsbeuter/ ${HOME}/.newsbeuter
+	_action ${PWD}/newsbeuter/config ${HOME}/.newsbeuter/config
+	_action ${PWD}/newsbeuter/urls ${HOME}/.newsbeuter/urls
 
 	_action ${PWD}/xinitrc ${HOME}/.xinitrc
 	_action ${PWD}/Xresources ${HOME}/.Xresources
 	_action ${PWD}/Xcompose ${HOME}/.Xcompose
 	_action ${PWD}/Xmodmaprc ${HOME}/.Xmodmaprc
 
-	_action ${PWD}/termite ${XDG_CONFIG_HOME}/termite
+	_action ${PWD}/termite/config ${XDG_CONFIG_HOME}/termite/config
 
-	_action ${PWD}/vifm ${HOME}/.vifm
+	_action ${PWD}/vifm/vifmrc ${HOME}/.vifm/vifmrc
+	_action ${PWD}/vifm/colors/Default.vifm ${HOME}/.vifm/colors/Default.vifm
 
 	_action ${PWD}/vimrc ${HOME}/.vimrc
 
