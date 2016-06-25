@@ -44,7 +44,7 @@ theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = theme.colors.grey
-theme.fg_focus      = theme.colors.blue
+theme.fg_focus      = theme.colors.white
 theme.fg_urgent     = theme.fg_normal
 theme.fg_minimize   = theme.fg_normal
 
@@ -58,12 +58,15 @@ theme.icon_theme = nil
 theme.menu_height = 16
 theme.menu_width  = 140
 
-theme.taglist_bg_focus = theme.fg_focus
+theme.taglist_bg_focus = theme.colors.blue
 theme.taglist_fg_focus = theme.bg_focus
 
 theme.tasklist_bg_focus = theme.bg_normal
 theme.tasklist_disable_icon = true
 theme.tasklist_fg_focus = theme.fg_normal
+
+theme.tooltip_fg_color = theme.fg_normal
+theme.tooltip_bg_color = theme.bg_normal
 
 theme.wallpaper = "pictures/wallpaper"
 
