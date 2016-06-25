@@ -1,0 +1,2 @@
+#!/bin/sh
+date --rfc-3339=s -u | cut -f 1 -d + | tr ' ' '_'
