@@ -256,7 +256,7 @@ mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all)
 mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused)
 
 -- Create the wibox
-mywibox[s] = awful.wibox({ position = "top", screen = s })
+mywibox[s] = awful.wibar({ position = "top", screen = s })
 
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
