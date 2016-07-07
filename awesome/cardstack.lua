@@ -11,24 +11,38 @@ local pairs = pairs
 local cardstack = {}
 local tag = require("awful.tag")
 
-local function fcardstack(p)
-    local area = p.workarea
-    for k, c in pairs(p.clients) do
-        local x_offset = 24 * k
-        local g = {
-            height = area.height - c.border_width * 2,
-            width = (area.width - c.border_width * 2) * (2 / 3 * tag.getmwfact() * 2),
-            x = x_offset + area.width / (6 * tag.getmwfact() * 2),
-            y = area.y,
-        }
-        c:geometry(g)
-    end
-end
 
 -- @param screen The screen to arrange.
 cardstack.name = "card stack"
+
 function cardstack.arrange(p)
-    return fcardstack(p)
+    local function calc_offset(index, len_clients)
+        if len_clients > 1 then
+            return 32 * math.ceil(index - #p.clients / 2)
+        else
+            return 0
+        end
+    end
+
+    tag.master_width_factor = 1
+    local area = p.workarea
+
+    for k, c in pairs(p.clients) do
+        local x_offset = calc_offset(k, #p.clients)
+        local width = math.min((area.width - c.border_width * 2) * tag.getmwfact(), 
+                               area.width - c.border_width * 2)
+                              
+        local x = x_offset + ((area.width / 2) - (width / 2))
+
+        local g = {
+            height = area.height - c.border_width * 2,
+            width = math.abs(width),
+            x = math.abs(x),
+            y = area.y,
+        }
+
+        c:geometry(g)
+    end
 end
 
 return cardstack
