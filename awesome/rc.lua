@@ -421,6 +421,8 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ,
               {description = "move to screen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "t",      function (c) c.ontop = not c.ontop            end,
+              {description = "toggle always-opaque mode", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "o",      function (c) c.always_opaque = not c.always_opaque    end,
               {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -504,9 +506,19 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
+                     always_opaque = false,
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
+
+    -- Always opaque
+    { rule_any = {
+        class = {
+            "mpv"
+        },
+    },
+
+    properties = { always_opaque = true }},
 
     -- Floating clients.
     { rule_any = {
@@ -556,6 +568,12 @@ client.connect_signal("manage", function (c)
     elseif not c.size_hints.user_position and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
+    end
+
+    if client.focus then
+        client.opacity = 1.0
+    else
+        client.opacity = 0.6
     end
 
     local titlebars_enabled = false
@@ -638,6 +656,17 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus",
+    function(c)
+        c.border_color = beautiful.border_focus
+        c.opacity = 1
+    end)
+
+client.connect_signal("unfocus",
+    function(c)
+        c.border_color = beautiful.border_normal
+        if c.always_opaque then
+            c.opacity = 0.6
+        end
+    end)
 -- }}}
