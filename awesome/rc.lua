@@ -527,28 +527,18 @@ awful.rules.rules = {
           "copyq",  -- Includes session name in class.
         },
         class = {
-          "Arandr",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Wpa_gui",
           "pinentry",
-          "veromix",
-          "xtightvncviewer"},
+          },
 
         name = {
           "Event Tester",  -- xev.
         },
+
         role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
 
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
