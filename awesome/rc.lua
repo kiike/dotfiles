@@ -421,9 +421,9 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ,
               {description = "move to screen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "t",      function (c) c.ontop = not c.ontop            end,
-              {description = "toggle always-opaque mode", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "o",      function (c) c.always_opaque = not c.always_opaque    end,
               {description = "toggle keep on top", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "o",      function (c) c.always_opaque = not c.always_opaque    end,
+              {description = "toggle always-opaque mode", group = "client"}),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
