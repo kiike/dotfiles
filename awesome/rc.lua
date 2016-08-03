@@ -346,7 +346,7 @@ globalkeys = awful.util.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -373,37 +373,36 @@ globalkeys = awful.util.table.join(
                   local c = awful.client.restore()
                   -- Focus restored client
                   if c then
-                      client.focus = c
-                      c:raise()
+                      client.focus = c c:raise()
                   end
               end,
               {description = "restore minimized", group = "client"}),
 
     -- Manage volume
-    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("volume d") end),
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("volume u") end),
-    awful.key({}, "XF86AudioMute", function () awful.util.spawn("volume m") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn.spawn("volume d") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.spawn("volume u") end),
+    awful.key({}, "XF86AudioMute", function () awful.spawn.spawn("volume m") end),
 
-    awful.key({ modkey, }, "r", function () awful.util.spawn("dmenu_raise -i") end),
+    awful.key({ modkey, }, "r", function () awful.spawn.spawn("dmenu_raise -i") end),
 
     -- Manage the music player
-    awful.key({}, "XF86AudioPrev", function () awful.util.spawn("remote prev") end),
-    awful.key({}, "XF86AudioNext", function () awful.util.spawn("remote next") end),
-    awful.key({}, "XF86AudioStop", function () awful.util.spawn("remote stop") end),
-    awful.key({}, "XF86AudioPlay", function () awful.util.spawn("remote pause") end),
+    awful.key({}, "XF86AudioPrev", function () awful.spawn.spawn("remote prev") end),
+    awful.key({}, "XF86AudioNext", function () awful.spawn.spawn("remote next") end),
+    awful.key({}, "XF86AudioStop", function () awful.spawn.spawn("remote stop") end),
+    awful.key({}, "XF86AudioPlay", function () awful.spawn.spawn("remote pause") end),
 
     -- Kill or spawn compton
-    awful.key({ modkey, "Shift"}, "c", function () awful.util.spawn("toggle_compton") end),
+    awful.key({ modkey, "Shift"}, "c", function () awful.spawn.spawn("toggle_compton") end),
 
     -- Keyboard layout/input method switching
     awful.key({ modkey, "Shift" }, "i", function () kbd.switch() end),
 
     -- Launcher prompt
-    awful.key({ modkey, }, "space", function () awful.util.spawn("dmenu_run_recent") end),
-    awful.key({ modkey, "Shift" }, "space", function () awful.util.spawn("dmenu_term_run_recent") end),
-    awful.key({ modkey, }, "p", function () awful.util.spawn("passmenu --type") end),
-    awful.key({ modkey, "Shift" }, "p", function () awful.util.spawn("passmenu") end),
-    awful.key({ modkey, }, "c", function () awful.util.spawn("x t") end)
+    awful.key({ modkey, }, "space", function () awful.spawn.spawn("dmenu_run_recent") end),
+    awful.key({ modkey, "Shift" }, "space", function () awful.spawn.spawn("dmenu_term_run_recent") end),
+    awful.key({ modkey, }, "p", function () awful.spawn.spawn("passmenu --type") end),
+    awful.key({ modkey, "Shift" }, "p", function () awful.spawn.spawn("passmenu") end),
+    awful.key({ modkey, }, "c", function () awful.spawn.spawn("x t") end)
 )
 
 clientkeys = awful.util.table.join(

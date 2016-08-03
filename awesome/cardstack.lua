@@ -9,7 +9,6 @@ local pairs = pairs
 
 --- card stack layout
 local cardstack = {}
-local tag = require("awful.tag")
 
 
 -- @param screen The screen to arrange.
@@ -24,12 +23,11 @@ function cardstack.arrange(p)
         end
     end
 
-    tag.master_width_factor = 1
     local area = p.workarea
 
     for k, c in pairs(p.clients) do
         local x_offset = calc_offset(k, #p.clients)
-        local width = math.min((area.width - c.border_width * 2) * tag.getmwfact(), 
+        local width = math.min((area.width - c.border_width * 2) * c.screen.selected_tag.master_width_factor, 
                                area.width - c.border_width * 2)
                               
         local x = x_offset + ((area.width / 2) - (width / 2))
