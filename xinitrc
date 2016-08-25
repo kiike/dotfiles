@@ -17,7 +17,7 @@ xset m 4/1 4
 # {{{ Screensaver and monitor blanking
 xset s off
 if [[ $(hostname) == dhalsim ]]; then
-	xset dpms off
+	xset -dpms
 else
 	xset dpms 0 0 300
 fi
