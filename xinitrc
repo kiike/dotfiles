@@ -24,7 +24,7 @@ fi
 #}}}
 
 # Input method {{{
-xmodmap ~/.Xmodmaprc
+[[ $(hostname) != dhalsim ]] && xmodmap ~/.Xmodmaprc
 if hash uim-xim  &>/dev/null; then
 	export GTK_IM_MODULE='uim'
 	export QT_IM_MODULE='uim'
