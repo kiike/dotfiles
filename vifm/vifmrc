@@ -22,9 +22,14 @@ command mv mv %f %D
 nnoremap ms :mv<cr>
 
 " Move current files
-command mmv mv %c %D
-nnoremap mm :mmv<cr>
+nnoremap mm :mv %c %D<cr>
 
+" Link this file into the other working dir
+nnoremap ml :alink<cr>
+
+" Try to open file with xdg-open
+nnoremap oo :!xdg-open %c &>/dev/null<cr>
+nnoremap os :!xdg-open %f &>/dev/null<cr>
 
 filetype *.jpeg,*.jpg,*.png sxiv -f %c &
 filetype *.wav,*.opus,*.ogg,*.mp4,*.m4v,*.mkv,*.avi,*.mov,*mp3,*aac,*m4a urxvtc -e mpv %c &
