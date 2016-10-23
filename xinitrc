@@ -30,6 +30,7 @@ if hash uim-xim  &>/dev/null; then
 	export QT_IM_MODULE='uim'
 	export XMODIFIERS=@im=uim
 	xmodmap -e 'keysym Alt_R = Hangul'
+	uim-xim &
 fi
 
 #}}}
