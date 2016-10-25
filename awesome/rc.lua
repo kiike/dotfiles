@@ -59,22 +59,23 @@ end
 beautiful.init(awful.util.getdir("config") .. "/themes/base16/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
 
-local home = os.getenv("HOME")
 local modkey = "Mod4"
 -- }}}
 
--- Find terminals and set the first available one
-local terms = {"termite", "urxvt", "st", "xterm"}
-for term in pairs(terms) do
-    if awful.util.file_readable("/usr/bin/" .. terms[term]) then
-        terminal = "/usr/bin/" .. terms[term]
-        break
-    end
+-- Find a suitable terminal emulator
+local terminal = "xterm"
+local terms = {"termite", "urxvt", "st"}
+for _, term in pairs(terms) do
+  if awful.util.file_readable("/usr/bin/" .. term) then
+    terminal = "/usr/bin/" .. term
+    break
+  elseif awful.util.file_readable("/usr/local/bin/" .. term) then
+    terminal = "/usr/local/bin/" .. term
+    break
+  end
 end
 
-term_exec = terminal .. " -e "
-editor_cmd = term_exec .. os.getenv("EDITOR")
-
+local term_exec = terminal .. " -e "
 
 -- {{{
 awful.layout.layouts = {
@@ -140,7 +141,7 @@ local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(beautiful.c
 awesome_icon:buttons(awful.util.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
 
 -- Now playing widget: to be set by scripts via awesome-client
-now_playing_widget = wibox.widget.textbox()
+local now_playing_widget = wibox.widget.textbox()
 
 -- Input method
 uim.widget = wibox.widget.textbox()
@@ -170,39 +171,30 @@ end
 pomodoro.init()
 
 -- Icon for the keyboard layout and IM indicators
-widget_kbd_typicon = wibox.widget.textbox()
+local widget_kbd_typicon = wibox.widget.textbox()
 widget_kbd_typicon:set_markup(typicons.render("keyboard"))
 
 -- Separators
 
-local function make_separator(color)
-    local separator = wibox.widget.textbox()
-    local markup = "<span fgcolor='%s'> | </span>"
-    separator:set_markup(markup:format(color))
-    return separator
-end
+local separator = wibox.widget.textbox()
+separator:set_text("  ")
 
-separator = wibox.widget.textbox()
-separator:set_text(" ")
+local separator_small = wibox.widget.textbox()
+separator_small:set_text(" ")
 
-separator_green = make_separator(beautiful.colors.green)
-separator_yellow = make_separator(beautiful.colors.yellow)
-separator_magenta = make_separator(beautiful.colors.magenta)
-separator_red = make_separator(beautiful.colors.red)
-separator_blue = make_separator(beautiful.colors.blue)
-
-widget_kbd = wibox.widget.textbox()
+local widget_kbd = wibox.widget.textbox()
 widget_kbd:set_text(kbd.layout[kbd.current][1])
 -- }}}
 
 -- {{{ Vicious widgets
 -- Battery widget
-widget_battery = wibox.widget.textbox()
-battery_exists = awful.util.dir_readable("/sys/class/power_supply/BAT0")
+local widget_battery = wibox.widget.textbox()
+local battery_exists = awful.util.dir_readable("/sys/class/power_supply/BAT0") 
 if battery_exists then
     vicious.register(widget_battery, vicious.widgets.bat,
-        function (widget, args)
+        function (_, args)
             local charge = args[2]
+            local icon
             if charge > 75 then icon = typicons.render("battery_full")
             elseif charge > 50 then icon = typicons.render("battery_high")
             elseif charge > 25 then icon = typicons.render("battery_mid")
@@ -219,11 +211,11 @@ if battery_exists then
 end
 
 -- Mail widget
-widget_mail = wibox.widget.textbox()
+local widget_mail = wibox.widget.textbox()
 local notmuch_exists = awful.util.file_readable("/usr/bin/notmuch")
 if notmuch_exists then
     vicious.register(widget_mail, vicious.contrib.notmuch,
-        function (widget, args)
+        function (_, args)
             if args["count"] > 0 then
                 return typicons.render("mail")
             else
@@ -233,19 +225,19 @@ if notmuch_exists then
 end
 
 -- Date widget
-widget_datetime = wibox.widget.textbox()
+local widget_datetime = wibox.widget.textbox()
 vicious.register(widget_datetime, vicious.widgets.date, '%a %d %b, %H:%M')
 -- }}}
 
 -- {{{ Wibox
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mypromptbox = {}
-mytasklist = {}
-mytaglist = {}
+local mywibox = {}
+local mypromptbox = {}
+local mytasklist = {}
+local mytaglist = {}
 
-s = 1
+local s = 1
 -- Create a promptbox for each screen
 mypromptbox[s] = awful.widget.prompt()
 
@@ -260,7 +252,7 @@ mywibox[s] = awful.wibar({ position = "top", screen = s })
 
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
-left_layout:add(separator, awesome_icon, separator)
+left_layout:add(separator_small, awesome_icon, separator)
 left_layout:add(mytaglist[s])
 left_layout:add(mypromptbox[s])
 left_layout:add(separator)
@@ -275,19 +267,19 @@ if notmuch_exists then
     right_layout:add(widget_mail, separator)
 end
 
-right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator_yellow)
-right_layout:add(widget_kbd_typicon, separator)
-right_layout:add(widget_kbd, separator)
+right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator)
+right_layout:add(widget_kbd_typicon, separator_small)
+right_layout:add(widget_kbd, separator_small)
 
 if uim_exists then
-    right_layout:add(uim.widget)
+    right_layout:add(uim.widget, separator)
 end
 
 if battery_exists then
-    right_layout:add(separator_green, widget_battery, separator_blue)
+    right_layout:add(widget_battery, separator)
 end
 
-right_layout:add(widget_datetime)
+right_layout:add(widget_datetime, separator_small)
 
 -- Now bring it all together (with the tasklist in the middle)
 local layout = wibox.layout.align.horizontal()
@@ -300,7 +292,7 @@ mywibox[s]:set_widget(layout)
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = awful.util.table.join(
+local globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -405,7 +397,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "c", function () awful.spawn.spawn("x t") end)
 )
 
-clientkeys = awful.util.table.join(
+local clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -447,9 +439,9 @@ for i = 1, 4 do
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = awful.screen.focused()
-                        local tag = awful.tag.gettags(screen)[i]
+                        local tag = screen.tags[i]
                         if tag then
-                           awful.tag.viewonly(tag)
+                           tag:view_only()
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
@@ -457,7 +449,7 @@ for i = 1, 4 do
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = awful.screen.focused()
-                      local tag = awful.tag.gettags(screen)[i]
+                      local tag = screen.tags[i]
                       if tag then
                          awful.tag.viewtoggle(tag)
                       end
