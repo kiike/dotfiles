@@ -87,7 +87,7 @@ awful.layout.layouts = {
 
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
-tags = {}
+local tags = {}
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     tags[s] = awful.tag({ 1, 2, 3, 4 }, s, awful.layout.layouts[1])
@@ -136,18 +136,19 @@ local awesome_menu = awful.menu({items = main_menu})
 
 -- {{{ Widgets
 -- Draw an awesome Awesome icon (needs patched font)
-local awesome_icon_markup = "<span font='24' fgcolor='%s'>&#57680;</span>"
-local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(beautiful.colors.blue))
+local awesome_icon_color = beautiful.awesome_icon_color or beautiful.colors.blue or "#FFFFFF"
+local awesome_icon_markup = "<span font='Potipoti 24' fgcolor='%s'>&#57680;</span>"
+local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(awesome_icon_color))
 awesome_icon:buttons(awful.util.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
 
 -- Now playing widget: to be set by scripts via awesome-client
-local now_playing_widget = wibox.widget.textbox()
+now_playing_widget = wibox.widget.textbox()
 
 -- Input method
 uim.widget = wibox.widget.textbox()
 local uim_exists = awful.util.file_readable("/usr/bin/uim-sh")
 local check_uim = function()
-    local uim_timer = timer({timeout = 15})
+    local uim_timer = gears.timer({timeout = 15})
     uim_timer:connect_signal("timeout", function()
         uim.start()
         if uim.connected then
