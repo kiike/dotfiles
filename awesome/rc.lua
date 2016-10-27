@@ -315,7 +315,7 @@ local globalkeys = awful.util.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "a", function () awesome_menu:show() end,
+    awful.key({ modkey,           }, "a", function () awesome_menu:show({coords = {x = 0, y = 0}}) end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
