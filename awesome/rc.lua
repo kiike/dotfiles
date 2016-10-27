@@ -56,7 +56,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.getdir("config") .. "/themes/base16/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/oranged/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
 
 local modkey = "Mod4"
@@ -177,12 +177,12 @@ widget_kbd_typicon:set_markup(typicons.render("keyboard"))
 -- Separators
 
 local separator = wibox.widget.textbox()
-separator:set_text("  ")
+separator:set_markup("<span font=\"Monospace\">  </span>")
 
 local separator_small = wibox.widget.textbox()
-separator_small:set_text(" ")
+separator_small:set_markup("<span font=\"Monospace\"> </span>")
 
-local widget_kbd = wibox.widget.textbox()
+widget_kbd = wibox.widget.textbox()
 widget_kbd:set_text(kbd.layout[kbd.current][1])
 -- }}}
 
