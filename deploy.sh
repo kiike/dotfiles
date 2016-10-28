@@ -50,6 +50,10 @@ _action ${PWD}/zprofile ${HOME}/.zprofile
 _action ${PWD}/zshrc ${HOME}/.zshrc
 _action ${PWD}/tmux.conf ${HOME}/.tmux.conf
 
+_action ${PWD}/spacemacs ${HOME}/.spacemacs.d
+
+_action ${PWD}/nvim/init.vim ${HOME}/.config/nvim/init.vim
+
 if [[ $ALL == yes ]]; then
 	_action ${PWD}/awesome ${XDG_CONFIG_HOME}/awesome
 	_action ${PWD}/awesome ${XDG_DATA_HOME}/awesome
@@ -72,8 +76,6 @@ if [[ $ALL == yes ]]; then
 	_action ${PWD}/vifm/colors/Default.vifm ${HOME}/.vifm/colors/Default.vifm
 
 	_action ${PWD}/vimrc ${HOME}/.vimrc
-
-	_action ${PWD}/nvim/init.vim ${HOME}/.config/nvim/init.vim
 fi
 
 git submodule update --recursive
