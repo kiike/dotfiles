@@ -23,32 +23,6 @@ cursor_shape = block
 # emit escape sequences for other keys modified by Control
 #modify_other_keys = false
 
-[colors]
-background = #2d2d2d
-foreground = #d3d0c8
-color0 = #2d2d2d
-color1 = #f2777a
-color2 = #99cc99
-color3 = #ffcc66
-color4 = #6699cc
-color5 = #cc99cc
-color6 = #66cccc
-color7 = #d3d0c8
-color8 = #747369
-color9 = #f2777a
-color10 = #99cc99
-color11 = #ffcc66
-color12 = #6699cc
-color13 = #cc99cc
-color14 = #66cccc
-color15 = #f2f0ec
-color16 = #f99157
-color17 = #d27b53
-color18 = #393939
-color19 = #515151
-color20 = #a09f93
-color21 = #e8e6df
-
 [hints]
 #font = Monospace 12
 #foreground = #dcdccc
@@ -60,4 +34,42 @@ color21 = #e8e6df
 #border_width = 0.5
 #roundness = 2.0
 
-# vim: ft=dosini cms=#%s
+[colors]
+
+# special
+foreground      = #ffffff
+foreground_bold = #ffffff
+cursor          = #ffffff
+background      = #000000
+
+# black
+color0  = #000000
+color8  = #c0c0c0
+
+# red
+color1  = #e65100
+color9  = #e65100
+
+# green
+color2 = #aeea00
+color10 = #aeea00
+
+# yellow
+color3 = #ffeb3b
+color11 = #ffeb3b
+
+# blue
+color4 = #2196f3
+color12 = #2196f3
+
+# magenta
+color5 = #9c27b0
+color13 = #9c27b0
+
+# cyan
+color6 = #00bcd4
+color14 = #00bcd4
+
+# white
+color7  = #ff9800
+color15 = #ffffff
