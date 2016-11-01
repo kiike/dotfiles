@@ -23,6 +23,9 @@ else
 fi
 #}}}
 
+
+[[ $(hostname) == dhalsim ]] && scc-daemon profile Desktop start
+
 # Input method {{{
 [[ $(hostname) != dhalsim ]] && xmodmap ~/.Xmodmaprc
 if hash uim-xim  &>/dev/null; then
