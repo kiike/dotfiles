@@ -357,6 +357,8 @@ local globalkeys = awful.util.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn.spawn("emacsclient -c") end,
+      {description = "open an emacs window", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
