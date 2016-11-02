@@ -11,12 +11,10 @@ local vicious = require("vicious")
 -- Notification library
 local naughty = require("naughty")
 
-local hotkeys_popup = require("awful.hotkeys_popup").widget
 local cardstack = require("cardstack")
 
 local typicons = require("typicons")
 
-local kbd = require("kbd")
 local uim = require("uim")
 local pomodoro = require("pomodoro")
 
@@ -78,11 +76,12 @@ end
 local term_exec = terminal .. " -e "
 
 -- {{{
-awful.layout.layouts = {
+local tiling_layouts = {
     cardstack,
     awful.layout.suit.max,
     awful.layout.suit.tile
 }
+awful.layout.layouts = tiling_layouts
 -- }}}
 
 -- {{{ Tags
@@ -90,7 +89,8 @@ awful.layout.layouts = {
 local tags = {}
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4 }, s, awful.layout.layouts[1])
+    tags[s] = awful.tag({ "!", "@", "#", "$" }, s,
+      {tiling_layouts[1], tiling_layouts[1], tiling_layouts[2], tiling_layouts[1]})
 end)
 -- }}}
 
@@ -183,7 +183,27 @@ separator:set_markup("<span font=\"Monospace\">  </span>")
 local separator_small = wibox.widget.textbox()
 separator_small:set_markup("<span font=\"Monospace\"> </span>")
 
-widget_kbd = wibox.widget.textbox()
+
+-- Keyboard map indicator and changer
+local widget_kbd = wibox.widget.textbox()
+
+local kbd = {}
+kbd.layout = { { "us", "-option" },
+               { "es", "-option" }
+             }
+kbd.current = 1
+kbd.switch = function ()
+        kbd.current = kbd.current % #(kbd.layout) + 1
+        local t = kbd.layout[kbd.current]
+        widget_kbd:set_text(t[1])
+        os.execute("setxkbmap ".. t[1] .. " " .. t[2])
+        os.execute("xmodmap ~/.Xmodmaprc")
+        if t[1] == "us" then
+            os.execute("xmodmap -e 'remove mod1 = Alt_R'")
+            os.execute("xmodmap -e 'keysym Alt_R = Hangul'")
+        end
+    end
+
 widget_kbd:set_text(kbd.layout[kbd.current][1])
 -- }}}
 
@@ -286,7 +306,7 @@ right_layout:add(widget_datetime, separator_small)
 local layout = wibox.layout.align.horizontal()
 layout:set_left(left_layout)
 layout:set_middle(mytasklist[s])
-    layout:set_right(right_layout)
+layout:set_right(right_layout)
 
 mywibox[s]:set_widget(layout)
 
@@ -294,8 +314,6 @@ mywibox[s]:set_widget(layout)
 
 -- {{{ Key bindings
 local globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
-              {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
