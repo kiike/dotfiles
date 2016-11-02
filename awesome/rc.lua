@@ -248,8 +248,59 @@ end
 -- Date widget
 local widget_datetime = wibox.widget.textbox()
 vicious.register(widget_datetime, vicious.widgets.date, '%a %d %b, %H:%M')
--- }}}
 
+-- Powercircle
+local powercircle = function(cr, w, h)
+  local r = h/2
+  cr:arc(r, r, r, 0, -math.pi/2)
+  cr:line_to(w, 0)
+  cr:line_to(w, h)
+  cr:line_to(r, h)
+  cr:close_path()
+end
+
+
+local function containerize(widget, bg, left_margin, right_margin)
+  local c = wibox.container.background()
+  c:setup({
+      {
+        {
+          widget = widget
+        },
+        left  = left_margin,
+        right = right_margin,
+        widget = wibox.container.margin
+      },
+      bg     = bg,
+      widget = wibox.container.background
+  })
+  return c
+end
+
+local container = wibox.container.background()
+container:setup({
+    -- conditition    |             widget              | background color        |  margins
+                       containerize(pomodoro.icon_widget, beautiful.colors.color600, 10,  0),
+                       containerize(pomodoro.widget,      beautiful.colors.color600, 10, 10),
+                       containerize(widget_kbd_typicon,   beautiful.colors.color700, 20,  5),
+                       containerize(widget_kbd,           beautiful.colors.color700,  5,  5),
+    uim_exists     and containerize(uim.widget,           beautiful.colors.color700, 10,  5),
+    battery_exists and containerize(widget_battery,       beautiful.colors.color800, 15, 15),
+    containerize(widget_datetime, beautiful.colors.color900, 15, 15),
+    -- Add a small padding container
+    {
+      {
+        left  = 5,
+        right = 0,
+        widget = wibox.container.margin
+      },
+      bg         = beautiful.colors.color900,
+      widget     = wibox.container.background
+    },
+    shape = powercircle,
+    spacing = 0,
+    layout = wibox.layout.shaped
+})
 -- {{{ Wibox
 
 -- Create a wibox for each screen and add it
@@ -288,19 +339,8 @@ if notmuch_exists then
     right_layout:add(widget_mail, separator)
 end
 
-right_layout:add(pomodoro.icon_widget, pomodoro.widget, separator)
-right_layout:add(widget_kbd_typicon, separator_small)
-right_layout:add(widget_kbd, separator_small)
+right_layout:add(container)
 
-if uim_exists then
-    right_layout:add(uim.widget, separator)
-end
-
-if battery_exists then
-    right_layout:add(widget_battery, separator)
-end
-
-right_layout:add(widget_datetime, separator_small)
 
 -- Now bring it all together (with the tasklist in the middle)
 local layout = wibox.layout.align.horizontal()
