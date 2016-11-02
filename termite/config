@@ -3,25 +3,15 @@ scroll_on_output = false
 scroll_on_keystroke = true
 audible_bell = false
 mouse_autohide = true
-allow_bold = true
+allow_bold = false
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
 font = Potipoti 10
 scrollback_lines = 1000
 search_wrap = true
-#icon_name = terminal
-#geometry = 640x480
 cursor_blink = off
-
-# "block", "underline" or "ibeam"
 cursor_shape = block
-
-# set size hints for the window
-#size_hints = false
-
-# emit escape sequences for other keys modified by Control
-#modify_other_keys = false
 
 [hints]
 #font = Monospace 12
@@ -35,41 +25,45 @@ cursor_shape = block
 #roundness = 2.0
 
 [colors]
+# Method:
+# From material palette
+# - dark is color-500
+# - bright is accent-1
 
 # special
-foreground      = #ffffff
-foreground_bold = #ffffff
-cursor          = #ffffff
+foreground      = #fff3e0
+foreground_bold = #ff9800
+cursor          = #ff9800
 background      = #000000
 
 # black
 color0  = #000000
-color8  = #c0c0c0
+color8  = #f57c00
 
 # red
-color1  = #e65100
-color9  = #e65100
+color1  = #f44336
+color9  = #ff8a80
 
 # green
-color2 = #aeea00
-color10 = #aeea00
+color2  = #8bc34a
+color10 = #ccff90
 
 # yellow
-color3 = #ffeb3b
-color11 = #ffeb3b
+color3  = #cddc39
+color11 = #f4ff81
 
 # blue
-color4 = #2196f3
-color12 = #2196f3
+color4  = #2196f3
+color12 = #82b1ff
 
 # magenta
-color5 = #9c27b0
-color13 = #9c27b0
+color5  = #e91e63
+color13 = #ff80ab
 
 # cyan
-color6 = #00bcd4
-color14 = #00bcd4
+color6  = #00bcd4
+color14 = #84ffff
 
 # white
-color7  = #ff9800
-color15 = #ffffff
+color7  = #ffb74d
+color15 = #fff3e0
