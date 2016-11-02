@@ -44,7 +44,7 @@ values."
    dotspacemacs-elpa-subdirectory nil
    dotspacemacs-editing-style 'vim
    dotspacemacs-verbose-loading nil
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'nil
    dotspacemacs-startup-lists '((recents . 5)
                                 (projects . 7))
    dotspacemacs-startup-buffer-responsive t
@@ -84,7 +84,7 @@ values."
    dotspacemacs-fullscreen-at-startup nil
    dotspacemacs-fullscreen-use-non-native nil
    dotspacemacs-maximized-at-startup nil
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 100
    dotspacemacs-inactive-transparency 90
    dotspacemacs-show-transient-state-title t
    dotspacemacs-show-transient-state-color-guide t
@@ -120,6 +120,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq frame-title-format '("%b — Emacs "))
+
   )
 
 (custom-set-variables

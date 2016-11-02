@@ -16,18 +16,18 @@
     :base01 "#202020"
     :base02 "#404040"
     :base03 "#a0a0a0"
-    :base04 "#a0a0a0"
-    :base05 "#a0a0a0"
-    :base06 "#c0c0c0"
-    :base07 "#f7f7f7"
-    :base08 "#e65100"
+    :base04 "#b0b0b0"
+    :base05 "#fff3e0"
+    :base06 "#f0f0f0"
+    :base07 "#fff3e0"
+    :base08 "#ff8a80"
     :base09 "#ff9800"
-    :base0A "#ffeb3b"
-    :base0B "#aeea00"
-    :base0C "#00bcd4"
-    :base0D "#2196f3"
-    :base0E "#9c27b0"
-    :base0F "#ff9100")
+    :base0A "#f4ff81"
+    :base0B "#ccff90"
+    :base0C "#84ffff"
+    :base0D "#82b1ff"
+    :base0E "#ff80ab"
+    :base0F "#ff9800")
   "All colors for Base16 material are defined here.")
 
 ;; Define the theme
