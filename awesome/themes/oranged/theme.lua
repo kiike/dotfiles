@@ -17,31 +17,31 @@ theme.colors = {
     color700 = "#f57c00",
     color800 = "#ef6c00",
     color900 = "#e65100",
-    color100 = "#ffd180",
-    color200 = "#ffab40",
-    color300 = "#ff9100",
-    color400 = "#ff6d00",
+    colora100 = "#ffd180",
+    colora200 = "#ffab40",
+    colora300 = "#ff9100",
+    colora400 = "#ff6d00",
     blue = "#00bcd4",
     red = "#f44336",
     green = "#00C853"
     }
 
 
-theme.bg_normal     = theme.colors.color500 .. "CC"
+theme.bg_normal     = theme.colors.color500
 theme.bg_focus      = theme.bg_normal
 theme.bg_urgent     = theme.colors.red .. "ff"
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = theme.colors.black
+theme.fg_normal     = theme.colors.black .. "C0"
 theme.fg_focus      = theme.colors.blue
 theme.fg_urgent     = theme.fg_normal
 theme.fg_minimize   = theme.fg_normal
 
 theme.border_width  = 4
 theme.border_normal = theme.colors.black
-theme.border_focus  = theme.colors.blue
-theme.border_marked = theme.colors.color500
+theme.border_focus  = theme.colors.color500
+theme.border_marked = theme.colors.blue
 
 theme.pomodoro_inactive = theme.fg_normal
 theme.pomodoro_start = theme.colors.red
@@ -53,14 +53,13 @@ theme.menu_bg_normal  = theme.color100
 theme.menu_width  = 140
 
 theme.wallpaper = "pictures/wallpaper"
-theme.awesome_icon = nil
 theme.awesome_icon_color = theme.fg_focus .. "00"
 
-theme.tasklist_bg_focus = theme.colors.color500 .. "00"
-theme.tasklist_fg_focus = theme.fg_normal
+theme.tasklist_bg_focus = theme.bg_normal .. "00"
+theme.tasklist_fg_focus = theme.colors.black
 
 theme.taglist_bg_focus = theme.colors.blue
-theme.taglist_fg_focus = theme.colors.white
+theme.taglist_fg_focus = theme.bg_normal
 
 -- Hide icons
 theme.icon_theme = nil
