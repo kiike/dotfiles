@@ -34,36 +34,38 @@ theme.bg_urgent     = theme.colors.red .. "ff"
 theme.bg_minimize   = theme.bg_normal
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = theme.colors.black .. "C0"
+theme.fg_normal     = theme.colors.black .. "80"
 theme.fg_focus      = theme.colors.blue
 theme.fg_urgent     = theme.fg_normal
 theme.fg_minimize   = theme.fg_normal
 
-theme.border_width  = 4
-theme.border_normal = theme.colors.black
+theme.border_width  = 1
+theme.border_normal = theme.colors.color50
 theme.border_focus  = theme.colors.color500
 theme.border_marked = theme.colors.blue
 
 theme.pomodoro_inactive = theme.fg_normal
-theme.pomodoro_start = theme.colors.red
-theme.pomodoro_end = theme.colors.green
+theme.pomodoro_start    = theme.colors.red
+theme.pomodoro_end      = theme.colors.green
 
-theme.menu_height = 18
-theme.menu_width  = 140
-theme.menu_bg_normal  = theme.color100
-theme.menu_width  = 140
+theme.menu_height    = 18
+theme.menu_width     = 140
+theme.menu_bg_normal = theme.color100
 
 theme.wallpaper = "pictures/wallpaper"
+
 theme.awesome_icon_color = theme.fg_focus .. "00"
 
 theme.tasklist_bg_focus = theme.bg_normal .. "00"
 theme.tasklist_fg_focus = theme.colors.black
+theme.tasklist_disable_icon = true
 
 theme.taglist_bg_focus = theme.colors.blue
 theme.taglist_fg_focus = theme.bg_normal
+theme.taglist_bg_normal = theme.colors.color700
 
--- Hide icons
+theme.containter_fg = theme.bg_normal
+
 theme.icon_theme = nil
-theme.tasklist_disable_icon = true
 
 return theme
