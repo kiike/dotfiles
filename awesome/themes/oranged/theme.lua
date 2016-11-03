@@ -2,7 +2,8 @@
 
 local theme = {}
 
-theme.font = "Noto Sans 10"
+theme.font         = "Noto Sans 10"
+theme.taglist_font = "Noto Sans Bold 11"
 
 theme.colors = {
     black =	"#000000",
