@@ -250,7 +250,9 @@ local widget_datetime = wibox.widget.textbox()
 vicious.register(widget_datetime, vicious.widgets.date, '%a %d %b, %H:%M')
 
 -- Powercircle
-local powercircle = function(cr, w, h)
+-- Like powerarrow, but with circles and similar to rectangular_tag, just ending
+-- with a semicircle instead of a triangle.
+local function powercircle(cr, w, h)
   local r = h/2
   cr:arc(r, r, r, 0, -math.pi/2)
   cr:line_to(w, 0)
@@ -259,8 +261,21 @@ local powercircle = function(cr, w, h)
   cr:close_path()
 end
 
+local function powercircle_inv(cr, w, h)
+  local r = h/2
+  cr:move_to(0,0)
+  cr:line_to(w-r, 0)
+  cr:arc(w-r, r, r, -math.pi/2, math.pi/2)
+  cr:line_to(0, h)
+  cr:close_path()
+end
 
-local function containerize(widget, bg, left_margin, right_margin)
+
+local function containerize(widget, bg, left_margin, right_margin, condition)
+  if condition ~= nil and not condition then
+    return
+  end
+
   local c = wibox.container.background()
   c:setup({
       {
@@ -271,6 +286,7 @@ local function containerize(widget, bg, left_margin, right_margin)
         right = right_margin,
         widget = wibox.container.margin
       },
+      fg     = beautiful.container_fg,
       bg     = bg,
       widget = wibox.container.background
   })
@@ -279,14 +295,16 @@ end
 
 local container = wibox.container.background()
 container:setup({
-    -- conditition    |             widget              | background color        |  margins
-                       containerize(pomodoro.icon_widget, beautiful.colors.color600, 10,  0),
-                       containerize(pomodoro.widget,      beautiful.colors.color600, 10, 10),
-                       containerize(widget_kbd_typicon,   beautiful.colors.color700, 20,  5),
-                       containerize(widget_kbd,           beautiful.colors.color700,  5,  5),
-    uim_exists     and containerize(uim.widget,           beautiful.colors.color700, 10,  5),
-    battery_exists and containerize(widget_battery,       beautiful.colors.color800, 15, 15),
-    containerize(widget_datetime, beautiful.colors.color900, 15, 15),
+    --          | widget             | background color         | margin | ()?condition)
+    containerize(pomodoro.icon_widget, beautiful.colors.color600, 10,  0),
+
+    containerize(pomodoro.widget,      beautiful.colors.color600, 10, 10),
+    containerize(widget_kbd_typicon,   beautiful.colors.color700, 20,  5),
+    containerize(widget_kbd,           beautiful.colors.color700,  5,  5),
+    containerize(uim.widget,           beautiful.colors.color700, 10,  5, uim_exists),
+    containerize(widget_battery,       beautiful.colors.color800, 15, 15, battery_exists),
+    containerize(widget_datetime,      beautiful.colors.color900, 15, 15),
+
     -- Add a small padding container
     {
       {
@@ -301,6 +319,29 @@ container:setup({
     spacing = 0,
     layout = wibox.layout.shaped
 })
+
+local container_taglist = wibox.container.background()
+container_taglist:setup({
+    {
+      {widget = separator},
+      shape = powercircle,
+      bg = beautiful.taglist_bg_normal,
+      widget = wibox.container.background
+    },
+    {
+      {widget = awful.widget.taglist(1, awful.widget.taglist.filter.all)},
+      bg = beautiful.taglist_bg_normal,
+      widget = wibox.container.background
+    },
+    {
+      {widget = separator},
+      shape = powercircle_inv,
+      bg = beautiful.taglist_bg_normal,
+      widget = wibox.container.background
+    },
+    spacing = 0,
+    layout = wibox.layout.fixed.horizontal
+})
 -- {{{ Wibox
 
 -- Create a wibox for each screen and add it
@@ -313,9 +354,6 @@ local s = 1
 -- Create a promptbox for each screen
 mypromptbox[s] = awful.widget.prompt()
 
--- Create a taglist widget
-mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all)
-
 -- Create a tasklist widget
 mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.focused)
 
@@ -325,7 +363,7 @@ mywibox[s] = awful.wibar({ position = "top", screen = s })
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
 left_layout:add(separator_small, awesome_icon, separator)
-left_layout:add(mytaglist[s])
+left_layout:add(container_taglist)
 left_layout:add(mypromptbox[s])
 left_layout:add(separator)
 
@@ -349,7 +387,6 @@ layout:set_middle(mytasklist[s])
 layout:set_right(right_layout)
 
 mywibox[s]:set_widget(layout)
-
 -- }}}
 
 -- {{{ Key bindings
