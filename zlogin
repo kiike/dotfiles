@@ -2,9 +2,12 @@
 
 export PATH=~/bin:$PATH
 
-if [[ ! -z $SSH_CONNECTION && ! -z $TMUX ]]; then
+# If we are connected with SSH and there's no tmux instance running
+if test ! -z $SSH_CONNECTION && test -z $TMUX; then
 	tmux attach || tmux
+fi
 
-elif ! pgrep -u $UID -x Xorg &>/dev/null && hash startx && [[ $TERM == linux ]]; then
+# No Xorg running, has Xorg installed and we've just logged in
+if ! pgrep -u $UID -x Xorg &>/dev/null && hash startx &>/dev/null && [[ $TERM == linux ]]; then
 	startx
 fi
