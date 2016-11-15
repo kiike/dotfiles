@@ -99,6 +99,7 @@ alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
 alias du="du -h"
+alias ec="emacsclient -c"
 alias ttyqr="ttyqr -b"
 alias speedtest="curl -o /dev/null http://cachefly.cachefly.net/100mb.test"
 
