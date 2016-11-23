@@ -78,6 +78,8 @@ if [[ $ALL == yes ]]; then
 	_action ${PWD}/vifm/colors/Default.vifm ${HOME}/.vifm/colors/Default.vifm
 
 	_action ${PWD}/vimrc ${HOME}/.vimrc
+
+	_action ${PWD}/systemd ${XDG_CONFIG_HOME}/systemd/user
 fi
 
 git submodule update --recursive
