@@ -1,0 +1,28 @@
+[KillThreadsFilter]
+
+[ArchiveSentMailsFilter]
+
+[Filter.1]
+message = Removing inbox tag from archived mail
+query = folder:archive OR folder:trash
+tags = -inbox
+
+[HeaderMatchingFilter.2]
+header = X-Spam
+pattern = yes
+message = Tagging messages with X-Spam == yes as spam
+tags = +spam
+
+[HeaderMatchingFilter.1]
+header = List-Id
+pattern = <(?P<list_id>.*)>
+tags = +lists;+{list_id}
+
+[InboxFilter]
+tags_blacklist = lists;killed;spam
+
+[MailMover]
+folders = inbox
+rename = True
+max_age = 90
+inbox = 'tag:killed':trash 'NOT tag:inbox':archive

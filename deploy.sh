@@ -55,6 +55,8 @@ _action ${PWD}/spacemacs ${HOME}/.spacemacs.d
 _action ${PWD}/nvim/init.vim ${HOME}/.config/nvim/init.vim
 
 if [[ $ALL == yes ]]; then
+	  _action ${PWD}/afew ${XDG_CONFIG_HOME}/afew
+
 	_action ${PWD}/awesome ${XDG_CONFIG_HOME}/awesome
 	_action ${PWD}/awesome ${XDG_DATA_HOME}/awesome
 
