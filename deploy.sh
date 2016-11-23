@@ -64,8 +64,6 @@ if [[ $ALL == yes ]]; then
 
 	_action ${PWD}/compton.conf ${XDG_CONFIG_HOME}/compton.conf
 
-	_action ${PWD}/cmus ${HOME}/cmus
-
 	_action ${PWD}/newsbeuter/config ${HOME}/.newsbeuter/config
 	_action ${PWD}/newsbeuter/urls ${HOME}/.newsbeuter/urls
 
