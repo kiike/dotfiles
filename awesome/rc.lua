@@ -473,7 +473,7 @@ local globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.spawn("volume u") end),
     awful.key({}, "XF86AudioMute", function () awful.spawn.spawn("volume m") end),
 
-    awful.key({ modkey, }, "r", function () awful.spawn.spawn("dmenu_raise -i") end),
+    awful.key({ modkey, }, "r", function () awful.spawn.spawn("rofi -show window") end),
 
     -- Manage the music player
     awful.key({}, "XF86AudioPrev", function () awful.spawn.spawn("remote prev") end),
@@ -488,8 +488,8 @@ local globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift" }, "i", function () kbd.switch() end),
 
     -- Launcher prompt
-    awful.key({ modkey, }, "space", function () awful.spawn.spawn("dmenu_run_recent") end),
-    awful.key({ modkey, "Shift" }, "space", function () awful.spawn.spawn("dmenu_term_run_recent") end),
+    awful.key({ modkey, }, "space", function () awful.spawn.spawn("rofi -show run") end),
+    awful.key({ modkey, "Shift" }, "space", function () awful.spawn.spawn("rofi -show window") end),
     awful.key({ modkey, }, "p", function () awful.spawn.spawn("passmenu --type") end),
     awful.key({ modkey, "Shift" }, "p", function () awful.spawn.spawn("passmenu") end),
     awful.key({ modkey, }, "c", function () awful.spawn.spawn("x t") end)
