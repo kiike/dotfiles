@@ -1,9 +1,13 @@
 #!/usr/bin/env lua
 -- mocp notifier for Awesome WM
 
-local function mocp_parse(mocp_info)
+local function mocp_parse()
 	-- Sanitize input
+    local mocp_handle = io.popen("mocp -i")
+    local mocp_info = mocp_handle:read("*a")
+
 	mocp_info = mocp_info:gsub("&", "&amp;")
+	mocp_info = mocp_info:gsub("\"", "\\\"")
 
 	local state = string.match(mocp_info, "State: (%w+)")
 	if state == "STOP" then
@@ -22,7 +26,7 @@ local function mocp_parse(mocp_info)
 		notify_text = notify_text:gsub("'", "\\'")
 		local notify_cmd = string.format("notify-send 'Now playing' '%s'", notify_text)
 
-		local widget_template = "<span font='Noto Emoji'>&#9654;</span> <span color='#b16286'>%s</span> by <span color='#689d6a'>%s</span>"
+		local widget_template = "<span font='Noto Emoji'>&#9654;</span> \\\"%s\\\" <span color='#000000A0'>by</span> %s"
 		local widget_markup = widget_template:format(title, artist)
 		local widget_cmd = string.format('now_playing_widget:set_markup("%s")', widget_markup)
 
@@ -31,11 +35,9 @@ local function mocp_parse(mocp_info)
 
 end
 
-local mocp_handle = io.popen("mocp -i")
-local mocp_info = mocp_handle:read("*a")
+local widget_cmd, notify_cmd = mocp_parse()
 
-local widget_cmd, notify_cmd = mocp_parse(mocp_info)
-
+print(widget_cmd)
 if widget_cmd then
 	local awesome_client = io.popen("awesome-client", "w")
 	awesome_client:write(widget_cmd)

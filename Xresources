@@ -2,6 +2,8 @@ Xft.hinting:   0
 Xft.hintstyle: hintfull
 Xft.dpi:       100
 
+Emacs.FontBackend: xft
+
 ! URxvt overrides
 URxvt.buffered:      true
 URxvt.scrollBar:     false

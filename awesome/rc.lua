@@ -17,6 +17,7 @@ local typicons = require("typicons")
 
 local uim = require("uim")
 local pomodoro = require("pomodoro")
+local mpd = require("mpdwidget")
 
 local host = io.popen("hostname"):read("l")
 local host_conf = io.open(host .. ".rc.lua", "r")
@@ -97,12 +98,13 @@ end)
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 local session_menu = {
-    { "sys restart", {{"confirm", "sudo systemctl reboot"}} },
-    { "sys poweroff", {{"confirm", "sudo systemctl poweroff"}} },
-    { "sys suspend", "sudo systemctl suspend" },
+    { "sys restart",  {{"confirm", "systemctl reboot"}} },
+    { "sys poweroff", {{"confirm", "systemctl poweroff"}} },
+    { "sys suspend", "systemctl suspend" },
     { "sys lock", term_exec .. "i3lock" },
-    { "wm restart", awesome.restart },
-    { "wm quit", awesome.quit }
+    { "", nil},
+    { "wm restart", awesome.restart},
+    { "wm quit", awesome.quit}
 }
 
 local games_menu = {
@@ -132,7 +134,7 @@ local main_menu = {
     { "w&eechat", term_exec .. "weechat-curses"}
 }
 
-local awesome_menu = awful.menu({items = main_menu})
+local awesome_menu = awful.menu(main_menu)
 
 -- {{{ Widgets
 -- Draw an awesome Awesome icon (needs patched font)
@@ -170,6 +172,8 @@ end
 
 -- Pomodoro
 pomodoro.init()
+
+local widget_mpd = mpd()
 
 -- Icon for the keyboard layout and IM indicators
 local widget_kbd_typicon = wibox.widget.textbox()
@@ -296,6 +300,8 @@ end
 local container = wibox.container.background()
 container:setup({
   -- parameters: widget, background color, left margin, right margin, condition
+    containerize(widget_mail,          beautiful.colors.color400, 10, 10, notmuch_exists),
+    containerize(widget_mpd,           beautiful.colors.color500, 10, 10),
     containerize(pomodoro.icon_widget, beautiful.colors.orange.shade_600, 10,  0),
     containerize(pomodoro.widget,      beautiful.colors.orange.shade_600, 10, 10),
 
@@ -349,7 +355,6 @@ container_taglist:setup({
 local mywibox = {}
 local mypromptbox = {}
 local mytasklist = {}
-local mytaglist = {}
 
 local s = 1
 -- Create a promptbox for each screen
@@ -371,12 +376,6 @@ left_layout:add(separator)
 -- Widgets that are aligned to the right
 local right_layout = wibox.layout.fixed.horizontal()
 if s == 1 then right_layout:add(wibox.widget.systray()) end
-
-right_layout:add(now_playing_widget, separator)
-
-if notmuch_exists then
-    right_layout:add(widget_mail, separator)
-end
 
 right_layout:add(container)
 
@@ -435,7 +434,7 @@ local globalkeys = awful.util.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn.spawn("emacsclient -c") end,
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn.spawn("emacsclient -nc") end,
       {description = "open an emacs window", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
@@ -482,6 +481,8 @@ local globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioStop", function () awful.spawn.spawn("remote stop") end),
     awful.key({}, "XF86AudioPlay", function () awful.spawn.spawn("remote pause") end),
 
+    awful.key({modkey}, "m", function () awful.spawn.spawn(terminal .. " -e ncmpcpp") end),
+
     -- Kill or spawn compton
     awful.key({ modkey, "Shift"}, "c", function () awful.spawn.spawn("toggle_compton") end),
 
@@ -520,13 +521,7 @@ local clientkeys = awful.util.table.join(
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
         end ,
-        {description = "minimize", group = "client"}),
-    awful.key({ modkey,           }, "m",
-        function (c)
-            c.maximized = not c.maximized
-            c:raise()
-        end ,
-        {description = "maximize", group = "client"})
+        {description = "minimize", group = "client"})
 )
 
 -- Bind all key numbers to tags.

@@ -1,16 +1,13 @@
 #!/bin/sh
 
-if  [[ $1 == play ]] && ! pgrep -u $UID moc; then
-	notify-send "Spawning a mocp instance"
-	sakura -e mocp
-fi
+#export MPD_HOST=~/.cache/mpd/socket
 
 case $1 in
-	pause) mocp -G ;;
-	next)  mocp -f ;;
-	prev)  mocp -r ;;
-	stop)  mocp -s ;;
+	pause) mpc toggle ;;
+	next)  mpc next ;;
+	prev)  mpc prev ;;
+	stop)  mpc stop ;;
 esac
 
 # Update widgets and notifications
-player-notify
+#player-notify

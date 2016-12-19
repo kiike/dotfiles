@@ -26,6 +26,14 @@ case $1 in
 	o)
 		xclip -o
 		;;
+	co)
+		xclip -sel clip -o
+		;;
+
+	t)
+		sleep 0.5
+		xdotool getwindowfocus type --clearmodifiers --delay 30 "$(xclip -o)"
+		;;
 
 	y)
 		youtube-viewer --video-player=mpv $(xclip -o)

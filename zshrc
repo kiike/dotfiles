@@ -2,6 +2,7 @@
 setopt nolistbeep
 setopt nohistbeep
 setopt nobeep
+setopt prompt_subst
 
 # Functions {{{
 function cless () {
@@ -23,6 +24,22 @@ format_seconds () {
 #
 # Modules {{{
 autoload -U colors && colors
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' stagedstr 'M' 
+zstyle ':vcs_info:*' unstagedstr 'M' 
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats \
+  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+zstyle ':vcs_info:*' enable git 
++vi-git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+  hook_com[unstaged]+='%F{1}??%f'
+fi
+}
+
 
 fpath=(~/.zsh/completion $fpath)
 autoload -U compinit
@@ -53,7 +70,7 @@ REPORTTIME=10
 local host_if_inside_ssh=${SSH_CONNECTION+${HOST} }
 
 # If SSH_CONNECTION is set, prepend PS1 with the hostname
-PS1="%B${host_if_inside_ssh}%F{4}%1//%f%b "
+PROMPT="%B${host_if_inside_ssh}%F{8}%1//%f%b "
 
 # Adapted snippet from http://scarff.id.au/blog/2011/window-titles-in-screen-and-rxvt-from-zsh/
 function preexec() {
@@ -63,6 +80,8 @@ a="${b}${1#$a}"     # add back the parameters
 a=${a//\%/\%\%}     # escape print specials
 a=$(print -Pn "$a" | tr -d "\t\n\v\f\r")  # remove fancy whitespace
 a=${(V)a//\%/\%\%}  # escape non-visibles and print specials
+
+RPROMPT="${vcs_info_msg_0_}"
 
 case "$TERM" in
 	screen|screen.*)
@@ -77,6 +96,7 @@ esac
 }
 
 function precmd() {
+	vcs_info
 case "$TERM" in
 	rxvt*|xterm*)
 		print -Pn "\ek%-3~\e\\" # set screen title
@@ -99,7 +119,7 @@ alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
 alias du="du -h"
-alias ec="emacsclient -c"
+alias ec="emacsclient -nc"
 alias ttyqr="ttyqr -b"
 alias speedtest="curl -o /dev/null http://cachefly.cachefly.net/100mb.test"
 
@@ -112,7 +132,7 @@ case $(uname) in
 			OS=$(grep NAME "/etc/os-release")
 			case $OS in
 				*Arch*)
-					export BUILDDIR=/tmp
+					export BUILDDIR=/tmp/pacaur-$USER PKGDEST=/tmp/pacaur-$USER
 					alias pacman="sudo pacman"
 					alias iptables="sudo iptables"
 					alias systemctl="sudo systemctl"

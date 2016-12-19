@@ -23,13 +23,15 @@ endif
 Plug 'benekastah/neomake'
 Plug 'bling/vim-airline'
 Plug 'ervandew/supertab'
-Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'morhetz/gruvbox'
 Plug 'rhysd/vim-grammarous'
+Plug 'chriskempson/base16-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rsi'
+Plug 'junegunn/vim-easy-align'
+
+Plug 'kien/ctrlp.vim'
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTree'}
 Plug 'sudar/vim-arduino-syntax', {'for': 'arduino'}
@@ -46,8 +48,10 @@ set laststatus=2
 set number
 set relativenumber
 
+set termguicolors
+let g:base16colorspace=256
 set background=dark
-colorscheme gruvbox
+colorscheme base16-eighties
 
 if has("syntax")
     syntax on
@@ -61,6 +65,11 @@ map <leader>w :w !sudo tee % >/dev/null
 
 " Custom mappings {{{
 nnoremap <S-Return> i<CR><Esc>
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap gl <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap gl <Plug>(EasyAlign)
 "}}}
 
 " Neovim Terminal emulation {{{
@@ -108,7 +117,6 @@ function! MailInit()
 endfunc
 
 function! PandocInit()
-    set tw=80 ts=4 sts=4 sw=4 et
     set ft=pandoc
     set fo=want
     set spell

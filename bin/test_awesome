@@ -1,8 +1,33 @@
 #!/bin/sh
 
 RESOLUTION="800x600"
-TARGET=":1"
+TARGET=:1
 
-Xephyr -screen ${RESOLUTION} ${TARGET} &
+if ! awesome -k; then
+    exit 1
+fi
 
-DISPLAY=$(TARGET} awesome
+
+Xephyr -ac -br -noreset -screen ${RESOLUTION} ${TARGET} &
+ZEPHYR_PID=$!
+export DISPLAY=${TARGET}
+
+if [[ "$1" == "--vanilla" ]]; then
+    unset XMODIFIERS
+    unset GTK_IM_MODULE
+    unset QT_IM_MODULE
+    export HOME=$(mktemp -d "/tmp/awesome-${USER}-XXX")
+fi
+
+sleep 1
+
+export G_MESSAGES_DEBUG=all
+xrdb -load "/home/kiike/.Xresources"
+awesome &
+AWESOME_PID=$!
+
+
+if [[ "$1" != "--vanilla" ]]; then
+    watchmedo shell-command -c "kill -HUP $AWESOME_PID" -i '\.*' $HOME/.config/awesome/
+fi
+wait
