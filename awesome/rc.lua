@@ -282,12 +282,12 @@ local function containerize(widget, bg, left_margin, right_margin, condition)
         {
           widget = widget
         },
-        left  = left_margin,
-        right = right_margin,
+        left  = left_margin or 0,
+        right = right_margin or 0,
         widget = wibox.container.margin
       },
-      fg     = beautiful.container_fg,
-      bg     = bg,
+      fg     = beautiful.container_fg or beautiful.colors.fg_normal,
+      bg     = bg or beautiful.colors.bg_normal,
       widget = wibox.container.background
   })
   return c
@@ -295,15 +295,16 @@ end
 
 local container = wibox.container.background()
 container:setup({
-    --          | widget             | background color         | margin | ()?condition)
-    containerize(pomodoro.icon_widget, beautiful.colors.color600, 10,  0),
+  -- parameters: widget, background color, left margin, right margin, condition
+    containerize(pomodoro.icon_widget, beautiful.colors.orange.shade_600, 10,  0),
+    containerize(pomodoro.widget,      beautiful.colors.orange.shade_600, 10, 10),
 
-    containerize(pomodoro.widget,      beautiful.colors.color600, 10, 10),
-    containerize(widget_kbd_typicon,   beautiful.colors.color700, 20,  5),
-    containerize(widget_kbd,           beautiful.colors.color700,  5,  5),
-    containerize(uim.widget,           beautiful.colors.color700, 10,  5, uim_exists),
-    containerize(widget_battery,       beautiful.colors.color800, 15, 15, battery_exists),
-    containerize(widget_datetime,      beautiful.colors.color900, 15, 15),
+    containerize(widget_kbd_typicon,   beautiful.colors.orange.shade_700, 20,  5),
+    containerize(widget_kbd,           beautiful.colors.orange.shade_700,  5,  5),
+
+    containerize(uim.widget,           beautiful.colors.orange.shade_700, 10,  5, uim_exists),
+    containerize(widget_battery,       beautiful.colors.orange.shade_800, 15, 15, battery_exists),
+    containerize(widget_datetime,      beautiful.colors.orange.shade_900, 15, 15),
 
     -- Add a small padding container
     {
@@ -312,7 +313,7 @@ container:setup({
         right = 0,
         widget = wibox.container.margin
       },
-      bg         = beautiful.colors.color900,
+      bg         = beautiful.colors.orange.shade_900 .. "80",
       widget     = wibox.container.background
     },
     shape = powercircle,
