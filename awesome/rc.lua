@@ -174,6 +174,7 @@ end
 pomodoro.init()
 
 local widget_mpd = mpd()
+local mpd_exists = awful.util.file_readable("/usr/bin/mpd")
 
 -- Icon for the keyboard layout and IM indicators
 local widget_kbd_typicon = wibox.widget.textbox()
@@ -300,8 +301,8 @@ end
 local container = wibox.container.background()
 container:setup({
   -- parameters: widget, background color, left margin, right margin, condition
-    containerize(widget_mail,          beautiful.colors.color400, 10, 10, notmuch_exists),
-    containerize(widget_mpd,           beautiful.colors.color500, 10, 10),
+    containerize(widget_mail,          beautiful.colors.orange.shade_400, 10, 10, notmuch_exists),
+    containerize(widget_mpd,           beautiful.colors.orange.shade_500, 10, 10, mpd_exists),
     containerize(pomodoro.icon_widget, beautiful.colors.orange.shade_600, 10,  0),
     containerize(pomodoro.widget,      beautiful.colors.orange.shade_600, 10, 10),
 
