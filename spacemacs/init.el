@@ -111,10 +111,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
   (push "~/.spacemacs.d/base16-material" custom-theme-load-path)
+  (push "~/.spacemacs.d/base16-material" load-path)
   (push "~/.spacemacs.d/Emacs-langtool" load-path)
-  (push "~/.spacemacs.d/ox-linguistics" load-path)
+  (push "~/.spacemacs.d/ox-linguistics/lisp" load-path)
 
   (require 'langtool)
+  (require 'ox-linguistics)
+
   (setq langtool-java-classpath
         "/usr/share/languagetool:/usr/share/java/languagetool/*")
   )
