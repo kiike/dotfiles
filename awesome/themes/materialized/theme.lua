@@ -1,4 +1,4 @@
--- Gruvbox-based theme
+-- Material Colors-based theme
 
 local theme = {}
 
@@ -6,6 +6,7 @@ theme.colors = require("materialcolors")
 
 theme.font         = "Noto Sans 10"
 theme.taglist_font = "Noto Sans Bold 11"
+
 
 theme.bg_normal     = theme.colors.black .. "80"
 theme.bg_focus      = theme.bg_normal
@@ -25,12 +26,11 @@ theme.border_focus  = theme.colors.orange.shade_500
 theme.border_marked = theme.colors.blue.shade_500
 
 theme.pomodoro_inactive = theme.fg_secondary
-theme.pomodoro_start    = theme.colors.red.shade_500
-theme.pomodoro_end      = theme.colors.green.shade_500
+theme.pomodoro_work     = theme.colors.red.shade_500
+theme.pomodoro_pause    = theme.colors.green.shade_500
 
 theme.menu_height    = 18
 theme.menu_width     = 140
-theme.menu_bg_normal = theme.colors.orange.shade_100
 
 theme.wallpaper = "pictures/wallpaper"
 
