@@ -629,6 +629,24 @@ awful.rules.rules = {
 
     properties = { always_opaque = true }},
 
+
+    -- Fullscreen games
+    { rule_any = {
+        class = {
+          "OrcishInn.bin.x86_64"
+        },
+    },
+    properties = { fullscreen = true}},
+
+    { rule = {
+        name = "qutebrowser",
+        instance = "qutebrowser",
+        class = "qutebrowser",
+        type = "utility"
+    },
+      properties = {
+        floating = true
+    }},
     -- Floating clients.
     { rule_any = {
         instance = {
