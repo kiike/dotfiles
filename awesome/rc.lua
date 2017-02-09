@@ -472,18 +472,26 @@ globalkeys = awful.util.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Manage volume
-    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn.spawn("volume d") end),
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.spawn("volume u") end),
-    awful.key({}, "XF86AudioMute", function () awful.spawn.spawn("volume m") end),
 
     awful.key({ modkey, }, "r", function () awful.spawn.spawn("rofi -show window") end),
+    awful.key({}, "Print", function ()
+        local date = os.date("%Y%m%dT%H%M%S", os.time())
+        local outdir = string.format("%s/pictures/screenshots", os.getenv("HOME"))
+        local name = string.gsub(client.focus.name, " ", "_")
+        local cmd = string.format("scrot %s/%s-%s.png", outdir, date, name)
+        awful.spawn.spawn(cmd)
+    end),
 
     -- Manage the music player
     awful.key({}, "XF86AudioPrev", function () awful.spawn.spawn("remote prev") end),
     awful.key({}, "XF86AudioNext", function () awful.spawn.spawn("remote next") end),
     awful.key({}, "XF86AudioStop", function () awful.spawn.spawn("remote stop") end),
     awful.key({}, "XF86AudioPlay", function () awful.spawn.spawn("remote pause") end),
+
+    -- Manage volume
+    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn.spawn("volume d") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.spawn("volume u") end),
+    awful.key({}, "XF86AudioMute", function () awful.spawn.spawn("volume m") end),
 
     awful.key({modkey}, "m", function () awful.spawn.spawn(terminal .. " -e ncmpcpp") end),
 
