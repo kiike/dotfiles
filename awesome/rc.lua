@@ -99,13 +99,13 @@ end)
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 local session_menu = {
-    { "sys restart",  {{"confirm", "systemctl reboot"}} },
+    { "sys reboot",  {{"confirm", "systemctl reboot"}} },
     { "sys poweroff", {{"confirm", "systemctl poweroff"}} },
     { "sys suspend", "systemctl suspend" },
     { "sys lock", term_exec .. "i3lock" },
     { "", nil},
     { "wm restart", awesome.restart},
-    { "wm quit", awesome.quit}
+    { "wm quit", function() awesome.quit() end}
 }
 
 local games_menu = {
