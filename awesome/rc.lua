@@ -493,7 +493,13 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.spawn("volume u") end),
     awful.key({}, "XF86AudioMute", function () awful.spawn.spawn("volume m") end),
 
-    awful.key({modkey}, "m", function () awful.spawn.spawn(terminal .. " -e ncmpcpp") end),
+    awful.key({modkey}, "m", function ()
+        local matcher = function (c)
+          return awful.rules.match(c, {class = 'ncmpcpp'})
+        end
+        local cmd = terminal .. " --class=ncmpcpp -e ncmpcpp"
+        awful.client.run_or_raise(cmd, matcher)
+    end),
 
     -- Kill or spawn compton
     awful.key({ modkey, "Shift"}, "c", function () awful.spawn.spawn("toggle_compton") end),
