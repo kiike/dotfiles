@@ -142,7 +142,7 @@ local awesome_menu = awful.menu(main_menu)
 local awesome_icon_color = beautiful.awesome_icon_color or beautiful.colors.blue or "#FFFFFF"
 local awesome_icon_markup = "<span font='Potipoti 24' fgcolor='%s'>&#57680;</span>"
 local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(awesome_icon_color))
-awesome_icon:buttons(awful.util.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
+awesome_icon:buttons(gears.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
 
 -- Now playing widget: to be set by scripts via awesome-client
 now_playing_widget = wibox.widget.textbox()
@@ -157,7 +157,7 @@ local check_uim = function()
         if uim.connected then
             uim_timer:stop()
         else
-            uim_timer:restart()
+            uim_timer:again()
         end
 
     end)
@@ -324,16 +324,16 @@ container:setup({
       bg         = beautiful.colors.orange.shade_900 .. "80",
       widget     = wibox.container.background
     },
-    shape = powercircle,
+    --shape = powercircle,
     spacing = 0,
-    layout = wibox.layout.shaped
+    layout = wibox.layout.fixed.horizontal
 })
 
 local container_taglist = wibox.container.background()
 container_taglist:setup({
     {
       {widget = separator},
-      shape = powercircle,
+      --shape = powercircle,
       bg = beautiful.taglist_bg_normal,
       widget = wibox.container.background
     },
@@ -344,7 +344,7 @@ container_taglist:setup({
     },
     {
       {widget = separator},
-      shape = powercircle_inv,
+      --shape = powercircle_inv,
       bg = beautiful.taglist_bg_normal,
       widget = wibox.container.background
     },
@@ -392,7 +392,7 @@ mywibox[s]:set_widget(layout)
 -- }}}
 
 -- {{{ Key bindings
-globalkeys = awful.util.table.join(
+globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -515,7 +515,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "c", function () awful.spawn.spawn("x t") end)
 )
 
-local clientkeys = awful.util.table.join(
+local clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -555,7 +555,7 @@ local clientkeys = awful.util.table.join(
 -- Bind all key numbers to tags.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 4 do
-    globalkeys = awful.util.table.join(globalkeys,
+    globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
@@ -601,7 +601,7 @@ for i = 1, 4 do
     )
 end
 
-clientbuttons = awful.util.table.join(
+clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
@@ -696,7 +696,7 @@ end)
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar
-    local buttons = awful.util.table.join(
+    local buttons = gears.table.join(
         awful.button({ }, 1, function()
             client.focus = c
             c:raise()
