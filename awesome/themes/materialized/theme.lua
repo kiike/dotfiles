@@ -46,6 +46,8 @@ theme.taglist_fg_occupied = "#404040"
 theme.taglist_fg_empty = "#909090"
 theme.taglist_bg_normal = theme.colors.orange.shade_500
 
+theme.tooltip_fg = theme.fg_normal
+
 theme.container_fg = theme.fg_secondary
 
 theme.icon_theme = nil
