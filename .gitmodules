@@ -10,3 +10,6 @@
 [submodule "spacemacs/ox-linguistics"]
 	path = spacemacs/ox-linguistics
 	url = https://github.com/wyleyr/ox-linguistics.git
+[submodule "awesome-pomodoro"]
+	path = awesome-pomodoro
+	url = git@github.com:kiike/awesome-pomodoro.git
