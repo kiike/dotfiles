@@ -81,6 +81,9 @@ if [[ $ALL == yes ]]; then
 
 	_action ${PWD}/vimrc ${HOME}/.vimrc
 
+	_action ${PWD}/emacs/init.el ${HOME}/.emacs.d/init.el
+	_action ${PWD}/emacs/base16-material ${HOME}/.emacs.d/base16-material
+
 	_action ${PWD}/systemd ${XDG_CONFIG_HOME}/systemd/user
 fi
 
