@@ -6,6 +6,9 @@
 (add-to-list 'package-archives
 	     '("org" . "http://orgmode.org/elpa/") t)
 
+(setq custom-file "~/.cache/emacs/custom.el")
+(setq org-default-notes-file "~/documents/basket.org")
+(define-key global-map "\C-cc" 'org-capture)
 (package-initialize)
 
 (tool-bar-mode -1)
