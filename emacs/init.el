@@ -125,5 +125,8 @@
   :init
   (yas-global-mode 1))
 
+(use-package lua-mode
+  :ensure t)
+
 ;; Local Variables:
 ;; flycheck-disabled-checkers: emacs-lisp-checkdoc
