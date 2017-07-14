@@ -13,11 +13,11 @@ local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local cardstack = require("cardstack")
+local pomodoro = require("pomodoro")
 
 local typicons = require("typicons")
 
 local uim = require("uim")
-local pomodoro = require("pomodoro")
 local mpd = require("mpdwidget")
 
 local host = io.popen("hostname"):read("l")
@@ -172,7 +172,7 @@ if uim_exists then
 end
 
 -- Pomodoro
-pomodoro.init()
+local my_pomodoro = pomodoro({always_show_timer=false})
 
 local widget_mpd = mpd()
 local mpd_exists = awful.util.file_readable("/usr/bin/mpd")
@@ -304,10 +304,10 @@ container:setup({
   -- parameters: widget, background color, left margin, right margin, condition
     containerize(widget_mail,          beautiful.colors.orange.shade_400, 10, 10, notmuch_exists),
     containerize(widget_mpd,           beautiful.colors.orange.shade_500, 10, 10, mpd_exists),
-    containerize(pomodoro.icon_widget, beautiful.colors.orange.shade_600, 10,  0),
-    containerize(pomodoro.widget,      beautiful.colors.orange.shade_600, 10, 10),
 
-    containerize(widget_kbd_typicon,   beautiful.colors.orange.shade_700, 20,  5),
+    containerize(my_pomodoro.icon_widget,   beautiful.colors.orange.shade_600, 10,  0),
+    containerize(my_pomodoro.timer_widget,   beautiful.colors.orange.shade_600, 0,  20),
+    containerize(widget_kbd_typicon,   beautiful.colors.orange.shade_700, 10,  5),
     containerize(widget_kbd,           beautiful.colors.orange.shade_700,  5,  5),
 
     containerize(uim.widget,           beautiful.colors.orange.shade_700, 10,  5, uim_exists),
@@ -380,7 +380,6 @@ local right_layout = wibox.layout.fixed.horizontal()
 if s == 1 then right_layout:add(wibox.widget.systray()) end
 
 right_layout:add(container)
-
 
 -- Now bring it all together (with the tasklist in the middle)
 local layout = wibox.layout.align.horizontal()
