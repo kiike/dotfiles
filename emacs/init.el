@@ -109,8 +109,14 @@
   :init
   (yas-global-mode 1))
 
-(use-package lua-mode
-  :ensure t)
+(use-package lua-mode)
+
+(use-package magit)
+
+(require 'notmuch)
+
+(use-package all-the-icons)
 
 ;; Local Variables:
-;; flycheck-disabled-checkers: emacs-lisp-checkdoc
+;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
+;; End:
