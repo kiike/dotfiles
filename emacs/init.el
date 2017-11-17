@@ -113,9 +113,64 @@
 
 (use-package magit)
 
-(require 'notmuch)
-
 (use-package all-the-icons)
+
+(require 'notmuch)
+(require 'notmuch-address)
+
+(defun notmuch-delete-msg ()
+    "toggle deleted tag for message"
+    (interactive)
+    (if (member "deleted" (notmuch-show-get-tags))
+	    (notmuch-show-tag (list "-killed"))
+	(notmuch-show-tag (list "+killed"))))
+
+(defun notmuch-unread ()
+  "Shows unread mail"
+  (interactive)
+  (notmuch-search "tag:unread"))
+
+(defun notmuch-inbox ()
+  "Shows unread mail"
+  (interactive)
+  (notmuch-search "tag:inbox AND NOT tag:killed"))
+
+(defun notmuch-search-lists ()
+  "Shows unread mail"
+  (interactive)
+  (notmuch-search "tag:lists"))
+
+(define-key notmuch-show-mode-map "j" 'next-line)
+(define-key notmuch-show-mode-map "k" 'previous-line)
+(define-key notmuch-search-mode-map "j" 'next-line)
+(define-key notmuch-search-mode-map "k" 'previous-line)
+(define-key notmuch-show-mode-map ":" 'evil-ex)
+(define-key notmuch-search-mode-map ":" 'evil-ex)
+
+(define-key notmuch-search-mode-map "d" 'notmuch-delete-msg)
+(define-key notmuch-show-mode-map "d" 'notmuch-delete-msg)
+
+(evil-ex-define-cmd "mmi" 'notmuch-inbox)
+(evil-ex-define-cmd "mmu" 'notmuch-unread)
+(evil-ex-define-cmd "mml" 'notmuch-unread)
+
+(setq mail-specify-envelope-from t
+	  mail-envelope-from 'header
+	  message-sendmail-envelope-from 'header
+	  message-send-mail-function 'message-send-mail-with-sendmail
+	  sendmail-program "/usr/bin/msmtp"
+	  mm-text-html-renderer 'lynx
+	  notmuch-mua-hidden-headers '()
+	  notmuch-mua-user-agent-function 'notmuch-mua-user-agent-notmuch
+	  notmuch-message-headers '("Subject" "To" "Cc" "Date" "User-Agent")
+	  notmuch-mua-hidden-headers nil
+	  notmuch-crypto-process-mime t
+	  notmuch-address-command "~/mail/notmuch-addrlookup"
+
+	  notmuch-always-prompt-for-sender t
+	  ;; disable zip preview
+	  mm-inlined-types (remove "application/zip" mm-inlined-types)
+	  )
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
