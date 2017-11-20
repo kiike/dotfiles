@@ -57,7 +57,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(awful.util.getdir("config") .. "/themes/materialized/theme.lua")
-if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, true) end
+if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, false) end
 
 local modkey = "Mod4"
 -- }}}
