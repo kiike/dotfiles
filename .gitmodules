@@ -7,3 +7,6 @@
 [submodule "awesome/pomodoro"]
 	path = awesome/pomodoro
 	url = git@github.com:kiike/awesome-pomodoro.git
+[submodule "emacs/evil-collection"]
+	path = emacs/evil-collection
+	url = https://github.com/jojojames/evil-collection.git

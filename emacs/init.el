@@ -51,6 +51,7 @@
   :diminish (which-key-mode nil)
   :config (which-key-mode))
 
+(push "~/.emacs.d/evil-collection" load-path) 
 (use-package evil
   :config (evil-mode))
 
@@ -58,7 +59,6 @@
   :diminish (undo-tree-mode " 🔄")
   :init
   (global-undo-tree-mode))
-
 
 (use-package diminish)
 
@@ -112,6 +112,8 @@
 (use-package lua-mode)
 
 (use-package magit)
+(use-package evil-magit)
+
 
 (use-package all-the-icons)
 
