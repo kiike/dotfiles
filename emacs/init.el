@@ -51,9 +51,12 @@
   :diminish (which-key-mode nil)
   :config (which-key-mode))
 
-(push "~/.emacs.d/evil-collection" load-path) 
 (use-package evil
   :config (evil-mode))
+
+(push "~/.emacs.d/evil-collection" load-path) 
+(when (require 'evil-collection nil t)
+  (evil-collection-init))
 
 (use-package undo-tree
   :diminish (undo-tree-mode " 🔄")
