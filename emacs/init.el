@@ -118,13 +118,6 @@
 (require 'notmuch)
 (require 'notmuch-address)
 
-(defun notmuch-delete-msg ()
-    "toggle deleted tag for message"
-    (interactive)
-    (if (member "deleted" (notmuch-show-get-tags))
-	    (notmuch-show-tag (list "-killed"))
-	(notmuch-show-tag (list "+killed"))))
-
 (defun notmuch-unread ()
   "Shows unread mail"
   (interactive)
@@ -147,30 +140,31 @@
 (define-key notmuch-show-mode-map ":" 'evil-ex)
 (define-key notmuch-search-mode-map ":" 'evil-ex)
 
-(define-key notmuch-search-mode-map "d" 'notmuch-delete-msg)
-(define-key notmuch-show-mode-map "d" 'notmuch-delete-msg)
+(define-key notmuch-show-mode-map "d" (lambda ()
+    "toggle deleted tag for message"
+    (interactive)
+    (if (member "deleted" (notmuch-show-get-tags))
+	    (notmuch-show-tag (list "-deleted"))
+	(notmuch-show-tag (list "+deleted")))))
+
+(define-key notmuch-search-mode-map "d" (lambda ()
+    "toggle deleted tag for message"
+    (interactive)
+    (if (member "deleted" (notmuch-search-get-tags))
+	    (notmuch-search-tag (list "-deleted"))
+	(notmuch-search-tag (list "+deleted")))))
 
 (evil-ex-define-cmd "mmi" 'notmuch-inbox)
 (evil-ex-define-cmd "mmu" 'notmuch-unread)
 (evil-ex-define-cmd "mml" 'notmuch-unread)
 
-(setq mail-specify-envelope-from t
-	  mail-envelope-from 'header
-	  message-sendmail-envelope-from 'header
-	  message-send-mail-function 'message-send-mail-with-sendmail
-	  sendmail-program "/usr/bin/msmtp"
-	  mm-text-html-renderer 'lynx
-	  notmuch-mua-hidden-headers '()
-	  notmuch-mua-user-agent-function 'notmuch-mua-user-agent-notmuch
-	  notmuch-message-headers '("Subject" "To" "Cc" "Date" "User-Agent")
-	  notmuch-mua-hidden-headers nil
-	  notmuch-crypto-process-mime t
-	  notmuch-address-command "~/mail/notmuch-addrlookup"
-
-	  notmuch-always-prompt-for-sender t
-	  ;; disable zip preview
-	  mm-inlined-types (remove "application/zip" mm-inlined-types)
-	  )
+(setq
+ message-sendmail-envelope-from 'header
+ message-send-mail-function 'message-send-mail-with-sendmail
+ sendmail-program "/usr/bin/msmtp"
+ notmuch-address-command "~/mail/notmuch-addrlookup"
+ notmuch-always-prompt-for-sender t
+ )
 
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
