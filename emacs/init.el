@@ -1,15 +1,6 @@
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
-
-(add-to-list 'package-archives
-	     '("org" . "http://orgmode.org/elpa/") t)
-
 (setq custom-file "~/.cache/emacs/custom.el")
 (setq org-default-notes-file "~/documents/basket.org")
 (define-key global-map "\C-cc" 'org-capture)
-(package-initialize)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -40,12 +31,24 @@
 (push "~/.emacs.d/base16-material" load-path)
 (load-theme 'base16-material t)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+(require 'package)
+(package-initialize)
+
+(let ((bootstrap-file (concat user-emacs-directory "straight/bootstrap.el"))
+      (bootstrap-version 2))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
 (setq use-package-always-ensure t)
 
-(use-package try)
+(use-package diminish)
 
 (use-package which-key
   :diminish (which-key-mode nil)
@@ -63,7 +66,6 @@
   :init
   (global-undo-tree-mode))
 
-(use-package diminish)
 
 (use-package telephone-line-config
   :init
