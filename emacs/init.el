@@ -52,14 +52,18 @@
 
 (use-package which-key
   :diminish (which-key-mode nil)
-  :config (which-key-mode))
+  :config
+  (setq which-key-allow-evil-operator t
+   which-key-show-operator-state-maps t)
+  (which-key-mode))
 
+(use-package try)
 (use-package evil
-  :config (evil-mode))
-
-(push "~/.emacs.d/evil-collection" load-path) 
-(when (require 'evil-collection nil t)
-  (evil-collection-init))
+  :config (evil-mode)
+    (push "~/.emacs.d/evil-collection" load-path)
+    (when (require 'evil-collection nil t)
+    (evil-collection-init))
+  )
 
 (use-package undo-tree
   :diminish (undo-tree-mode " 🔄")
