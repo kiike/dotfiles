@@ -1,5 +1,7 @@
 (setq custom-file "~/.cache/emacs/custom.el")
 (setq org-default-notes-file "~/documents/basket.org")
+(setq org-latex-pdf-process
+      '("latexmk -gg -xelatex %f"))
 (define-key global-map "\C-cc" 'org-capture)
 
 (tool-bar-mode -1)
