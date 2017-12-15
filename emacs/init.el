@@ -8,21 +8,24 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-(setq savehist-file "~/.cache/emacs/history")
-(savehist-mode 1)
-(setq history-length t)
-(setq history-delete-duplicates t)
-(setq savehist-save-minibuffer-history 1)
+(setq savehist-file "~/.cache/emacs/history"
+      history-length t
+      history-delete-duplicates t
+      savehist-save-minibuffer-history 1
 
-(setq backup-directory-alist '(("." . "~/.cache/emacs/backups")))
-(setq delete-old-versions -1)
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/.cache/emacs/auto-save-list/" t)))
+      backup-directory-alist '(("." . "~/.cache/emacs/backups"))
+      delete-old-versions -1
+      version-control t
+      vc-make-backup-files t
+      auto-save-file-name-transforms '((".*" "~/.cache/emacs/auto-save-list/" t))
+)
+
+(savehist-mode 1)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (setq inhibit-startup-message t)
+(setq initial-scratch-message nil)
 (setq frame-title-format '("%b — Emacs "))
 (add-to-list 'default-frame-alist
 	     '(font . "Potipoti-10"))
