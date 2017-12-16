@@ -136,8 +136,11 @@
 (use-package magit)
 (use-package evil-magit)
 
-
 (use-package all-the-icons)
+
+(use-package org-ref
+  :config
+  (require 'org-ref-isbn))
 
 (require 'notmuch)
 (require 'notmuch-address)
