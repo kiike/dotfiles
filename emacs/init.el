@@ -174,18 +174,15 @@
 	    (notmuch-search-tag (list "-deleted"))
 	(notmuch-search-tag (list "+deleted")))))
 
-(evil-ex-define-cmd "mmi" 'notmuch-inbox)
-(evil-ex-define-cmd "mmu" 'notmuch-unread)
-(evil-ex-define-cmd "mml" 'notmuch-unread)
-
 (setq
  message-sendmail-envelope-from 'header
  message-send-mail-function 'message-send-mail-with-sendmail
  sendmail-program "/usr/bin/msmtp"
+ notmuch-hello-logo nil
+ notmuch-search-oldest-first nil
  notmuch-address-command "~/mail/notmuch-addrlookup"
  notmuch-always-prompt-for-sender t
  )
-
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
