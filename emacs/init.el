@@ -160,13 +160,6 @@
   (interactive)
   (notmuch-search "tag:lists"))
 
-(define-key notmuch-show-mode-map "j" 'next-line)
-(define-key notmuch-show-mode-map "k" 'previous-line)
-(define-key notmuch-search-mode-map "j" 'next-line)
-(define-key notmuch-search-mode-map "k" 'previous-line)
-(define-key notmuch-show-mode-map ":" 'evil-ex)
-(define-key notmuch-search-mode-map ":" 'evil-ex)
-
 (define-key notmuch-show-mode-map "d" (lambda ()
     "toggle deleted tag for message"
     (interactive)
