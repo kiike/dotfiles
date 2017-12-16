@@ -88,7 +88,8 @@
         telephone-line-secondary-left-separator 'telephone-line-halfcos-hollow-left
         telephone-line-primary-right-separator 'telephone-line-halfcos-right
         telephone-line-secondary-right-separator 'telephone-line-halfcos-hollow-right)
-  :ensure telephone-line
+  :straight (telephone-line
+	     :type git :host github :repo "dbordak/telephone-line")
   :config (telephone-line-evil-config))
 
 (use-package ivy
