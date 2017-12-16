@@ -92,6 +92,7 @@
 	     :type git :host github :repo "dbordak/telephone-line")
   :config (telephone-line-evil-config))
 
+(use-package hydra)
 (use-package ivy
   :diminish (ivy-mode nil)
   :config
