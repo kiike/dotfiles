@@ -51,9 +51,8 @@
   (load bootstrap-file nil 'nomessage))
 
 (straight-use-package 'use-package)
-(setq use-package-always-ensure t)
-
-(use-package diminish)
+(setq use-package-always-ensure t
+      straight-use-package-by-default t)
 
 (use-package which-key
   :diminish (which-key-mode nil)
@@ -65,7 +64,7 @@
 (use-package try)
 (use-package evil
   :config (evil-mode)
-    (push "~/.emacs.d/evil-collection" load-path)
+    (push "~/src/evil-collection" load-path)
     (when (require 'evil-collection nil t)
     (evil-collection-init))
   )
