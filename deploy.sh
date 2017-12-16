@@ -69,6 +69,8 @@ if [[ $ALL == yes ]]; then
 	_action ${PWD}/newsbeuter/config ${HOME}/.newsbeuter/config
 	_action ${PWD}/newsbeuter/urls ${HOME}/.newsbeuter/urls
 
+	_action ${PWD}/latexmk ${XDG_CONFIG_HOME}/latexmk
+
 	_action ${PWD}/xinitrc ${HOME}/.xinitrc
 	_action ${PWD}/Xresources ${HOME}/.Xresources
 	_action ${PWD}/Xcompose ${HOME}/.Xcompose
