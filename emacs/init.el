@@ -74,6 +74,13 @@
   :init
   (global-undo-tree-mode))
 
+(use-package rainbow-delimiters
+  :config
+  (rainbow-delimiters-mode))
+
+(use-package highlight-parentheses
+  :config
+  (highlight-parentheses-mode))
 
 (use-package telephone-line-config
   :init
