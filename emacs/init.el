@@ -54,6 +54,8 @@
 (setq use-package-always-ensure t
       straight-use-package-by-default t)
 
+(use-package diminish)
+
 (use-package which-key
   :diminish (which-key-mode nil)
   :config
