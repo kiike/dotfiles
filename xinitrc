@@ -24,7 +24,11 @@ fi
 #}}}
 
 
-[[ $(hostname) == dhalsim ]] && scc-daemon profile Desktop start
+if [[ $(hostname) == dhalsim ]] && ! pgrep -f scc; then
+	rm -f $HOME/.config/scc/daemon.pid
+	scc-daemon profile Desktop start
+fi
+
 
 # Input method {{{
 [[ $(hostname) != dhalsim ]] && xmodmap ~/.Xmodmaprc
