@@ -5,6 +5,9 @@
 (define-key global-map "\C-cc" 'org-capture)
 
 (setq org-export-latex-listings 'minted)
+
+(setq tramp-default-method "ssh")
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
