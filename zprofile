@@ -6,6 +6,7 @@ export PATH=$HOME/.luarocks/bin:$PATH
 
 # Wine
 export WINEPREFIX=$HOME/.wine/default
+export WINEDLLOVERRIDES=winemenubuilder.exe=d
 
 # Go
 export PATH=$HOME/projects/go/bin:$PATH
