@@ -180,6 +180,29 @@
 	    (notmuch-search-tag (list "-deleted"))
 	(notmuch-search-tag (list "+deleted")))))
 
+(require 'widget)
+(defun my/notmuch-create-search-link (search-expression label)
+  "Create a link that searches `search-expression` and displays as label `label`"
+  (widget-create 'link
+		 :notify (lexical-let '(s search-expression)
+			   (lambda (&rest ignore) (notmuch-search s)))
+		 :button-prefix ""
+		 :button-suffix ""
+		 label)
+  (widget-insert "\n"))
+
+(defun my/notmuch-create-my-search-links ()
+  (mapcar '(lambda (link-info)
+	     (funcall #'my/notmuch-create-search-link
+			(car link-info) (cdr link-info)))
+	  '(("tag:inbox" . "Inbox")
+	    ("tag:lists" . "Lists")
+	    ("tag:list/lua-l-lists.lua.org" . "Lua-l")
+	    ("tag:list/misc.openbsd.org" . "OpenBSD")
+	    ("tag:list/misc.opensmtpd.org" . "OpenSMTPD")
+	    ("tag:list/notmuch.notmuchmail.org" . "Notmuch")
+	    )))
+
 (setq
  message-sendmail-envelope-from 'header
  message-send-mail-function 'message-send-mail-with-sendmail
@@ -188,7 +211,8 @@
  notmuch-search-oldest-first nil
  notmuch-address-command "~/mail/notmuch-addrlookup"
  notmuch-always-prompt-for-sender t
- )
+ notmuch-hello-sections #'(my/notmuch-create-my-search-links)
+)
 ;; Local Variables:
 ;; flycheck-disabled-checkers: (emacs-lisp-checkdoc)
 ;; End:
