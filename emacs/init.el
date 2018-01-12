@@ -4,6 +4,7 @@
       '("latexmk -gg -xelatex %f"))
 (define-key global-map "\C-cc" 'org-capture)
 
+(setq org-export-latex-listings 'minted)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
