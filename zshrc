@@ -1,3 +1,14 @@
+# Some settings for Emacs TRAMP mode. Load early and return
+if [[ "$TERM" == "dumb" ]]; then
+        unsetopt zle
+        unsetopt prompt_cr
+        unsetopt prompt_subst
+        unfunction precmd
+        unfunction preexec
+        PS1='$ '
+        return
+fi
+
 # Overrides
 setopt nolistbeep
 setopt nohistbeep
