@@ -2,29 +2,39 @@
 export PATH=$HOME/bin:$PATH
 
 # Luarocks
-export PATH=$HOME/.luarocks/bin:$PATH
+if hash lua &> /dev/null; then
+    export PATH=$HOME/.luarocks/bin:$PATH
+fi
 
 # Wine
-export WINEPREFIX=$HOME/.wine/default
-export WINEDLLOVERRIDES=winemenubuilder.exe=d
+if hash wine &> /dev/null; then
+    export WINEPREFIX=$HOME/.wine/default
+    export WINEDLLOVERRIDES=winemenubuilder.exe=d
+fi
 
 # Go
-export PATH=$HOME/projects/go/bin:$PATH
-export GOPATH=$HOME/projects/go
+if hash go &> /dev/null; then
+    export PATH=$HOME/projects/go/bin:$PATH
+    export GOPATH=$HOME/projects/go
+fi
 
-# Global settings
 export PAGER="less"
 
-if hash qutebrowser 2>&1 > /dev/null; then
+if hash qutebrowser &> /dev/null; then
   export BROWSER="qutebrowser"
-elif hash firefox 2>&1 > /dev/null; then
+elif hash firefox &> /dev/null; then
   export BROWSER="firefox"
 fi
 
-if hash emacsclient 2>&1 > /dev/null; then
+if hash emacsclient &> /dev/null; then
   export EDITOR="emacsclient -nc"
-elif hash vim 2>&1 > /dev/null; then
+elif hash vim &> /dev/null; then
   export EDITOR="vim"
 else
   export EDITOR="vi"
+fi
+
+# Font settings for Java apps
+if hash java &> /dev/null; then
+    export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=gasp'
 fi
