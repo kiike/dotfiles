@@ -17,7 +17,7 @@ setopt prompt_subst
 
 # Functions {{{
 function cless () {
-pygmentize -f terminal -N $@ | less -R
+    pygmentize -f terminal $@ | less -R
 }
 
 format_seconds () {
