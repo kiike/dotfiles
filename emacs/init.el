@@ -84,6 +84,10 @@
   :config
   (rainbow-delimiters-mode))
 
+(use-package nov
+  :config
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+
 (use-package highlight-parentheses
   :config
   (highlight-parentheses-mode))
