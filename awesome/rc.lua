@@ -17,7 +17,6 @@ local pomodoro = require("pomodoro")
 
 local typicons = require("typicons")
 
-local uim = require("uim")
 local mpd = require("mpdwidget")
 
 local host = io.popen("hostname"):read("l")
@@ -147,39 +146,11 @@ awesome_icon:buttons(gears.table.join(awful.button({ }, 1, function() awesome_me
 -- Now playing widget: to be set by scripts via awesome-client
 now_playing_widget = wibox.widget.textbox()
 
--- Input method
-uim.widget = wibox.widget.textbox()
-local uim_exists = awful.util.file_readable("/usr/bin/uim-sh")
-local check_uim = function()
-    local uim_timer = gears.timer({timeout = 15})
-    uim_timer:connect_signal("timeout", function()
-        uim.start()
-        if uim.connected then
-            uim_timer:stop()
-        else
-            uim_timer:again()
-        end
-
-    end)
-    uim_timer:start()
-end
-
-if uim_exists then
-    uim.start()
-    if not uim.connected then
-        check_uim()
-    end
-end
-
 -- Pomodoro
 local my_pomodoro = pomodoro({always_show_timer=false})
 
 local widget_mpd = mpd()
 local mpd_exists = awful.util.file_readable("/usr/bin/mpd")
-
--- Icon for the keyboard layout and IM indicators
-local widget_kbd_typicon = wibox.widget.textbox()
-widget_kbd_typicon:set_markup(typicons.render("keyboard"))
 
 -- Separators
 
@@ -189,29 +160,6 @@ separator:set_markup("<span font=\"Monospace\">  </span>")
 local separator_small = wibox.widget.textbox()
 separator_small:set_markup("<span font=\"Monospace\"> </span>")
 
-
--- Keyboard map indicator and changer
-local widget_kbd = wibox.widget.textbox()
-
-local kbd = {}
-kbd.layout = { { "us", "-option" },
-               { "es", "-option" }
-             }
-kbd.current = 1
-kbd.switch = function ()
-        kbd.current = kbd.current % #(kbd.layout) + 1
-        local t = kbd.layout[kbd.current]
-        widget_kbd:set_text(t[1])
-        os.execute("setxkbmap ".. t[1] .. " " .. t[2])
-        os.execute("xmodmap ~/.Xmodmaprc")
-        if t[1] == "us" then
-            os.execute("xmodmap -e 'remove mod1 = Alt_R'")
-            os.execute("xmodmap -e 'keysym Alt_R = Hangul'")
-        end
-    end
-
-widget_kbd:set_text(kbd.layout[kbd.current][1])
--- }}}
 
 -- {{{ Vicious widgets
 -- Battery widget
@@ -307,10 +255,7 @@ container:setup({
 
     containerize(my_pomodoro.icon_widget,   beautiful.colors.orange.shade_600, 10,  0),
     containerize(my_pomodoro.timer_widget,   beautiful.colors.orange.shade_600, 0,  20),
-    containerize(widget_kbd_typicon,   beautiful.colors.orange.shade_700, 10,  5),
-    containerize(widget_kbd,           beautiful.colors.orange.shade_700,  5,  5),
 
-    containerize(uim.widget,           beautiful.colors.orange.shade_700, 10,  5, uim_exists),
     containerize(widget_battery,       beautiful.colors.orange.shade_800, 15, 15, battery_exists),
     containerize(widget_datetime,      beautiful.colors.orange.shade_900, 15, 15),
 
@@ -502,9 +447,6 @@ globalkeys = gears.table.join(
 
     -- Kill or spawn compton
     awful.key({ modkey, "Shift"}, "c", function () awful.spawn.spawn("toggle_compton") end),
-
-    -- Keyboard layout/input method switching
-    awful.key({ modkey, "Shift" }, "i", function () kbd.switch() end),
 
     -- Launcher prompt
     awful.key({ modkey, }, "space", function () awful.spawn.spawn("rofi -show run") end),
