@@ -3,6 +3,7 @@ Description=Emacs daemon
 
 [Service]
 Type=simple
+Environment=XMODIFIERS=@im=ibus
 ExecStart=/usr/bin/emacs --fg-daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
 Restart=always
