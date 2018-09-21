@@ -591,6 +591,8 @@ awful.rules.rules = {
     { rule_any = {
         class = {
           "OrcishInn.bin.x86_64",
+        },
+        name = {
 	  "Euro Truck Simulator 2"
         },
     },
