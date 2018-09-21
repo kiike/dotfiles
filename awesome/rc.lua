@@ -590,7 +590,7 @@ awful.rules.rules = {
     -- Fullscreen games
     { rule_any = {
         class = {
-          "OrcishInn.bin.x86_64"
+          "OrcishInn.bin.x86_64",
 	  "Euro Truck Simulator 2"
         },
     },
