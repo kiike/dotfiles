@@ -17,8 +17,6 @@ local pomodoro = require("pomodoro")
 
 local typicons = require("typicons")
 
-local mpd = require("mpdwidget")
-
 local host = io.popen("hostname"):read("l")
 local host_conf = io.open(host .. ".rc.lua", "r")
 if host_conf then
@@ -149,8 +147,6 @@ now_playing_widget = wibox.widget.textbox()
 -- Pomodoro
 local my_pomodoro = pomodoro({always_show_timer=false})
 
-local widget_mpd = mpd()
-local mpd_exists = awful.util.file_readable("/usr/bin/mpd")
 
 -- Separators
 
