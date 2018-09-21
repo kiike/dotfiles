@@ -53,7 +53,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.getdir("config") .. "/themes/materialized/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/xresources/theme.lua")
 if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, false) end
 
 local modkey = "Mod4"
@@ -136,7 +136,7 @@ local awesome_menu = awful.menu(main_menu)
 
 -- {{{ Widgets
 -- Draw an awesome Awesome icon (needs patched font)
-local awesome_icon_color = beautiful.awesome_icon_color or beautiful.colors.blue or "#FFFFFF"
+local awesome_icon_color = beautiful.awesome_icon_color or beautiful.colors.color1 or "#FFFFFF"
 local awesome_icon_markup = "<span font='Potipoti 24' fgcolor='%s'>&#57680;</span>"
 local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(awesome_icon_color))
 awesome_icon:buttons(gears.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
@@ -246,14 +246,13 @@ end
 local container = wibox.container.background()
 container:setup({
   -- parameters: widget, background color, left margin, right margin, condition
-    containerize(widget_mail,          beautiful.colors.orange.shade_400, 10, 10, notmuch_exists),
-    containerize(widget_mpd,           beautiful.colors.orange.shade_500, 10, 10, mpd_exists),
+    containerize(widget_mail,          beautiful.colors.color1, 10, 10, notmuch_exists),
 
-    containerize(my_pomodoro.icon_widget,   beautiful.colors.orange.shade_600, 10,  0),
-    containerize(my_pomodoro.timer_widget,   beautiful.colors.orange.shade_600, 0,  20),
+    containerize(my_pomodoro.icon_widget,   beautiful.colors.color2, 10,  0),
+    containerize(my_pomodoro.timer_widget,   beautiful.colors.color3, 0,  20),
 
-    containerize(widget_battery,       beautiful.colors.orange.shade_800, 15, 15, battery_exists),
-    containerize(widget_datetime,      beautiful.colors.orange.shade_900, 15, 15),
+    containerize(widget_battery,       beautiful.colors.color4, 15, 15, battery_exists),
+    containerize(widget_datetime,      beautiful.colors.color5, 15, 15),
 
     -- Add a small padding container
     {
@@ -262,7 +261,7 @@ container:setup({
         right = 0,
         widget = wibox.container.margin
       },
-      bg         = beautiful.colors.orange.shade_900 .. "80",
+      bg         = beautiful.colors.color5 .. "80",
       widget     = wibox.container.background
     },
     --shape = powercircle,
