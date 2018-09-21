@@ -578,11 +578,20 @@ awful.rules.rules = {
 
     properties = { always_opaque = true }},
 
+    -- Always opaque
+    { rule_any = {
+        class = {
+	   "sun-awt-X11-XFramePeer"
+        },
+    },
+	 properties = { floating = false, size_hints_honor = false }},
+
 
     -- Fullscreen games
     { rule_any = {
         class = {
           "OrcishInn.bin.x86_64"
+	  "Euro Truck Simulator 2"
         },
     },
     properties = { fullscreen = true}},
