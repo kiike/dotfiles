@@ -1,0 +1,34 @@
+function precmd {
+	\echo -ne "\033]0;TEST TEST\007"
+}
+
+PS1='${|
+	\typeset PREV_RETURN_VALUE=$?
+
+	ALL_OFF="$(tput sgr0)"
+	BOLD="$(tput bold)"
+	BLUE="${BOLD}$(tput setaf 4)"
+	GREEN="${BOLD}$(tput setaf 2)"
+	RED="${BOLD}$(tput setaf 1)"
+	YELLOW="${BOLD}$(tput setaf 3)"
+
+	REPLY+="${YELLOW}${USER}${ALL_OFF}@"
+	REPLY+="${GREEN}${HOSTNAME}${ALL_OFF}:"
+
+	\typeset d=${PWD:-?} p=~; [[ $p = ?(*/) ]] || d=${d/#$p/~}
+	\typeset m=${%d} n p=...; (( m > 0 )) || m=${#d}
+	(( m > (n = (COLUMNS/3 < 7 ? 7 : COLUMNS/3)) )) && d=${d:(-n)} || p=
+	REPLY+=${BLUE}$p$d${ALL_OFF}
+
+	# Window Title
+	\echo -ne "\033]0;${USER}@${HOSTNAME}:$p$d\007"
+
+	# Prepend previous return code if not 0
+	(( PREV_RETURN_VALUE )) && REPLY="$PREV_RETURN_VALUE|$REPLY"
+	(( $(id -u) )) && REPLY+="$ " || REPLY+="# "
+
+	\return $PREV_RETURN_VALUE
+}'
+
+\alias please='sudo mksh -c "$(\builtin fc -ln -1)"'
+\alias omxplayer='omxplayer --no-ghost-box'

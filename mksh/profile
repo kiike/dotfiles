@@ -1,0 +1,41 @@
+# My scripts
+export PATH=$HOME/bin:$PATH
+
+# Local tex
+if [[ -d /usr/local/texlive/2014/bin/x86_64-linux/ ]]; then
+	export PATH=/usr/local/texlive/2014/bin/x86_64-linux/:$PATH
+fi
+
+# Luarocks
+if [[ -d $HOME/.luarocks/bin ]]; then
+echo export lua
+	export PATH=$HOME/.luarocks/bin:$PATH
+fi
+
+# Haskell
+if [[ -d $HOME/.cabal/bin ]]; then
+	export PATH=$HOME/.cabal/bin:$PATH
+fi
+
+# Go
+GOPATH=$HOME/projects/go
+if [[ -d $GOPATH ]]; then
+	export PATH=$HOME/projects/go/bin:$PATH
+	export GOPATH
+fi
+
+# Global settings
+export BROWSER="/usr/bin/qutebrowser"
+export PAGER="less"
+export EDITOR="vim"
+
+# Start tmux if running under SSH, else start X if it's installed and it's not already running
+[[ -z $UID ]] && export UID=$(id -u)
+[[ -z $HOSTNAME ]] && export HOSTNAME=$(hostname)
+
+if [[ ! -z $SSH_CONNECTION ]] && [[ -z $TMUX ]]; then
+	tmux attach || tmux
+
+elif ! pgrep -u $UID -x Xorg 2>&1 >/dev/null && hash startx && [[ $TERM == linux ]]; then
+	startx
+fi
