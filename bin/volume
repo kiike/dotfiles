@@ -1,51 +1,69 @@
 #!/bin/sh
-# vim: ts=4 sts=4 sw=4 et
 
 get_sink() {
+    [[ $OS == Linux ]] || return
     echo -e "$STATE" | grep set-default-sink | cut -d " " -f 2
 }
 
 up() {
-	pactl set-sink-mute ${SINK} false
-	pactl set-sink-volume ${SINK} +${STEP}
-	notify_volume
+    pactl set-sink-mute ${SINK} false
+    pactl set-sink-volume ${SINK} +${STEP}
 }
 
 down() {
-	pactl set-sink-mute ${SINK} false
-	pactl set-sink-volume ${SINK} -${STEP}
-	notify_volume
+    pactl set-sink-mute ${SINK} false
+    pactl set-sink-volume ${SINK} -${STEP}
 }
 
 mute() {
-    IS_MUTED=$(echo -e "$STATE" | grep set-sink-mute | cut -f 3 -d ' ')
-	case $IS_MUTED in
-		yes)
-			pactl set-sink-mute ${SINK} false
-			notify-send mute unmuted
-			;;
+    case $(uname -s) in
+	Linux)
+	    muted=$(pacmd dump | grep set-sink-mute | cut -f 3 -d ' ')
+	    if [[ $muted == yes ]]; then
+		pactl set-sink-mute ${SINK} false
+		muted=false
+	    else
+		pactl set-sink-mute ${SINK} true
+		muted=true
+	    fi
+	    ;;
+	OpenBSD)
+	    if [[ $(mixerctl -n outputs.master) == on ]]; then
+		muted=true
+	    else
+		muted=false
+	    fi
+	    ;;
+    esac
 
-		no)
-			pactl set-sink-mute ${SINK} true
-			notify-send mute muted
-			;;
-	esac
+    $muted && notify-send "volume" "muted" || notify-send "volume" "unmuted"
 }
 
 notify_volume() {
-	volume_hex=$(echo -e "$STATE" | grep "set-sink-volume ${SINK}" | cut -f3 -d' ')
+    if [[ $OS == Linux ]]; then
+	volume_hex=$(pacmd dump | grep "set-sink-volume ${SINK}" | cut -f3 -d' ')
 	volume=$((16#${volume_hex#0x}))
 	notify-send -u low "volume" "$((100 * volume / 65536))%"
+    elif [[ $OS == OpenBSD ]]; then
+	volume=$(mixerctl -n outputs.master | cut -d , -f 1)
+	notify-send -u low "volume" "$((volume * 100 / 255))%"
+    fi
+    
 }
 
-STATE=$(pacmd dump)
-SINK=$(echo -e "$STATE" | grep set-default-sink | cut -d " " -f 2)
-
+SINK=$(get_sink)
 STEP=10%
+OS=$(uname -s)
 
 case $1 in
-	u|up) up ;;
-	d|down) down ;;
-	m|mute) mute ;;
-	*) echo "$0 usage: u[p]|d[own]|m[ute]"
+    u|up)
+	up
+	notify_volume
+	;;
+    d|down)
+	down
+	notify_volume
+	;;
+    m|mute) mute ;;
+    *) echo "$0 usage: u[p]|d[own]|m[ute]"
 esac
