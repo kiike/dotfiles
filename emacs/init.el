@@ -36,10 +36,6 @@
 (set-fontset-font "fontset-default" nil
                   (font-spec :size 10 :name "Symbola"))
 
-(push "~/.emacs.d/base16-material" custom-theme-load-path)
-(push "~/.emacs.d/base16-material" load-path)
-(load-theme 'base16-material t)
-
 (require 'package)
 (package-initialize)
 
@@ -151,6 +147,11 @@
 (use-package org-ref
   :config
   (require 'org-ref-isbn))
+
+(use-package xresources-theme
+  :straight (xresources-theme
+	     :type git :host github :repo "cqql/xresources-theme")
+  :config (load-theme 'xresources))
 
 (require 'notmuch)
 (require 'notmuch-address)
