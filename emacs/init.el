@@ -65,11 +65,11 @@
 
 (use-package try)
 (use-package evil
+  :init (setq evil-want-integration t)
   :config (evil-mode)
-    (push "~/src/evil-collection" load-path)
-    (when (require 'evil-collection nil t)
-    (evil-collection-init))
-  )
+  (use-package evil-collection)
+    :init (setq evil-want-keybinding nil)
+    :config (evil-collection-init))
 
 (use-package undo-tree
   :diminish (undo-tree-mode " 🔄")
