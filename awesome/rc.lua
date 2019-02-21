@@ -17,7 +17,7 @@ local pomodoro = require("pomodoro")
 
 local typicons = require("typicons")
 
-local host = io.popen("hostname"):read("l")
+local host = io.popen("hostname"):read("*line")
 local host_conf = io.open(host .. ".rc.lua", "r")
 if host_conf then
     require(host_conf)
