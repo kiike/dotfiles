@@ -721,4 +721,9 @@ client.connect_signal("unfocus",
             c.opacity = 0.6
         end
     end)
--- }}}
+
+naughty.config.notify_callback = function(notification)
+   notification.icon_size = 64
+   if notification.timeout == 0 then notification.timeout = 5 end
+   return notification
+end
