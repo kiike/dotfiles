@@ -1,4 +1,11 @@
-(setq custom-file "~/.cache/emacs/custom.el")
+(defun my/get-emacs-subdir (dir)
+  "Return a path under the Emacs dir in $XDG_CACHE_HOME"
+  (setq cache-dir (concat (file-name-as-directory (if (getenv "XDG_CACHE_HOME")
+						      (getenv "XDG_CACHE_HOME")
+						    "~/.cache")) "emacs" ))
+
+  (concat (file-name-as-directory cache-dir) dir))
+
 (setq org-default-notes-file "~/documents/basket.org")
 (setq org-latex-pdf-process
       '("latexmk -gg -xelatex %f"))
@@ -12,16 +19,19 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-(setq savehist-file "~/.cache/emacs/history"
+(setq custom-file (my/get-emacs-subdir "custom.el")
+my/backup-dir (my/get-emacs-subdir "backups/")
+my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
+)
+(setq savehist-file (my/get-emacs-subdir "history")
       history-length t
       history-delete-duplicates t
       savehist-save-minibuffer-history 1
-
-      backup-directory-alist '(("." . "~/.cache/emacs/backups"))
+      backup-directory-alist `(,(cons "." my/backup-dir))
       delete-old-versions -1
       version-control t
       vc-make-backup-files t
-      auto-save-file-name-transforms '((".*" "~/.cache/emacs/auto-save-list/" t))
+      auto-save-file-name-transforms `((".*" ,my/auto-save-file-path t))
 )
 
 (savehist-mode 1)
