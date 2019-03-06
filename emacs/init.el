@@ -162,7 +162,9 @@ my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
 (use-package xresources-theme
   :straight (xresources-theme
 	     :type git :host github :repo "cqql/xresources-theme")
-  :config (load-theme 'xresources))
+  :config (load-theme 'xresources t)
+  (add-hook 'window-setup-hook (lambda () (set-mouse-color "white")))
+ )
 
 (require 'notmuch)
 (require 'notmuch-address)
