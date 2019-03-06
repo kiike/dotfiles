@@ -61,9 +61,12 @@ local modkey = "Mod4"
 
 -- Find a suitable terminal emulator
 local terminal = "xterm"
-local terms = {"termite", "urxvt", "st"}
+local terms = {"termite", "urxvt", "xiate", "st"}
 for _, term in pairs(terms) do
-  if awful.util.file_readable("/usr/bin/" .. term) then
+  if awful.util.file_readable(os.getenv("HOME") .. "/bin/" .. term) then
+    terminal = os.getenv("HOME") .. "/bin/" .. term
+    break
+  elseif awful.util.file_readable("/usr/bin/" .. term) then
     terminal = "/usr/bin/" .. term
     break
   elseif awful.util.file_readable("/usr/local/bin/" .. term) then
@@ -158,10 +161,16 @@ separator_small:set_markup("<span font=\"Monospace\"> </span>")
 
 
 -- {{{ Vicious widgets
+
+local function check_battery_present()
+    local openbsd = #io.popen("sysctl -a | grep acpibat"):read("*all") > 0 and "bat0"
+    local linux = awful.util.dir_readable("/sys/class/power_supply/BAT0") and "BAT0"
+    return openbsd or linux
+end
 -- Battery widget
+local battery_id = check_battery_present()
 local widget_battery = wibox.widget.textbox()
-local battery_exists = awful.util.dir_readable("/sys/class/power_supply/BAT0") 
-if battery_exists then
+if battery_id then
     vicious.register(widget_battery, vicious.widgets.bat,
         function (_, args)
             local charge = args[2]
@@ -173,18 +182,20 @@ if battery_exists then
             end
 
             local state = args[1]
-            if state == "−" then
+            if state == "−" or state == "-" then
                 return string.format("%s %s", icon, args[3])
             else
                 return icon
             end
-        end, 30, "BAT0")
+        end, 30, battery_id)
 end
 
 -- Mail widget
 local widget_mail = wibox.widget.textbox()
-local notmuch_exists = awful.util.file_readable("/usr/bin/notmuch")
-if notmuch_exists then
+local notmuch_exists = awful.util.file_readable("/usr/bin/notmuch") or
+		       awful.util.file_readable("/usr/local/bin/notmuch")
+
+if false then -- notmuch_exists then
     vicious.register(widget_mail, vicious.contrib.notmuch,
         function (_, args)
             if args["count"] > 0 then
