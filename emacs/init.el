@@ -46,9 +46,6 @@ my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
 (set-fontset-font "fontset-default" nil
                   (font-spec :size 10 :name "Symbola"))
 
-(require 'package)
-(package-initialize)
-
 (let ((bootstrap-file (concat user-emacs-directory "straight/bootstrap.el"))
       (bootstrap-version 2))
   (unless (file-exists-p bootstrap-file)
@@ -147,7 +144,11 @@ my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
   :init
   (yas-global-mode 1))
 
-(use-package lua-mode)
+(use-package lua-mode
+  :config
+  (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
 (use-package magit)
 (use-package evil-magit)
