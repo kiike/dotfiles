@@ -428,8 +428,10 @@ globalkeys = gears.table.join(
         local date = os.date("%Y%m%dT%H%M%S", os.time())
         local outdir = string.format("%s/pictures/screenshots", os.getenv("HOME"))
         local name = string.gsub(client.focus.name, " ", "_")
-        local name = string.gsub(client.focus.name, "/", "_")
-        local cmd = string.format("scrot %s/%s-%s.png", outdir, date, name)
+        name = string.gsub(name, "-", "_")
+        name = string.gsub(name, "/", "_")
+        local cmd = string.format("scrot '%s/%s-%s.png'", outdir, date, name)
+        naughty.notify({title="Taking screenshot", text="Type cheese!"})
         awful.spawn.spawn(cmd)
     end),
 
