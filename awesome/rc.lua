@@ -163,7 +163,7 @@ separator_small:set_markup("<span font=\"Monospace\"> </span>")
 -- {{{ Vicious widgets
 
 local function check_battery_present()
-    local openbsd = #io.popen("sysctl -a | grep acpibat"):read("*all") > 0 and "bat0"
+    local openbsd = #io.popen("sysctl -a | grep acpibat"):read("*all") > 0
     local linux = awful.util.dir_readable("/sys/class/power_supply/BAT0") and "BAT0"
     return openbsd or linux
 end
@@ -187,7 +187,7 @@ if battery_id then
             else
                 return icon
             end
-        end, 30, battery_id)
+        end, 30)
 end
 
 -- Mail widget
@@ -195,14 +195,14 @@ local widget_mail = wibox.widget.textbox()
 local notmuch_exists = awful.util.file_readable("/usr/bin/notmuch") or
 		       awful.util.file_readable("/usr/local/bin/notmuch")
 
-if false then -- notmuch_exists then
-    vicious.register(widget_mail, vicious.contrib.notmuch,
+if notmuch_exists then -- notmuch_exists then
+    vicious.register(widget_mail, vicious.widgets.notmuch,
         function (_, args)
             if args["count"] > 0 then
-                return typicons.render("mail")
-            else
-              return ""
-            end
+	       return typicons.render("mail")
+	    else
+	       return ""
+	    end
         end, 60, 'tag:inbox AND NOT tag:killed AND tag:unread AND NOT folder:trash')
 end
 
