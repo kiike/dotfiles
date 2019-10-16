@@ -59,20 +59,21 @@ if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, fa
 local modkey = "Mod4"
 -- }}}
 
+local home = os.getenv("HOME")
+
 -- Find a suitable terminal emulator
-local terminal = "xterm"
-local terms = {"termite", "urxvt", "xiate", "st"}
-for _, term in pairs(terms) do
-  if awful.util.file_readable(os.getenv("HOME") .. "/bin/" .. term) then
-    terminal = os.getenv("HOME") .. "/bin/" .. term
-    break
-  elseif awful.util.file_readable("/usr/bin/" .. term) then
-    terminal = "/usr/bin/" .. term
-    break
-  elseif awful.util.file_readable("/usr/local/bin/" .. term) then
-    terminal = "/usr/local/bin/" .. term
-    break
-  end
+local terminal
+for _, term in pairs({ "termite", "urxvt", "xiate", "st", "xterm" }) do
+   for _, dir in pairs({ ("%s/%s"):format(home, "bin"), "/usr/X11R6/bin",
+	                 "/usr/local/bin", "/usr/bin" }) do
+      if gears.filesystem.is_dir(dir) and not terminal then
+	 local path = ("%s/%s"):format(dir, term)
+	 if gears.filesystem.file_executable(path) then
+	       terminal = path
+	       break
+	 end
+      end
+   end
 end
 
 local term_exec = terminal .. " -e "
