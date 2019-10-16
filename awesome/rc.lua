@@ -17,12 +17,6 @@ local pomodoro = require("pomodoro")
 
 local typicons = require("typicons")
 
-local host = io.popen("hostname"):read("*line")
-local host_conf = io.open(host .. ".rc.lua", "r")
-if host_conf then
-    require(host_conf)
-end
-
 -- }}}
 
 -- {{{ Error handling
@@ -234,9 +228,7 @@ end
 
 
 local function containerize(widget, bg, left_margin, right_margin, condition)
-  if condition ~= nil and not condition then
-    return
-  end
+  if condition ~= nil and not condition then return end
 
   local c = wibox.container.background()
   c:setup({
@@ -359,12 +351,8 @@ globalkeys = gears.table.join(
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
+    awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
+	      {description = "focus previous by index", group = "client"}),
     awful.key({ modkey,           }, "a", function () awesome_menu:show({coords = {x = 0, y = 0}}) end,
               {description = "show main menu", group = "awesome"}),
 
@@ -389,9 +377,9 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn.spawn("emacsclient -nc") end,
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn("emacsclient -nc") end,
       {description = "open an emacs window", group = "launcher"}),
-    awful.key({ modkey,           }, "Return", function () awful.spawn.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -408,9 +396,9 @@ globalkeys = gears.table.join(
               {description = "decrease the number of master clients", group = "layout"}),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol(1, nil, true)    end,
               {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
+    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true) end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "t", function () awful.layout.inc(1)                end,
+    awful.key({ modkey,           }, "t", function () awful.layout.inc(1) end,
               {description = "select next", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
