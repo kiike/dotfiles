@@ -334,6 +334,21 @@ layout:set_right(right_layout)
 mywibox[s]:set_widget(layout)
 -- }}}
 
+local function take_screenshot(selection)
+   local date = os.date("%Y%m%dT%H%M%S", os.time())
+   local outdir = string.format("%s/pictures/screenshots", os.getenv("HOME"))
+   local name = string.gsub(client.focus.name, " ", "_")
+
+   name = string.gsub(name, "-", "_")
+   name = string.gsub(name, "/", "_")
+
+   local extra_switches = ""
+   if selection then extra_switches = "-s" end
+   local cmd = string.format("scrot %s '%s/%s-%s.png'", extra_switches, outdir, date, name)
+   naughty.notify({title="Taking screenshot", text="Type cheese!"})
+   awful.spawn(cmd)
+end
+
 -- {{{ Key bindings
 globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -411,47 +426,30 @@ globalkeys = gears.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-
-    awful.key({ modkey, }, "r", function () awful.spawn.spawn("rofi -show window") end),
-    awful.key({}, "Print", function ()
-        local date = os.date("%Y%m%dT%H%M%S", os.time())
-        local outdir = string.format("%s/pictures/screenshots", os.getenv("HOME"))
-        local name = string.gsub(client.focus.name, " ", "_")
-        name = string.gsub(name, "-", "_")
-        name = string.gsub(name, "/", "_")
-        local cmd = string.format("scrot '%s/%s-%s.png'", outdir, date, name)
-        naughty.notify({title="Taking screenshot", text="Type cheese!"})
-        awful.spawn.spawn(cmd)
-    end),
+    awful.key({ modkey, }, "r", function () awful.spawn("rofi -show window") end),
+    awful.key({}, "Print", function () take_screenshot(false) end),
+    awful.key({ "Shift" }, "Print", function () take_screenshot(true) end),
 
     -- Manage the music player
-    awful.key({}, "XF86AudioPrev", function () awful.spawn.spawn("remote prev") end),
-    awful.key({}, "XF86AudioNext", function () awful.spawn.spawn("remote next") end),
-    awful.key({}, "XF86AudioStop", function () awful.spawn.spawn("remote stop") end),
-    awful.key({}, "XF86AudioPlay", function () awful.spawn.spawn("remote pause") end),
+    awful.key({}, "XF86AudioPrev", function () awful.spawn("remote prev") end),
+    awful.key({}, "XF86AudioNext", function () awful.spawn("remote next") end),
+    awful.key({}, "XF86AudioStop", function () awful.spawn("remote stop") end),
+    awful.key({}, "XF86AudioPlay", function () awful.spawn("remote pause") end),
 
     -- Manage volume
-    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn.spawn("volume d") end),
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.spawn("volume u") end),
-    awful.key({}, "XF86AudioMute", function () awful.spawn.spawn("volume m") end),
-
-    awful.key({modkey}, "m", function ()
-        local matcher = function (c)
-          return awful.rules.match(c, {class = 'ncmpcpp'})
-        end
-        local cmd = terminal .. " --class=ncmpcpp -e ncmpcpp"
-        awful.client.run_or_raise(cmd, matcher)
-    end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn("volume d") end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn("volume u") end),
+    awful.key({}, "XF86AudioMute", function () awful.spawn("volume m") end),
 
     -- Kill or spawn compton
-    awful.key({ modkey, "Shift"}, "c", function () awful.spawn.spawn("toggle_compton") end),
+    awful.key({ modkey, "Shift"}, "c", function () awful.spawn("toggle_compton") end),
 
     -- Launcher prompt
-    awful.key({ modkey, }, "space", function () awful.spawn.spawn("rofi -show run") end),
-    awful.key({ modkey, "Shift" }, "space", function () awful.spawn.spawn("rofi -show window") end),
-    awful.key({ modkey, }, "p", function () awful.spawn.spawn("passes type") end),
-    awful.key({ modkey, "Shift" }, "p", function () awful.spawn.spawn("passes copy") end),
-    awful.key({ modkey, }, "c", function () awful.spawn.spawn("x t") end)
+    awful.key({ modkey, }, "space", function () awful.spawn("rofi -show run") end),
+    awful.key({ modkey, "Shift" }, "space", function () awful.spawn("rofi -show window") end),
+    awful.key({ modkey, }, "p", function () awful.spawn("passes type") end),
+    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("passes copy") end),
+    awful.key({ modkey, }, "c", function () awful.spawn("x t") end)
 )
 
 local clientkeys = gears.table.join(
@@ -464,7 +462,7 @@ local clientkeys = gears.table.join(
 
     awful.key({ modkey, "Control" }, "i",
       function(c)
-        local props = "name: %s\nclass: %s\ninstance: %s\nrole:%s\ntype:%s"
+        local props = "name: %s\nclass: %s\ninstance: %s\nrole: %s\ntype: %s"
         props = props:format(c.name, c.class, c.instance, c.role, c.type)
         naughty.notify({text=props})
       end,
