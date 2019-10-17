@@ -146,6 +146,8 @@ my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
 
 (use-package lua-mode
   :config
+  (defun my/lua-mode-hook () (setq indent-tabs-mode nil))
+  (add-hook 'lua-mode-hook 'my/lua-mode-hook)
   (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
