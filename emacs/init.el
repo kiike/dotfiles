@@ -22,9 +22,10 @@
 (scroll-bar-mode -1)
 
 (setq custom-file (my/get-emacs-subdir "custom.el")
-my/backup-dir (my/get-emacs-subdir "backups/")
-my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
-)
+      my/backup-dir (my/get-emacs-subdir "backups/")
+      my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
+      )
+
 (setq savehist-file (my/get-emacs-subdir "history")
       history-length t
       history-delete-duplicates t
