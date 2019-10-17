@@ -42,7 +42,7 @@ my/auto-save-file-path (my/get-emacs-subdir "auto-save-list/")
 (setq initial-scratch-message nil)
 (setq frame-title-format '("%b — Emacs "))
 (add-to-list 'default-frame-alist
-	     '(font . "Potipoti-10"))
+	     '(font . "Source Code Pro-10"))
 (set-fontset-font "fontset-default" nil
                   (font-spec :size 10 :name "Symbola"))
 
