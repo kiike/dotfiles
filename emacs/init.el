@@ -89,7 +89,7 @@
 
 (use-package rainbow-delimiters
   :config
-  (rainbow-delimiters-mode))
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 (use-package nov
   :config
