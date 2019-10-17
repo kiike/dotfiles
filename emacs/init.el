@@ -14,6 +14,8 @@
 (setq org-export-latex-listings 'minted)
 
 (setq tramp-default-method "ssh")
+(setq vc-follow-links t
+      vc-follow-symlinks t)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
