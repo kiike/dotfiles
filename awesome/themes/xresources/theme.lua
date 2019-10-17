@@ -11,7 +11,7 @@ local theme = dofile(themes_path.."default/theme.lua")
 
 theme.font          = "Noto Sans 10"
 
-theme.bg_normal     = xrdb.background
+theme.bg_normal     = xrdb.background .. 80
 theme.bg_focus      = xrdb.color12
 theme.bg_urgent     = xrdb.color9
 theme.bg_minimize   = xrdb.color8
@@ -28,7 +28,7 @@ theme.border_normal = xrdb.color0
 theme.border_focus  = theme.bg_focus
 theme.border_marked = xrdb.color10
 
-theme.tasklist_bg_focus = theme.bg_normal
+theme.tasklist_bg_focus = theme.bg_normal .. "FF"
 theme.tasklist_fg_focus = "#FFFFFF"
 theme.tasklist_disable_icon = true
 
