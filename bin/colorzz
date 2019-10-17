@@ -1,6 +1,0 @@
-#!/bin/zsh
-
-text="    "
-for code in {000..7}; do
-	print -P -- "%K{$code}${text}%k%K{$((code + 8))${text}%k"
-done
