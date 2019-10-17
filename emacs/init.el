@@ -216,24 +216,24 @@
   (widget-insert "\n"))
 
 (defun my/notmuch-create-my-search-links ()
-  (mapcar '(lambda (link-info)
-	     (funcall #'my/notmuch-create-search-link
-			(car link-info) (cdr link-info)))
-	  '(("tag:inbox" . "Inbox")
-	    ("tag:lists" . "Lists")
-	    ("tag:list/lua-l-lists.lua.org" . "Lua-l")
-	    ("tag:list/misc.openbsd.org" . "OpenBSD")
-	    ("tag:list/misc.opensmtpd.org" . "OpenSMTPD")
-	    ("tag:list/notmuch.notmuchmail.org" . "Notmuch")
-	    )))
+(mapcar '(lambda (link-info)
+	   (funcall #'my/notmuch-create-search-link
+		    (car link-info) (cdr link-info)))
+	'(("tag:inbox" . "Inbox")
+	  ("date:today" . "Today")
+	  ("tag:lists" . "Lists")
+	  ("tag:list/lua-l-lists.lua.org" . "Lua-l")
+	  ("tag:list/misc.openbsd.org" . "OpenBSD")
+	  ("tag:list/ports.openbsd.org" . "OpenBSD/Ports")
+	  ("tag:list/misc.opensmtpd.org" . "OpenSMTPD")
+	  ("tag:list/notmuch.notmuchmail.org" . "Notmuch")
+	  )))
 
 (setq
  message-sendmail-envelope-from 'header
  message-send-mail-function 'message-send-mail-with-sendmail
- sendmail-program "/usr/bin/msmtp"
  notmuch-hello-logo nil
  notmuch-search-oldest-first nil
- notmuch-address-command "~/mail/notmuch-addrlookup"
  notmuch-always-prompt-for-sender t
  notmuch-hello-sections #'(my/notmuch-create-my-search-links)
 )
