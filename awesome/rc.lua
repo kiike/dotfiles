@@ -130,17 +130,11 @@ local main_menu = {
     { "w&eechat", term_exec .. "weechat-curses"}
 }
 
-local awesome_menu = awful.menu(main_menu)
+local menu = awful.menu(main_menu)
+local launcher = awful.widget.launcher({ image = beautiful.awesome_icon,
+                                         menu = menu })
 
 -- {{{ Widgets
--- Draw an awesome Awesome icon (needs patched font)
-local awesome_icon_color = beautiful.awesome_icon_color or beautiful.colors.color1 or "#FFFFFF"
-local awesome_icon_markup = "<span font='Potipoti 24' fgcolor='%s'>&#57680;</span>"
-local awesome_icon = wibox.widget.textbox(awesome_icon_markup:format(awesome_icon_color))
-awesome_icon:buttons(gears.table.join(awful.button({ }, 1, function() awesome_menu:toggle() end)))
-
--- Now playing widget: to be set by scripts via awesome-client
-now_playing_widget = wibox.widget.textbox()
 
 -- Pomodoro
 local my_pomodoro = pomodoro({always_show_timer=false})
@@ -314,7 +308,7 @@ mywibox[s] = awful.wibar({ position = "top", screen = s })
 
 -- Widgets that are aligned to the left
 local left_layout = wibox.layout.fixed.horizontal()
-left_layout:add(separator_small, awesome_icon, separator)
+left_layout:add(separator_small, launcher , separator)
 left_layout:add(container_taglist)
 left_layout:add(mypromptbox[s])
 left_layout:add(separator)
@@ -368,7 +362,7 @@ globalkeys = gears.table.join(
     ),
     awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end,
 	      {description = "focus previous by index", group = "client"}),
-    awful.key({ modkey,           }, "a", function () awesome_menu:show({coords = {x = 0, y = 0}}) end,
+    awful.key({ modkey,           }, "a", function () menu:show({coords = {x = 0, y = 0}}) end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation

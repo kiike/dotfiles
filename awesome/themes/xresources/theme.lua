@@ -97,17 +97,17 @@ theme = theme_assets.recolor_titlebar(
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
 
--- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
-
 theme.colors = {}
 for n=1,15 do
    theme.colors["color" .. n]  = xrdb["color" .. n]
 end
 
-theme.wallpaper = "pictures/wallpaper"
+-- Generate Awesome icon:
+theme.awesome_icon = theme_assets.awesome_icon(
+   theme.menu_height, theme.colors.color1, theme.bg_focus
+)
+
+theme.wallpaper = os.getenv("HOME") .. "/pictures/wallpaper"
 
 return theme
 
