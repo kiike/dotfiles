@@ -47,8 +47,6 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.getdir("config") .. "/themes/xresources/theme.lua")
-if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, false) end
 
 local modkey = "Mod4"
 -- }}}
@@ -86,6 +84,8 @@ awful.layout.layouts = tiling_layouts
 local tags = {}
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
+beautiful.init(awful.util.getdir("config") .. "/themes/xresources/theme.lua")
+if beautiful.wallpaper then gears.wallpaper.maximized(beautiful.wallpaper, s, false) end
     tags[s] = awful.tag({ "!", "@", "#", "$" }, s,
       {tiling_layouts[1], tiling_layouts[1], tiling_layouts[2], tiling_layouts[1]})
 end)
