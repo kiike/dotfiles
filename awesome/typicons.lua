@@ -1,6 +1,6 @@
 local string = require("string")
 
-typicons={}
+local typicons={}
 
 typicons.catalog = {
 	adjust_brightness=0xe000,
