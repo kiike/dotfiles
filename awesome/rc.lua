@@ -253,7 +253,7 @@ container:setup({
       bg         = beautiful.colors.color5 .. "80",
       widget     = wibox.container.background
     },
-    --shape = powercircle,
+    shape = powercircle,
     spacing = 0,
     layout = wibox.layout.fixed.horizontal
 })
@@ -335,7 +335,7 @@ local function take_screenshot(selection)
 end
 
 -- {{{ Key bindings
-globalkeys = gears.table.join(
+local globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -530,7 +530,7 @@ for i = 1, 4 do
     )
 end
 
-clientbuttons = gears.table.join(
+local clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
