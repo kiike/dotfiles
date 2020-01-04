@@ -148,6 +148,21 @@
 :init
 (yas-global-mode 1))
 
+(use-package tide
+  :config
+  (defun setup-tide-mode ()
+    "Setup function for tide."
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (company-mode +1))
+
+  (add-hook 'js-mode-hook #'setup-tide-mode)
+  )
+
 (use-package lua-mode
   :config
   (defun my/lua-mode-hook () (setq indent-tabs-mode nil))
