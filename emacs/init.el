@@ -182,6 +182,8 @@
   :init (setq org-ref-completion-library 'org-ref-ivy-cite)
   :config (require 'org-ref-isbn))
 
+(use-package ox-reveal)
+
 (use-package xresources-theme
   :straight (xresources-theme
 	     :type git :host github :repo "cqql/xresources-theme")
