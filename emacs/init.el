@@ -186,6 +186,7 @@
   :config (load-theme 'xresources t)
   (add-hook 'window-setup-hook (lambda () (set-mouse-color "white")))
  )
+(use-package neotree)
 
 (require 'notmuch)
 (require 'notmuch-address)
