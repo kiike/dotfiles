@@ -145,8 +145,8 @@
   (venv-initialize-eshell))
 
 (use-package yasnippet
-  :init
-  (yas-global-mode 1))
+:init
+(yas-global-mode 1))
 
 (use-package lua-mode
   :config
