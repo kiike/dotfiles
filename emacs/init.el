@@ -192,6 +192,13 @@
 
 (use-package neotree)
 
+(use-package base16-theme)
+(defun my/frame-init (&optional frame)
+  (load-theme 'base16-decaf t)
+  (set-mouse-color "white"))
+(add-hook 'window-setup-hook 'my/frame-init)
+(add-hook 'after-make-frame-functions 'my/frame-init)
+
 (use-package mastodon
   :config (setq mastodon-instance-url "https://bsd.network"))
 
