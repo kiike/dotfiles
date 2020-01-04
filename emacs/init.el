@@ -171,6 +171,8 @@
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
   (add-to-list 'interpreter-mode-alist '("lua" . lua-mode)))
 
+(use-package counsel-dash
+  :config (setq counsel-dash-docsets-path "~/.local/share/counsel-dash"))
 (use-package magit)
 (use-package evil-magit)
 
