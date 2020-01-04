@@ -186,10 +186,10 @@
 
 (use-package xresources-theme
   :straight (xresources-theme
-	     :type git :host github :repo "cqql/xresources-theme")
-  :config (load-theme 'xresources t)
-  (add-hook 'window-setup-hook (lambda () (set-mouse-color "white")))
- )
+	     :type git
+	     :host github
+	     :repo "cqql/xresources-theme"))
+
 (use-package neotree)
 
 (require 'notmuch)
