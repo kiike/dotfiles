@@ -192,6 +192,9 @@
 
 (use-package neotree)
 
+(use-package mastodon
+  :config (setq mastodon-instance-url "https://bsd.network"))
+
 (require 'notmuch)
 (require 'notmuch-address)
 
