@@ -177,8 +177,8 @@
 (use-package all-the-icons)
 
 (use-package org-ref
-  :config
-  (require 'org-ref-isbn))
+  :init (setq org-ref-completion-library 'org-ref-ivy-cite)
+  :config (require 'org-ref-isbn))
 
 (use-package xresources-theme
   :straight (xresources-theme
