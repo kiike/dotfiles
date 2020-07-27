@@ -432,6 +432,8 @@ local globalkeys = gears.table.join(
     -- Launcher prompt
     awful.key({ modkey, }, "space", function () awful.spawn("rofi -show run") end),
     awful.key({ modkey, "Shift" }, "space", function () awful.spawn("rofi -show window") end),
+    awful.key({ modkey, "Control" }, "p", function () awful.spawn("passes type -e") end),
+    awful.key({ modkey, }, "p", function () awful.spawn("passes type -e") end),
     awful.key({ modkey, }, "p", function () awful.spawn("passes type") end),
     awful.key({ modkey, "Shift" }, "p", function () awful.spawn("passes copy") end),
     awful.key({ modkey, }, "c", function () awful.spawn("x t") end)
