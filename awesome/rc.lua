@@ -141,14 +141,14 @@ separator_small:set_markup("<span font=\"Monospace\"> </span>")
 
 
 -- {{{ Vicious widgets
-
-local function check_battery_present()
-    local openbsd = #io.popen("sysctl -a | grep acpibat"):read("*all") > 0
+local function get_battery()
+    local openbsd = #io.popen("sysctl -a | grep acpibat"):read("*all") > 0 and "optional"
     local linux = awful.util.dir_readable("/sys/class/power_supply/BAT0") and "BAT0"
     return openbsd or linux
 end
 -- Battery widget
-local battery_id = check_battery_present()
+local battery_id = get_battery()
+print("id", battery_id)
 local widget_battery = wibox.widget.textbox()
 if battery_id then
     vicious.register(widget_battery, vicious.widgets.bat,
@@ -167,7 +167,7 @@ if battery_id then
             else
                 return icon
             end
-        end, 30)
+        end, 30, battery_id == "optional" and nil)
 end
 
 -- Mail widget
