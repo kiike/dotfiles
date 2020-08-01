@@ -427,6 +427,10 @@ local globalkeys = gears.table.join(
     awful.key({}, "XF86AudioStop", function () awful.spawn("remote stop") end),
     awful.key({}, "XF86AudioPlay", function () awful.spawn("remote pause") end),
 
+    -- Manage brightness
+    awful.key({}, "XF86MonBrightnessUp", function () awful.spawn("xbacklight +10") end),
+    awful.key({}, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -10") end),
+
     -- Manage volume
     awful.key({}, "XF86AudioLowerVolume", function () awful.spawn("volume d") end),
     awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn("volume u") end),
