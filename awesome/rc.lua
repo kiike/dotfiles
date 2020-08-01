@@ -44,6 +44,21 @@ local modkey = "Mod4"
 
 local home = os.getenv("HOME")
 
+-- Find a suitable X11 locker
+local locker
+for _, term in pairs({ "xlock", "slock", "i3lock"}) do
+   for _, dir in pairs({ ("%s/%s"):format(home, "bin"), "/usr/X11R6/bin",
+	                 "/usr/local/bin", "/usr/bin" }) do
+      if gears.filesystem.is_dir(dir) and not locker then
+	 local path = ("%s/%s"):format(dir, term)
+	 if gears.filesystem.file_executable(path) then
+	       locker = path
+	       break
+	 end
+      end
+   end
+end
+
 -- Find a suitable terminal emulator
 local terminal
 for _, term in pairs({ "termite", "urxvt", "xiate", "st", "xterm" }) do
@@ -88,7 +103,7 @@ local session_menu = {
     { "sys reboot",  {{"confirm", "systemctl reboot"}} },
     { "sys poweroff", {{"confirm", "systemctl poweroff"}} },
     { "sys suspend", "systemctl suspend" },
-    { "sys lock", term_exec .. "i3lock" },
+    { "sys lock", locker },
     { "", nil},
     { "wm restart", awesome.restart},
     { "wm quit", function() awesome.quit() end}
