@@ -1,29 +1,34 @@
 #!/bin/sh
 
+set -eu -o pipefail
+
+STEP=10%
+OS=$(uname -s)
+
 get_sink() {
-    [[ $OS == Linux ]] || return
-    echo -e "$STATE" | grep set-default-sink | cut -d " " -f 2
+    [[ ${OS} == Linux ]] || return
+    pacmd dump | grep set-default-sink | cut -d " " -f 2
 }
 
 up() {
-    pactl set-sink-mute ${SINK} false
-    pactl set-sink-volume ${SINK} +${STEP}
+    pactl set-sink-mute $(get_sink) false
+    pactl set-sink-volume $(get_sink) +${STEP}
 }
 
 down() {
-    pactl set-sink-mute ${SINK} false
-    pactl set-sink-volume ${SINK} -${STEP}
+    pactl set-sink-mute $(get_sink) false
+    pactl set-sink-volume $(get_sink) -${STEP}
 }
 
 mute() {
-    case $(uname -s) in
+    case ${OS} in
 	Linux)
 	    muted=$(pacmd dump | grep set-sink-mute | cut -f 3 -d ' ')
 	    if [[ $muted == yes ]]; then
-		pactl set-sink-mute ${SINK} false
+		pactl set-sink-mute $(get_sink) false
 		muted=false
 	    else
-		pactl set-sink-mute ${SINK} true
+		pactl set-sink-mute $(get_sink) true
 		muted=true
 	    fi
 	    ;;
@@ -41,7 +46,7 @@ mute() {
 
 notify_volume() {
     if [[ $OS == Linux ]]; then
-	volume_hex=$(pacmd dump | grep "set-sink-volume ${SINK}" | cut -f3 -d' ')
+	volume_hex=$(pacmd dump | grep "set-sink-volume $(get_sink)" | cut -f3 -d' ')
 	volume=$((16#${volume_hex#0x}))
 	notify-send -u low "volume" "$((100 * volume / 65536))%"
     elif [[ $OS == OpenBSD ]]; then
@@ -50,10 +55,6 @@ notify_volume() {
     fi
     
 }
-
-SINK=$(get_sink)
-STEP=10%
-OS=$(uname -s)
 
 case $1 in
     u|up)
