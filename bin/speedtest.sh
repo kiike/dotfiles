@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -o /dev/null http://cachefly.cachefly.net/100mb.test
+curl -o /dev/null http://mirror.fra10.de.leaseweb.net/speedtest/10000mb.bin
