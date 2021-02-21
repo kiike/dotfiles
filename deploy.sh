@@ -60,11 +60,7 @@ if [[ $ALL == yes ]]; then
 	_action ${PWD}/awesome ${XDG_CONFIG_HOME}/awesome
 	_action ${PWD}/awesome ${XDG_DATA_HOME}/awesome
 
-	_action ${PWD}/moc/config ${HOME}/.moc/config
-	_action ${PWD}/moc/themes ${HOME}/.moc/themes
-	_action ${PWD}/moc/keymap ${HOME}/.moc/keymap
-
-	_action ${PWD}/compton.conf ${XDG_CONFIG_HOME}/compton.conf
+	_action ${PWD}/picom.conf ${XDG_CONFIG_HOME}/picom.conf
 
 	_action ${PWD}/newsbeuter/config ${HOME}/.newsbeuter/config
 	_action ${PWD}/newsbeuter/urls ${HOME}/.newsbeuter/urls
