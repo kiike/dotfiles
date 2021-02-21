@@ -734,7 +734,7 @@ client.connect_signal("manage", function (c)
         awful.placement.no_offscreen(c)
     end
 
-    if client.focus then
+    if true or client.focus then
        client.opacity = 1.0
     else
        client.opacity = 0.6
