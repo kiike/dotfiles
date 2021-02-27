@@ -89,4 +89,6 @@ $COMMAND ${PWD}/systemd ${XDG_CONFIG_HOME}/systemd/user systemctl
 $COMMAND ${PWD}/ibus/bin/setxkbmap ${XDG_DATA_HOME}/ibus/bin/setxkbmap ibus-daemon
 $COMMAND ${PWD}/ibus/bin/find ${XDG_DATA_HOME}/ibus/bin/find ibus-daemon
 
+$COMMAND ${PWD}/alacritty/alacritty.yml ${XDG_CONFIG_HOME}/alacritty/alacritty.yml alacritty
+
 git submodule update --recursive

@@ -92,7 +92,7 @@ local home = os.getenv("HOME")
 
 -- Find a suitable terminal emulator
 local terminal
-for _, term in pairs({ "termite", "urxvt", "xiate", "st", "xterm" }) do
+for _, term in pairs({ "termite", "alacritty", "urxvt", "xiate", "st", "xterm" }) do
    for _, dir in pairs({ ("%s/%s"):format(home, "bin"), "/usr/X11R6/bin",
 	                 "/usr/local/bin", "/usr/bin" }) do
       if gears.filesystem.is_dir(dir) and not terminal then
