@@ -1,4 +1,0 @@
-set defsearch=duckduckgo
-set toolbars=noaddons,nobookmarks,nomenu,nonavigation,notabs
-set noscrollbars
-set status+=ssl

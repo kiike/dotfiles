@@ -1,7 +1,0 @@
-text/html; lynx -assume_charset %{charset} -dump %s; nametemplate=%s.html; copiousoutput
-
-image/*;		sxiv %s;
-application/zip;	unzip %s;
-application/tar;	tar xf %s;
-application/pdf;	zathura %s
-
