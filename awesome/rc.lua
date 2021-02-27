@@ -554,8 +554,6 @@ clientkeys = gears.table.join(
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "o",      function (c) c.always_opaque = not c.always_opaque    end,
-              {description = "toggle always-opaque mode", group = "client"}),
     awful.key({ modkey, "Control" }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "n",
@@ -666,16 +664,14 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     always_opaque = false,
-                     raise = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
+      properties = {
+         focus = awful.client.focus.filter,
+         raise = true,
+         keys = clientkeys,
+         buttons = clientbuttons,
+         screen = awful.screen.preferred,
+         placement = awful.placement.no_overlap+awful.placement.no_offscreen
+      }
     },
 
     -- Floating clients.
@@ -820,7 +816,4 @@ end)
 client.connect_signal("unfocus",
                       function(c)
                          c.border_color = beautiful.border_normal
-                         if not c.always_opaque then
-                            c.opacity = 0.6
-                         end
 end)
