@@ -59,19 +59,18 @@ local editor = os.getenv("EDITOR") or "nano"
 -- However, you can use another modifier like Mod1, but it may interact with others.
 local modkey = "Mod4"
 
-local function take_screenshot(selection)
+local function take_screenshot(mode)
    local date = os.date("%Y%m%dT%H%M%S", os.time())
    local outdir = string.format("%s/pictures/screenshots", os.getenv("HOME"))
-   local name = string.gsub(client.focus.name, " ", "_")
 
+   local name = string.gsub(client.focus.name, " ", "_")
    name = string.gsub(name, "-", "_")
    name = string.gsub(name, "/", "_")
 
-   local extra_switches = ""
-   if selection then extra_switches = "-s" end
-   local cmd = string.format("scrot %s '%s/%s-%s.png'", extra_switches, outdir, date, name)
-   naughty.notify({title="Taking screenshot", text="Type cheese!"})
-   awful.spawn(cmd)
+   local path = string.format("%s/%s-%s.png", outdir, date, name)
+
+   print("Taking screenshot with mode", mode, "and storing it into", path)
+   awful.spawn.easy_async({"take_screenshot", mode, path}, function() end)
 end
 
 -- Find a suitable X11 locker
@@ -508,8 +507,9 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey, }, "r", function () awful.spawn("rofi -show window") end),
-    awful.key({}, "Print", function () take_screenshot(false) end),
-    awful.key({ "Shift" }, "Print", function () take_screenshot(true) end),
+    awful.key({}, "Print", function () awful.spawn.easy_async("flameshot gui", function() end) end),
+    awful.key({"Shift"}, "Print", function () take_screenshot("screen") end),
+    awful.key({"Control", "Shift"}, "Print", function () take_screenshot("full") end),
 
     -- Manage the music player
     awful.key({}, "XF86AudioPrev", function () awful.spawn("remote prev") end),

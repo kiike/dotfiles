@@ -1,0 +1,5 @@
+#!/bin/sh
+
+flameshot "$1" -r > "$2"
+xclip -sel clip -t image/png < "$2"
+notify-send "New screenshot" "Screenshot stored into $2 and copied into clipboard"
