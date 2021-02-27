@@ -1,88 +1,92 @@
 #!/bin/sh
+
 set +eu
 
-REMOVE=no
+COMMAND=add
 [[ -z $XDG_CONFIG_HOME ]] && XDG_CONFIG_HOME="${HOME}/.config"
 [[ -z $XDG_DATA_HOME ]] && XDG_DATA_HOME="${HOME}/.local/share"
 
-_action() {
-	if [[ $REMOVE == yes ]]; then
-		[[ -h $2 ]] && rm ${FLAGS} "$2"
-	else
-		source_dir=$(dirname "$1")
-		target_dir=$(dirname "$2")
-		if [[ -d "${source_dir}" ]] && [[ ! -d "${target_dir}" ]]; then
-			mkdir -p "${target_dir}"
-		fi
+_link() {
+    source_dir=$(dirname "$1")
+    target_dir=$(dirname "$2")
+    if [[ -d "${source_dir}" ]] && [[ ! -d "${target_dir}" ]]; then
+	mkdir -p "${target_dir}"
+    fi
 
-		[[ -h "$2" ]] && rm ${FLAGS} "$2"
-		ln -s ${FLAGS} "$1" "$2"
-	fi
+    ln -fs ${FLAGS} "$1" "$2"
 }
 
 
-while getopts aRv flag; do
-	case $flag in
-		R)    REMOVE=yes;;
-		v)    FLAGS="-v";;
-		a)    ALL=yes;;
-	esac
+remove() {
+    [[ -h $2 ]] && rm ${FLAGS} "$2"
+}
+
+add() {
+    if [ $# == 3 ]; then
+	if hash "$3" 2>/dev/null; then
+	    _link "$1" "$2"
+	fi
+    else
+	_link "$1" "$2"
+    fi
+}
+
+while getopts aRv option; do
+    case $option in
+	    R)    COMMAND=remove;;
+	    v)    FLAGS="-v";;
+	    a)    ALL=yes;;
+    esac
 done
 [[ $# -gt 0 ]] && shift
 
 if [[ $REMOVE == no ]]; then
-	# Check if the XDG CONFIG and DATA location variables are set...
-	# ... and create them if they don't exist
-	[[ -e $XDG_CONFIG_HOME ]] || mkdir $XDG_CONFIG_HOME
-	[[ -e   $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
+    # Check if the XDG CONFIG and DATA location variables are set
+    # and create them if they don't exist
+    [[ -e $XDG_CONFIG_HOME ]] || mkdir $XDG_CONFIG_HOME
+    [[ -e   $XDG_DATA_HOME ]] || mkdir -p $XDG_DATA_HOME
 fi
 
 
-_action ${PWD}/bin ${HOME}/bin
+$COMMAND ${PWD}/bin ${HOME}/bin
+$COMMAND ${PWD}/tmux.conf ${HOME}/.tmux.conf
 
-_action ${PWD}/mksh/mkshrc ${HOME}/.mkshrc
-_action ${PWD}/mksh/profile ${HOME}/.profile
+$COMMAND ${PWD}/mksh/mkshrc ${HOME}/.mkshrc mksh
+$COMMAND ${PWD}/mksh/profile ${HOME}/.profile mksh
 
-_action ${PWD}/ksh/kshrc ${HOME}/.kshrc
+$COMMAND ${PWD}/ksh/kshrc ${HOME}/.kshrc ksh
 
-_action ${PWD}/zlogin ${HOME}/.zlogin
-_action ${PWD}/zprofile ${HOME}/.zprofile
-_action ${PWD}/zshrc ${HOME}/.zshrc
-_action ${PWD}/tmux.conf ${HOME}/.tmux.conf
+$COMMAND ${PWD}/zlogin ${HOME}/.zlogin zsh
+$COMMAND ${PWD}/zprofile ${HOME}/.zprofile zsh
+$COMMAND ${PWD}/zshrc ${HOME}/.zshrc zsh
 
-_action ${PWD}/spacemacs ${HOME}/.spacemacs.d
+$COMMAND ${PWD}/afew ${XDG_CONFIG_HOME}/afew afew
 
-_action ${PWD}/nvim/init.vim ${HOME}/.config/nvim/init.vim
+$COMMAND ${PWD}/awesome ${XDG_CONFIG_HOME}/awesome awesome
+$COMMAND ${PWD}/awesome ${XDG_DATA_HOME}/awesome awesome
 
-if [[ $ALL == yes ]]; then
-	  _action ${PWD}/afew ${XDG_CONFIG_HOME}/afew
+$COMMAND ${PWD}/picom.conf ${XDG_CONFIG_HOME}/picom.conf picom
 
-	_action ${PWD}/awesome ${XDG_CONFIG_HOME}/awesome
-	_action ${PWD}/awesome ${XDG_DATA_HOME}/awesome
+$COMMAND ${PWD}/latexmk ${XDG_CONFIG_HOME}/latexmk latexmk
 
-	_action ${PWD}/picom.conf ${XDG_CONFIG_HOME}/picom.conf
+$COMMAND ${PWD}/xinitrc ${HOME}/.xinitrc X
+$COMMAND ${PWD}/Xresources ${HOME}/.Xresources X
+$COMMAND ${PWD}/Xcompose ${HOME}/.Xcompose X
+$COMMAND ${PWD}/Xmodmaprc ${HOME}/.Xmodmaprc X
 
-	_action ${PWD}/newsbeuter/config ${HOME}/.newsbeuter/config
-	_action ${PWD}/newsbeuter/urls ${HOME}/.newsbeuter/urls
+$COMMAND ${PWD}/termite/config ${XDG_CONFIG_HOME}/termite/config termite
 
-	_action ${PWD}/latexmk ${XDG_CONFIG_HOME}/latexmk
+$COMMAND ${PWD}/vifm/vifmrc ${HOME}/.vifm/vifmrc vifm
+$COMMAND ${PWD}/vifm/colors/Default.vifm ${HOME}/.vifm/colors/Default.vifm vifm
 
-	_action ${PWD}/xinitrc ${HOME}/.xinitrc
-	_action ${PWD}/Xresources ${HOME}/.Xresources
-	_action ${PWD}/Xcompose ${HOME}/.Xcompose
-	_action ${PWD}/Xmodmaprc ${HOME}/.Xmodmaprc
+$COMMAND ${PWD}/vimrc ${HOME}/.vimrc vim
 
-	_action ${PWD}/termite/config ${XDG_CONFIG_HOME}/termite/config
+$COMMAND ${PWD}/emacs/init.el ${HOME}/.emacs.d/init.el emacs
+$COMMAND ${PWD}/emacs/base16-material ${HOME}/.emacs.d/base16-material emacs
 
-	_action ${PWD}/vifm/vifmrc ${HOME}/.vifm/vifmrc
-	_action ${PWD}/vifm/colors/Default.vifm ${HOME}/.vifm/colors/Default.vifm
+$COMMAND ${PWD}/systemd ${XDG_CONFIG_HOME}/systemd/user systemctl
 
-	_action ${PWD}/vimrc ${HOME}/.vimrc
-
-	_action ${PWD}/emacs/init.el ${HOME}/.emacs.d/init.el
-	_action ${PWD}/emacs/base16-material ${HOME}/.emacs.d/base16-material
-
-	_action ${PWD}/systemd ${XDG_CONFIG_HOME}/systemd/user
-fi
+$COMMAND ${PWD}/ibus/bin/setxkbmap ${XDG_DATA_HOME}/ibus/bin/setxkbmap ibus-daemon
+$COMMAND ${PWD}/ibus/bin/find ${XDG_DATA_HOME}/ibus/bin/find ibus-daemon
 
 git submodule update --recursive
