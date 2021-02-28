@@ -7,22 +7,43 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# Mouse {{{
-touchpad=$(xinput | grep TouchPad | cut -f 2 | cut -d = -f 2)
-[[ -n "$touchpad" ]] && xinput --disable $touchpad
-xsetroot -cursor_name left_ptr
-xset m 4/1 4
-# }}}
+. ~/.profile
 
-# {{{ Screensaver and monitor blanking
+# Bell
+xset b off
+
+# Default pointer
+xsetroot -cursor_name left_ptr
+
+# Display power saving
 xset s off
 if [[ $(hostname) == dhalsim ]]; then
 	xset -dpms
 else
-	xset dpms 0 0 300
+	xset dpms 300 450 600
 fi
-#}}}
 
+
+# Sync clipboard and primary selection
+if hash autocutsel; then
+	autocutsel -selection CLIPBOARD -fork
+	autocutsel -selection PRIMARY -fork
+fi
+
+# D-Bus on non GNU/Linux systems
+if [ -x /usr/local/bin/dbus-launch -a -z "${DBUS_SESSION_BUS_ADDRESS}" ]; then
+        eval `dbus-launch --sh-syntax --exit-with-x11`
+fi
+
+# Input
+[[ $(hostname) != dhalsim ]] && xmodmap ~/.Xmodmaprc
+if hash ibus-daemon  &>/dev/null; then
+	export GTK_IM_MODULE='ibus'
+	export QT_IM_MODULE='ibus'
+	export XMODIFIERS=@im=ibus
+	xmodmap -e 'keysym Alt_R = Hangul'
+	PATH=$HOME/.local/share/ibus/bin:$PATH ibus-daemon -dx
+fi
 
 if [[ $(hostname) == dhalsim ]] && ! pgrep -f scc; then
 	rm -f $HOME/.config/scc/daemon.pid
@@ -30,39 +51,22 @@ if [[ $(hostname) == dhalsim ]] && ! pgrep -f scc; then
 fi
 
 
-# Input method {{{
-[[ $(hostname) != dhalsim ]] && xmodmap ~/.Xmodmaprc
-if hash uim-xim  &>/dev/null; then
-	export GTK_IM_MODULE='uim'
-	export QT_IM_MODULE='uim'
-	export XMODIFIERS=@im=uim
-	xmodmap -e 'keysym Alt_R = Hangul'
-	uim-xim &
-fi
-
-#}}}
-
-if hash autocutsel; then
-	# Sync clipboard and primary selection
-	autocutsel -selection CLIPBOARD -fork
-	autocutsel -selection PRIMARY -fork
-fi
-
-# URxvt config and daemon
+# X resources
 xrdb -merge ~/.Xresources
 
+# Screenshots
+hash flameshot && flameshot &>/dev/null &
+
 # Compositor
-hash compton && compton -b
+hash picom && picom -b --experimental-backends
 
 # Turn down the blue gamma (less eye strain???) on laptop displays
-hash redshift && redshift 41.38:2.15 &
+hash redshift && redshift -l manual -l 41.38:2.15 -b 1:0.9 &
 
 wmname LG3D
 
 hash pbns-wrap &> /dev/null && pbns-wrap &
 
-[[ $(uname) == Linux ]] && pulseaudio --start
+emacs --bg-daemon &>/dev/null
 
-#exec awesome -c /etc/xdg/awesome/rc.lua
-exec awesome
-# vim: ft=sh
+exec awesome #-c /etc/xdg/awesome/rc.lua
