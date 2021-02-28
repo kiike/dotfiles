@@ -1,11 +1,11 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 set +eu
 
-if pgrep -u $UID compton; then
-	notify-send "toggle_compton" "compton was killed"
-	pkill -u $UID -KILL compton
+if pgrep -u $USER picom; then
+	notify-send "toggle_picom" "picom was killed"
+	pkill -KILL -u $USER picom
 else
-	notify-send "toggle_compton" "compton was spawned"
-	compton -b
+	notify-send "toggle_picom" "picom was spawned"
+	picom -b --experimental-backends
 fi
