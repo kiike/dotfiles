@@ -181,7 +181,6 @@ local function get_battery()
 end
 -- Battery widget
 local battery_present, battery_id = table.unpack(get_battery())
-print("present", battery_present, "id", battery_id)
 local widget_battery = wibox.widget.textbox()
 if battery_present then
     vicious.register(widget_battery, vicious.widgets.bat,
