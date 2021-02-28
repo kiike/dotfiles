@@ -10,9 +10,12 @@ if [[ "$TERM" == "dumb" ]]; then
 fi
 
 # Overrides
-setopt nolistbeep
-setopt nohistbeep
-setopt nobeep
+if ! egrep -q 'xterm|rxvt' <<< "$TERM"; then
+    setopt nolistbeep
+    setopt nohistbeep
+    setopt nobeep
+fi
+
 setopt prompt_subst
 
 # Functions {{{
@@ -50,7 +53,6 @@ zstyle ':vcs_info:*' enable git
   hook_com[unstaged]+='%F{1}??%f'
 fi
 }
-
 
 fpath=(~/.zsh/completion $fpath)
 autoload -U compinit
