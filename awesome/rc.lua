@@ -170,7 +170,7 @@ separator_small:set_markup("<span font=\"Monospace\"> </span>")
 -- {{{ Vicious widgets
 local function get_battery()
     local ret = {false, nil}
-    if #io.popen("sysctl -a | grep acpibat"):read("*all") > 0 then
+    if #io.popen("sysctl -a 2>/dev/null| grep acpibat"):read("*all") > 0 then
        ret[1] = true
     end
     if awful.util.dir_readable("/sys/class/power_supply/BAT0") then
