@@ -65,8 +65,8 @@ setopt extendedglob
 # History {{{
 HISTFILE=$HOME/.zsh_history
 [[ ! -f $HISTFILE ]] && touch $HISTFILE
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt share_history
 setopt histignoredups
 setopt histignorespace
