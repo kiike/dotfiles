@@ -1,12 +1,12 @@
 # Some settings for Emacs TRAMP mode. Load early and return
 if [[ "$TERM" == "dumb" ]]; then
-        unsetopt zle
-        unsetopt prompt_cr
-        unsetopt prompt_subst
-        unfunction precmd
-        unfunction preexec
-        PS1='$ '
-        return
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    unfunction precmd
+    unfunction preexec
+    PS1='$ '
+    return
 fi
 
 # Overrides
@@ -24,15 +24,16 @@ function cless () {
 }
 
 format_seconds () {
-	# Formats seconds into minutes and seconds where seconds is $1.
-	s=$1
-	if [[ s -gt 60 ]]; then
-		m=$(($s / 60))
-		s=$(($s % 60))
-		echo ${m}m${s}
-	else
-		echo ${s}s
-	fi
+    # Formats seconds into minutes and seconds where seconds is $1.
+    s=$1
+    if [[ s -gt 60 ]]; then
+	m=$(($s / 60))
+	s=$(($s % 60))
+	echo ${m}m${s}
+    else
+	echo ${s}s
+    fi
+}
 
 
 # Modules
@@ -43,14 +44,14 @@ zstyle ':vcs_info:*' unstagedstr 'M'
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
 zstyle ':vcs_info:*' formats \
-  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+       '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 zstyle ':vcs_info:*' enable git 
 +vi-git-untracked() {
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-  hook_com[unstaged]+='%F{1}??%f'
-fi
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+	   [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+	hook_com[unstaged]+='%F{1}??%f'
+    fi
 }
 
 fpath=(~/.zsh/completion $fpath)
@@ -83,37 +84,36 @@ PROMPT="%B${host_if_inside_ssh}%F{8}%1//%f%b "
 
 # Adapted snippet from http://scarff.id.au/blog/2011/window-titles-in-screen-and-rxvt-from-zsh/
 function preexec() {
-local a=${${1## *}[(w)1]}  # get the command
-local b=${a##*\/}   # get the command basename
-a="${b}${1#$a}"     # add back the parameters
-a=${a//\%/\%\%}     # escape print specials
-a=$(print -Pn "$a" | tr -d "\t\n\v\f\r")  # remove fancy whitespace
-a=${(V)a//\%/\%\%}  # escape non-visibles and print specials
+    local a=${${1## *}[(w)1]}  # get the command
+    local b=${a##*\/}   # get the command basename
+    a="${b}${1#$a}"     # add back the parameters
+    a=${a//\%/\%\%}     # escape print specials
+    a=$(print -Pn "$a" | tr -d "\t\n\v\f\r")  # remove fancy whitespace
+    a=${(V)a//\%/\%\%}  # escape non-visibles and print specials
 
-RPROMPT="${vcs_info_msg_0_}"
+    RPROMPT="${vcs_info_msg_0_}"
 
-case "$TERM" in
+    case "$TERM" in
 	screen|screen.*)
-		# See screen(1) "TITLES (naming windows)".
-		# "\ek" and "\e\" are the delimiters for screen(1) window titles
-		print -Pn "\ek%-3~ $a\e\\" # set screen title.  Fix vim: ".
-		;;
+	    # See screen(1) "TITLES (naming windows)".
+	    # "\ek" and "\e\" are the delimiters for screen(1) window titles
+	    print -Pn "\ek%-3~ $a\e\\" # set screen title.  Fix vim: ".
+	    ;;
 	rxvt*|xterm*)
-		print -Pn "\e]2;${host_if_inside_ssh}$a\a" # set xterm title, via screen "Operating System Command"
-		;;
-esac
+	    print -Pn "\e]2;${host_if_inside_ssh}$a\a" # set xterm title, via screen "Operating System Command"
+	    ;;
+    esac
 }
 
 function precmd() {
-	vcs_info
-case "$TERM" in
+    vcs_info
+    case "$TERM" in
 	rxvt*|xterm*)
-		print -Pn "\ek%-3~\e\\" # set screen title
-		print -Pn "\e]2;${host_if_inside_ssh}%1//\a" # set xterm title, via screen "Operating System Command"
-		;;
-esac
+	    print -Pn "\ek%-3~\e\\" # set screen title
+	    print -Pn "\e]2;${host_if_inside_ssh}%1//\a" # set xterm title, via screen "Operating System Command"
+	    ;;
+    esac
 }
-
 
 # Aliases and OS-dependent exports
 alias ccp="rsync -aPh"
@@ -122,9 +122,3 @@ alias df="df -h"
 alias du="du -h"
 alias du="du -h"
 alias ttyqr="ttyqr -b"
-
-case $(uname) in
-	OpenBSD)
-		alias sudo="doas"
-		;;
-esac
