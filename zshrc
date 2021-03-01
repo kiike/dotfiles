@@ -18,7 +18,7 @@ fi
 
 setopt prompt_subst
 
-# Functions {{{
+# Functions
 function cless () {
     pygmentize -f terminal $@ | less -R
 }
@@ -33,10 +33,9 @@ format_seconds () {
 	else
 		echo ${s}s
 	fi
-}
-# }}}
-#
-# Modules {{{
+
+
+# Modules
 autoload -U colors && colors
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' stagedstr 'M' 
@@ -60,9 +59,8 @@ compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 setopt extendedglob
-#}}}
 
-# History {{{
+# History
 HISTFILE=$HOME/.zsh_history
 [[ ! -f $HISTFILE ]] && touch $HISTFILE
 HISTSIZE=100000
@@ -70,11 +68,9 @@ SAVEHIST=100000
 setopt share_history
 setopt histignoredups
 setopt histignorespace
-# }}}
 
-# Keybindings {{{
+# Keybindings
 bindkey -e
-# }}}
 
 # PS1, window title and long process notification {{{
 TIMEFMT=$'\a'"$fg[green]%J$reset_color time: $fg[blue]%*Es$reset_color, cpu: $fg[blue]%P$reset_color"
@@ -118,42 +114,17 @@ case "$TERM" in
 esac
 }
 
-#}}}
 
-# {{{ TERM fix for xterm-termite
-if [[ $TERM == "xterm-termite" ]]; then
-	export TERM=xterm-256color
-fi
-#}}}
-
-# Aliases and OS-dependent exports {{{
+# Aliases and OS-dependent exports
 alias ccp="rsync -aPh"
 alias cp="cp -R"
 alias df="df -h"
 alias du="du -h"
 alias du="du -h"
-alias ec="emacsclient -nc"
 alias ttyqr="ttyqr -b"
-alias speedtest="curl -o /dev/null http://cachefly.cachefly.net/100mb.test"
 
 case $(uname) in
 	OpenBSD)
 		alias sudo="doas"
 		;;
-	Linux)
-		if [[ -f "/etc/os-release" ]]; then
-			OS=$(grep NAME "/etc/os-release")
-			case $OS in
-				*Arch*)
-					export BUILDDIR=/tmp/pacaur-$USER PKGDEST=/tmp/pacaur-$USER
-					alias pacman="sudo pacman"
-					alias iptables="sudo iptables"
-					alias systemctl="sudo systemctl"
-					;;
-			esac
-		fi
-		;;
 esac
-
-# }}}
-# vim: fdm=marker sts=4 ts=4 sw=4
