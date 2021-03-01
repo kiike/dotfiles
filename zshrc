@@ -10,7 +10,7 @@ if [[ "$TERM" == "dumb" ]]; then
 fi
 
 # Overrides
-if ! egrep -q 'xterm|rxvt' <<< "$TERM"; then
+if ! egrep -q 'alacritty|xterm|rxvt' <<< "$TERM"; then
     setopt nolistbeep
     setopt nohistbeep
     setopt nobeep
