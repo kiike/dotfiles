@@ -446,8 +446,8 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn("emacsclient -nc") end,
-      {description = "open an emacs window", group = "launcher"}),
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn("ec") end,
+       {description = "open an emacs window", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
@@ -511,31 +511,31 @@ globalkeys = gears.table.join(
     awful.key({"Control", "Shift"}, "Print", function () take_screenshot("full") end),
 
     -- Manage the music player
-    awful.key({}, "XF86AudioPrev", function () awful.spawn("remote prev") end),
-    awful.key({}, "XF86AudioNext", function () awful.spawn("remote next") end),
-    awful.key({}, "XF86AudioStop", function () awful.spawn("remote stop") end),
-    awful.key({}, "XF86AudioPlay", function () awful.spawn("remote pause") end),
+    awful.key({}, "XF86AudioPrev", function () awful.spawn.easy_async("remote prev", function() end) end),
+    awful.key({}, "XF86AudioNext", function () awful.spawn.easy_async("remote next", function() end) end),
+    awful.key({}, "XF86AudioStop", function () awful.spawn.easy_async("remote stop", function() end) end),
+    awful.key({}, "XF86AudioPlay", function () awful.spawn.easy_async("remote pause", function() end) end),
 
     -- Manage brightness
-    awful.key({}, "XF86MonBrightnessUp", function () awful.spawn("xbacklight +10") end),
-    awful.key({}, "XF86MonBrightnessDown", function () awful.spawn("xbacklight -10") end),
+    awful.key({}, "XF86MonBrightnessUp", function () awful.spawn.easy_async("xbacklight +10", function() end) end),
+    awful.key({}, "XF86MonBrightnessDown", function () awful.spawn.easy_async("xbacklight -10", function() end) end),
 
     -- Manage volume
-    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn("volume d") end),
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn("volume u") end),
-    awful.key({}, "XF86AudioMute", function () awful.spawn("volume m") end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.spawn.easy_async("volume d", function() end) end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.spawn.easy_async("volume u", function() end) end),
+    awful.key({}, "XF86AudioMute", function () awful.spawn.easy_async("volume m", function() end) end),
 
     -- Kill or spawn compton
-    awful.key({ modkey, "Shift"}, "c", function () awful.spawn("toggle_compton") end),
+    awful.key({ modkey, "Shift"}, "c", function () awful.spawn("toggle_compton", function() end) end),
 
     -- Launcher prompt
-    awful.key({ modkey, }, "space", function () awful.spawn("rofi -show run") end),
-    awful.key({ modkey, "Shift" }, "space", function () awful.spawn("rofi -show window") end),
-    awful.key({ modkey, "Control" }, "p", function () awful.spawn("passes type -e") end),
-    awful.key({ modkey, }, "p", function () awful.spawn("passes type -e") end),
-    awful.key({ modkey, }, "p", function () awful.spawn("passes type") end),
-    awful.key({ modkey, "Shift" }, "p", function () awful.spawn("passes copy") end),
-    awful.key({ modkey, }, "c", function () awful.spawn("x t") end)
+    awful.key({ modkey, }, "space", function () awful.spawn.easy_async("rofi -show run", function() end) end),
+    awful.key({ modkey, "Shift" }, "space", function () awful.spawn.easy_async("rofi -show window", function() end) end),
+    awful.key({ modkey, "Control" }, "p", function () awful.spawn.easy_async("passes type -e", function() end) end),
+    awful.key({ modkey, }, "p", function () awful.spawn.easy_async("passes type -e", function() end) end),
+    awful.key({ modkey, }, "p", function () awful.spawn.easy_async("passes type", function() end) end),
+    awful.key({ modkey, "Shift" }, "p", function () awful.spawn.easy_async("passes copy", function() end) end),
+    awful.key({ modkey, }, "c", function () awful.spawn.easy_async("x t", function() end) end)
 )
 
 clientkeys = gears.table.join(
