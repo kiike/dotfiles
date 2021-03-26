@@ -47,7 +47,7 @@ fi
 
 if [[ $(hostname) == dhalsim ]] && ! pgrep -f scc; then
 	rm -f $HOME/.config/scc/daemon.pid
-	scc-daemon Desktop start
+	scc-daemon start
 fi
 
 
