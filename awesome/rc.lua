@@ -810,3 +810,11 @@ client.connect_signal("unfocus",
                       function(c)
                          c.border_color = beautiful.border_normal
 end)
+
+naughty.config.notify_callback = function(notification)
+   -- Ensmall size of icons
+   notification.icon_size = 64
+   -- Notificaions will no longer have infinite timeout
+   if notification.timeout == 0 then notification.timeout = 5 end
+   return notification
+end
