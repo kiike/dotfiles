@@ -800,15 +800,6 @@ client.connect_signal(
     end
   end)
 
-client.connect_signal(
-  'property::geometry', function(c)
-    gears.timer.delayed_call(
-      function()
-        gears.surface.apply_shape_bounding(
-          c, gears.shape.rounded_rect, beautiful.client_radius)
-      end)
-  end)
-
 client.connect_signal("focus",
                       function(c)
                          c.border_color = beautiful.border_focus
