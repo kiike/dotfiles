@@ -126,6 +126,7 @@ local session_menu = {
     { "sys suspend", "systemctl suspend" },
     { "sys lock", locker },
     { "", nil},
+    { "wm toggle notifications", function() naughty.suspended = not naughty.suspended end},
     { "wm restart", awesome.restart},
     { "wm quit", function() awesome.quit() end}
 }
