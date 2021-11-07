@@ -174,7 +174,6 @@
 (use-package counsel-dash
   :config (setq counsel-dash-docsets-path "~/.local/share/counsel-dash"))
 (use-package magit)
-(use-package evil-magit)
 
 (use-package all-the-icons)
 
