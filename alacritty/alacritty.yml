@@ -11,29 +11,6 @@ font:
     family: Source Code Pro
   size: 10.0
 
-colors:
-  primary:
-    background: '#10100c'
-    foreground: '#cabda8'
-  normal:
-    black: '#10100c'
-    red: '#6a5535'
-    green: '#776136'
-    yellow: '#525048'
-    blue: '#6d624e'
-    magenta: '#906c35'
-    cyan: '#8e734f'
-    white: '#cabda8'
-  bright:
-    black: '#8d8475'
-    red: '#6a5535'
-    green: '#776136'
-    yellow: '#525048'
-    blue: '#6d624e'
-    magenta: '#906c35'
-    cyan: '#8e734f'
-    white: '#cabda8'
-
 bell:
   animation: EaseOutExpo
   duration: 100
