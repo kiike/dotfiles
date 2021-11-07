@@ -45,7 +45,7 @@
 (setq initial-scratch-message nil)
 (setq frame-title-format '("%b — Emacs "))
 (add-to-list 'default-frame-alist
-	     '(font . "Source Code Pro-10"))
+	     '(font . "Source Code Pro-12"))
 (set-fontset-font "fontset-default" nil
                   (font-spec :size 10 :name "Symbola"))
 
