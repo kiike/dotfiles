@@ -2,7 +2,7 @@
 
 set -eu -o pipefail
 
-STEP=10%
+STEP=3%
 OS=$(uname -s)
 
 get_sink() {
