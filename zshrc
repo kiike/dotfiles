@@ -9,19 +9,10 @@ if [[ "$TERM" == "dumb" ]]; then
     return
 fi
 
-# Overrides
-if ! egrep -q 'alacritty|xterm|rxvt' <<< "$TERM"; then
-    setopt nolistbeep
-    setopt nohistbeep
-    setopt nobeep
-fi
-
+setopt nolistbeep
+setopt nohistbeep
+setopt nobeep
 setopt prompt_subst
-
-# Functions
-function cless () {
-    pygmentize -f terminal $@ | less -R
-}
 
 format_seconds () {
     # Formats seconds into minutes and seconds where seconds is $1.
