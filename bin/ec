@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if egrep -a "alacritty|xterm|terminal" <<< $TERM; then
-   exec /usr/bin/emacsclient -t -c $*
-else
-   exec alacritty -e emacsclient -t $*
-fi
