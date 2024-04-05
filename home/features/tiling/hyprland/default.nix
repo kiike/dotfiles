@@ -15,10 +15,18 @@
     hyprpaper
     xdg-desktop-portal-hyprland
   ];
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      ignore-empty-password = true;
+      color = "00000080";
+    };
+  };
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
       exec-once = [
+        "swaylock"
         "hyprpaper"
         "eww open bar"
       ];
