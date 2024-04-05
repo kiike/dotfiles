@@ -27,7 +27,6 @@
     enable = true;
     settings = {
       exec-once = [
-        "swaylock"
         "hyprpaper"
         "eww open bar"
       ];
