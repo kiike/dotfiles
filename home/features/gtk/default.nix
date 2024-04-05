@@ -1,4 +1,23 @@
 {pkgs, ...}: {
+  home.packages = [
+    pkgs.xdg-desktop-portal-gtk
+  ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    config = {
+      common = {
+        default = [
+          "hyprland"
+        ];
+      };
+      gtk = {
+        "org.freedesktop.impl.portal.Settings" = [
+          "gtk"
+        ];
+      };
+    };
+  };
   gtk = {
     enable = true;
     font = {

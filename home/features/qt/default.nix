@@ -1,13 +1,10 @@
 {pkgs, ...}: {
   home.packages = [
     pkgs.qt6ct
+    pkgs.kdePackages.breeze
   ];
   qt = {
     enable = true;
     platformTheme = "qtct";
-    style = {
-      name = "breeze";
-      package = pkgs.kdePackages.breeze;
-    };
   };
 }

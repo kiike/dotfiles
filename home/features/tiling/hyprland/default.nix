@@ -5,17 +5,46 @@
       wallpaper = ,~/Pictures/wallpapers/simpsons/homer_sky_upscaled_3440x1440.png
       splash = false
     '';
-    ".config/xdg-desktop-portal/hyprland-portals.conf".text = ''
-      [preferred]
-      default=hyprland;gtk
-      org.freedesktop.impl.portal.FileChooser=kde
-    '';
+    # ".config/xdg-desktop-portal/hyprland-portals.conf".text = ''
+    #   [preferred]
+    #   default=hyprland;gtk
+    #   org.freedesktop.impl.portal.FileChooser=kde
+    # '';
   };
   home.packages = with pkgs; [
     hyprpicker
     hyprpaper
     xdg-desktop-portal-hyprland
+    xdg-desktop-portal
   ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    config = {
+      common = {
+        default = [
+          "hyprland"
+        ];
+        "org.freedesktop.impl.portal.FileChooser" = [
+          "kde"
+        ];
+        "org.freedesktop.impl.portal.Settings" = [
+          "gtk"
+        ];
+      };
+      hyprland = {
+        default = [
+          "hyprland"
+        ];
+        "org.freedesktop.impl.portal.FileChooser" = [
+          "kde"
+        ];
+        "org.freedesktop.impl.portal.Settings" = [
+          "gtk"
+        ];
+      };
+    };
+  };
   programs.swaylock = {
     enable = true;
     settings = {
@@ -38,7 +67,6 @@
 
       env = [
         "XCURSOR_SIZE,24"
-        "QT_QPA_PLATFORMTHEME,qt6ct"
         "LIBVA_DRIVER_NAME,nvidia"
         "XDG_SESSION_TYPE,wayland"
         "GBM_BACKEND,nvidia-drm"
