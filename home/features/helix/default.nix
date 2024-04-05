@@ -10,6 +10,7 @@
     package = inputs.helix.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
       alejandra
+      nil
       python311Packages.python-lsp-ruff
       python311Packages.python-lsp-server
       python312
