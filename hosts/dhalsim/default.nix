@@ -1,9 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
   config,
   pkgs,
@@ -20,7 +14,6 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.devices = ["nodev"];
   boot.loader.efi.canTouchEfiVariables = true;
-
 
   networking.hostName = "dhalsim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -87,7 +80,7 @@
   users.users.kiike = {
     isNormalUser = true;
     description = "Enric Morales";
-    extraGroups = [ "networkmanager" "wheel" "podman" "qemu-libvirtd" ];
+    extraGroups = ["networkmanager" "wheel" "podman" "qemu-libvirtd"];
     packages = with pkgs; [
       firefox
     ];
@@ -119,7 +112,6 @@
     swtpm-tpm2
     virtiofsd
   ];
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

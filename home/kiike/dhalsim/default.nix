@@ -37,5 +37,6 @@
     ../../features/flameshot
 
     ../../features/poweralertd
+    ../../features/yazi
   ];
 }
