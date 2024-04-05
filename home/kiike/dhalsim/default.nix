@@ -38,5 +38,7 @@
 
     ../../features/poweralertd
     ../../features/yazi
+
+    ../../features/systemd
   ];
 }
