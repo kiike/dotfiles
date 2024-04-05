@@ -12,6 +12,7 @@
     '';
   };
   home.packages = with pkgs; [
+    hyprpicker
     hyprpaper
     xdg-desktop-portal-hyprland
   ];
