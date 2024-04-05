@@ -1,4 +1,0 @@
-$clean_full_ext = 'run.xml bbl';
-$pdflatex = 'xelatex -shell-escape %O %S';
-$latex = 'xelatex -no-pdf -shell-escape %O %S';
-$xelatex = 'xelatex -no-pdf -shell-escape %O %S';

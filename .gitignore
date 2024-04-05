@@ -1,6 +1,1 @@
-mutt/aliases
-mutt/credentials
-vim/bundle/**
-vim/spell/*.sug
-vim/spell/*.spl
-!vim/bundle/vundle
+**/result

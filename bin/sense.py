@@ -1,1 +1,0 @@
-/home/kiike/projects/sense/sense.py

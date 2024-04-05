@@ -1,27 +1,23 @@
-My scripts
-==========
+# My configs
 
-There are some pretty useful ones, like:
+My configuration managed by Nix. 
 
-- `mail_stripper`: remove attachments from mails.
+## Cheatsheet
 
+### Installation
 
-License
--------
+#### System config
 
-All files within are released under the terms of the ISC license unless
-otherwise noted:
+```
+sudo nixos-rebuild switch --flake dotfiles
+```
 
-        Copyright (c) Enric Morales <geekingaround@enric.me>
+#### User config
 
-        Permission to use, copy, modify, and/or distribute this software for any
-        purpose with or without fee is hereby granted, provided that the above
-        copyright notice and this permission notice appear in all copies.
+```
+nix run home-manager/master -- switch
+```
 
-        THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-        WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-        MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-        ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-        WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-        ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-        OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+# Acknowledgements
+
+Structure inspired/copied from [Misterio77's configs](https://github.com/Misterio77/nix-starter-configs).

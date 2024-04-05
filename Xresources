@@ -1,8 +1,0 @@
-Xft.hinting:   0
-Xft.hintstyle: hintfull
-Xft.dpi:       100
-
-Emacs.FontBackend: xft
-
-#include ".cache/wal/colors.Xresources"
-
