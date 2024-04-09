@@ -76,7 +76,7 @@
   users.users.kiike = {
     isNormalUser = true;
     description = "Enric Morales";
-    extraGroups = ["networkmanager" "wheel" "podman" "qemu-libvirtd"];
+    extraGroups = ["networkmanager" "wheel" "podman" "libvirtd" "input" "video" "audio" "qemu-libvirtd"];
     packages = with pkgs; [
       firefox
     ];
