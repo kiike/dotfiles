@@ -39,6 +39,8 @@
     ../../features/poweralertd
     ../../features/yazi
 
+    ../../features/firefox
+
     ../../features/systemd
   ];
 }
