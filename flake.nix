@@ -19,7 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     papis = {
-      url = "github:alexfikl/papis/formatted-strings";
+      url = "github:papis/papis";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    papis-zotero = {
+      url = "/home/kiike/Projects/papis-zotero";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     eww = {
