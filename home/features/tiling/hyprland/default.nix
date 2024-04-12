@@ -12,6 +12,10 @@
     # '';
   };
   home.packages = with pkgs; [
+    grim
+    satty
+    hyprshot
+    hyprlock
     hyprpicker
     hyprpaper
     xdg-desktop-portal-hyprland
@@ -43,13 +47,6 @@
           "gtk"
         ];
       };
-    };
-  };
-  programs.swaylock = {
-    enable = true;
-    settings = {
-      ignore-empty-password = true;
-      color = "00000080";
     };
   };
   wayland.windowManager.hyprland = {
