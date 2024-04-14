@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = [
     pkgs.pre-commit
+    pkgs.lazygit
   ];
   programs.git = {
     enable = true;
@@ -10,5 +11,9 @@
       "s" = "status --short";
       "l" = "log --pretty=oneline --abbrev-commit";
     };
+    ignores = [
+      ".vscode"
+      ".helix"
+    ];
   };
 }
