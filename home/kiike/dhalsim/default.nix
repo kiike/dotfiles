@@ -42,5 +42,7 @@
     ../../features/firefox
 
     ../../features/systemd
+
+    ../../features/gpg
   ];
 }
