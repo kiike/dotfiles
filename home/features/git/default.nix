@@ -9,6 +9,7 @@
     userEmail = "me@enric.me";
     signing = {
       signByDefault = true;
+      key = null;
     };
     aliases = {
       "s" = "status --short";
