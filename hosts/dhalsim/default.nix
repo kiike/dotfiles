@@ -7,6 +7,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../all
+    ../all/avahi
     ../all/sddm
   ];
 
@@ -88,9 +89,6 @@
   powerManagement.enable = true;
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
-  services.avahi.enable = true;
-  services.avahi.allowInterfaces = ["enp3s0"];
-  services.avahi.nssmdns4 = true;
   virtualisation.libvirtd.enable = true;
   virtualisation.podman = {
     enable = true;
