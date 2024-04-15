@@ -70,6 +70,13 @@
           ./hosts/dhalsim
         ];
       };
+      ehonda = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/ehonda
+        ];
+      };
     };
     homeConfigurations = {
       "kiike@dhalsim" = home-manager.lib.homeManagerConfiguration {
@@ -77,6 +84,13 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home/kiike/dhalsim
+        ];
+      };
+      "kiike@ehonda" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home/kiike/ehonda
         ];
       };
     };
