@@ -24,6 +24,10 @@
     settings = {
       theme = "monokai_pro";
       editor = {
+        file-picker = {
+          ignore = true;
+          hidden = false;
+        };
         line-number = "relative";
         cursor-shape.insert = "bar";
       };
