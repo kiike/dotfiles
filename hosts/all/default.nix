@@ -1,4 +1,7 @@
 {
+  imports = [
+    ./avahi
+  ];
   nix = {
     gc = {
       automatic = true;
