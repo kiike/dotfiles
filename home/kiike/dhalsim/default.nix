@@ -6,5 +6,6 @@
     ../../features/desktop/tiling
     ../../features/shell
     ../../features/uni
+    ../../features/system
   ];
 }

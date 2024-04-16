@@ -1,8 +1,8 @@
 {
-  import = [
-    ./audio
-    ./systemd
-    ./poweralertd
-    ./udiskie
+  imports = [
+    ./audio.nix
+    ./systemd.nix
+    ./poweralertd.nix
+    ./udiskie.nix
   ];
 }
