@@ -23,7 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     papis-zotero = {
-      url = "/home/kiike/Projects/papis-zotero";
+      url = "github:kiike/papis-zotero/?ref=feat/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     eww = {
