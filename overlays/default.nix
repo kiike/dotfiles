@@ -10,6 +10,34 @@
         rm -rf $out/texmf-dist
       '';
     }));
+    atuin = prev.atuin.overrideAttrs (oldAttrs: rec {
+      version = "18.2.0";
+
+      src = prev.fetchFromGitHub {
+        owner = "atuinsh";
+        repo = "atuin";
+        rev = "v${version}";
+        hash = "sha256-TTQ2XLqng7TMLnRsLDb/50yyHYuMSPZJ4H+7CEFWQQ0=";
+      };
+
+      cargoDeps = oldAttrs.cargoDeps.overrideAttrs (prev.lib.const {
+        name = "atuin-${version}-vendor.tar.gz";
+        inherit src;
+        outputHash = "sha256-KMH19Op7uyb3Z/cjT6bdmO+JEp1o2n6rWRNYmn1+0hE=";
+      });
+
+      checkFlags = [
+        # tries to make a network access
+        "--skip=registration"
+        # No such file or directory (os error 2)
+        "--skip=sync"
+        # PermissionDenied (Operation not permitted)
+        "--skip=change_password"
+        "--skip=multi_user_test"
+        # Tries to touch files
+        "--skip=build_aliases"
+      ];
+    });
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });

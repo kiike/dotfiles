@@ -34,10 +34,6 @@
       url = "github:helix-editor/helix/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    atuin = {
-      url = "github:atuinsh/atuin/?rev=0da8d34425ef83395759db79377025c062a69911";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
