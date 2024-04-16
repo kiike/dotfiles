@@ -1,7 +1,7 @@
 {
   imports = [
-    ./i18n
-    ./localdns
+    ./i18n.nix
+    ./localdns.nix
   ];
   nix = {
     gc = {

@@ -4,7 +4,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../all
-    ../all/sddm
+    ../all/sddm.nix
   ];
 
   # Bootloader.
