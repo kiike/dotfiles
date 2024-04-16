@@ -2,6 +2,7 @@
   imports = [
     ./i18n.nix
     ./localdns.nix
+    ./udisks.nix
   ];
   nix = {
     gc = {
