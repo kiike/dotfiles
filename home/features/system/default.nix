@@ -3,5 +3,6 @@
     ./audio
     ./systemd
     ./poweralertd
+    ./udiskie
   ];
 }
