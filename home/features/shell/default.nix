@@ -7,5 +7,4 @@
     ./nushell.nix
     ./starship.nix
   ];
-  home.packages = [pkgs.comma];
 }
