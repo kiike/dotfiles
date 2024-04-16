@@ -123,7 +123,7 @@
         "format" = "[ $symbol ($version) ]($style)";
       };
       "format" =
-        (builtins.replaceStrings ["\n"] [""] ''
+        (builtins.replaceStrings [ "\n" ] [ "" ] ''
           [](#9A348E)
           $os
           $username

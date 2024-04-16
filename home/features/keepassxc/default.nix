@@ -1,5 +1,4 @@
-{pkgs, ...}: {
-  home.packages = [
-    pkgs.keepassxc
-  ];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.keepassxc ];
 }

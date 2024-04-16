@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.file = {
     ".config/hypr/hyprpaper.conf".text = ''
       preload = ~/Pictures/wallpapers/simpsons/homer_sky_upscaled_3440x1440.png
@@ -23,29 +24,17 @@
   ];
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
     config = {
       common = {
-        default = [
-          "hyprland"
-        ];
-        "org.freedesktop.impl.portal.FileChooser" = [
-          "kde"
-        ];
-        "org.freedesktop.impl.portal.Settings" = [
-          "gtk"
-        ];
+        default = [ "hyprland" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
       };
       hyprland = {
-        default = [
-          "hyprland"
-        ];
-        "org.freedesktop.impl.portal.FileChooser" = [
-          "kde"
-        ];
-        "org.freedesktop.impl.portal.Settings" = [
-          "gtk"
-        ];
+        default = [ "hyprland" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
       };
     };
   };

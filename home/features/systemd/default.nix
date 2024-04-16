@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   systemd.user.startServices = "sd-switch";
   systemd.user.sessionVariables = {
     XDG_DATA_DIRS = "/home/kiike/.nix-profile/share:$XDG_DATA_DIRS";
@@ -10,7 +11,11 @@
     Unit = {
       ConditionEnvironment = "!SSH_AGENT_PID";
       Description = "OpenSSH key agent";
-      Documentation = ["man:ssh-agent(1)" "man:ssh-add(1)" "man:ssh(1)]"];
+      Documentation = [
+        "man:ssh-agent(1)"
+        "man:ssh-add(1)"
+        "man:ssh(1)]"
+      ];
     };
 
     Service = {
@@ -22,7 +27,7 @@
     };
 
     Install = {
-      WantedBy = ["default.target"];
+      WantedBy = [ "default.target" ];
     };
   };
 }

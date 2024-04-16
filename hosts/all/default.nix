@@ -10,7 +10,11 @@
       options = "--delete-older-than 15d";
     };
     settings = {
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "repl-flake"
+      ];
 
       trusted-substituters = [
         "https://nix-community.cachix.org"

@@ -1,11 +1,8 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -16,8 +13,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = ["zfs"];
-  boot.zfs.extraPools = ["ehonda-pool"];
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.extraPools = [ "ehonda-pool" ];
 
   networking.hostName = "ehonda"; # Define your hostname.
   networking.hostId = "31f26065";
@@ -37,9 +34,14 @@
   users.users.kiike = {
     isNormalUser = true;
     description = "Enric Morales";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
-    openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKgdjDdqEwsLigkba9C26oRW3ATZIYS5OcFLtlBzoOL7 kiike@balrog.megis.lan"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKgdjDdqEwsLigkba9C26oRW3ATZIYS5OcFLtlBzoOL7 kiike@balrog.megis.lan"
+    ];
   };
 
   # Enable automatic login for the user.

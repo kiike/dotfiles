@@ -1,20 +1,15 @@
-{pkgs, ...}: {
-  home.packages = [
-    pkgs.xdg-desktop-portal-gtk
-  ];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.xdg-desktop-portal-gtk ];
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config = {
       common = {
-        default = [
-          "hyprland"
-        ];
+        default = [ "hyprland" ];
       };
       gtk = {
-        "org.freedesktop.impl.portal.Settings" = [
-          "gtk"
-        ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
       };
     };
   };

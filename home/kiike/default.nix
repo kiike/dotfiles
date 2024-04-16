@@ -1,4 +1,5 @@
-{outputs, ...}: rec {
+{ outputs, ... }:
+rec {
   nixpkgs = {
     overlays = [
       outputs.overlays.modifications

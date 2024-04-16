@@ -4,7 +4,8 @@
   lib,
   outputs,
   ...
-}: {
+}:
+{
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -46,7 +47,10 @@
           name = "debugpy";
           transport = "stdio";
           command = "python3";
-          args = ["-m" "debugpy.adapter"];
+          args = [
+            "-m"
+            "debugpy.adapter"
+          ];
           templates = [
             {
               name = "source";

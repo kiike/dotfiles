@@ -1,5 +1,4 @@
-{pkgs, ...}: {
-  home.packages = [
-    pkgs.wofi
-  ];
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.wofi ];
 }

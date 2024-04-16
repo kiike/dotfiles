@@ -1,8 +1,5 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -13,7 +10,7 @@
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
-  boot.loader.grub.devices = ["nodev"];
+  boot.loader.grub.devices = [ "nodev" ];
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "dhalsim"; # Define your hostname.
@@ -61,10 +58,17 @@
   users.users.kiike = {
     isNormalUser = true;
     description = "Enric Morales";
-    extraGroups = ["networkmanager" "wheel" "podman" "libvirtd" "input" "video" "audio" "qemu-libvirtd"];
-    packages = with pkgs; [
-      firefox
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "podman"
+      "libvirtd"
+      "input"
+      "video"
+      "audio"
+      "qemu-libvirtd"
     ];
+    packages = with pkgs; [ firefox ];
   };
 
   # Allow unfree packages
@@ -125,7 +129,7 @@
   };
 
   nixpkgs.config.nvidia.acceptLicense = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
