@@ -1,7 +1,7 @@
 {
   imports = [
     ./i18n
-    ./avahi
+    ./localdns
   ];
   nix = {
     gc = {
