@@ -34,66 +34,74 @@
       url = "github:helix-editor/helix/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      ...
-    }@inputs:
-    let
-      inherit (self) outputs;
-      systems = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
-      lib = nixpkgs.lib // home-manager.lib;
-      forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-      pkgsFor = lib.genAttrs systems (
-        system:
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    nix-index-database,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    systems = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
+    lib = nixpkgs.lib // home-manager.lib;
+    forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
+    pkgsFor = lib.genAttrs systems (
+      system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
-      );
-    in
-    {
-      inherit lib;
-      packages = forEachSystem (pkgs: import ./packages { inherit pkgs; });
-      overlays = import ./overlays { inherit inputs; };
-      nixosConfigurations = {
-        dhalsim = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [ ./hosts/dhalsim ];
+    );
+  in {
+    inherit lib;
+    packages = forEachSystem (pkgs: import ./packages {inherit pkgs;});
+    overlays = import ./overlays {inherit inputs;};
+    nixosConfigurations = {
+      dhalsim = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
         };
-        ehonda = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs;
-          };
-          modules = [ ./hosts/ehonda ];
-        };
+        modules = [./hosts/dhalsim];
       };
-      homeConfigurations = {
-        "kiike@dhalsim" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/kiike/dhalsim ];
+      ehonda = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
         };
-        "kiike@ehonda" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [ ./home/kiike/ehonda ];
-        };
+        modules = [./hosts/ehonda];
       };
     };
+    homeConfigurations = {
+      "kiike@dhalsim" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./home/kiike/dhalsim
+        ];
+      };
+      "kiike@ehonda" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./home/kiike/ehonda
+        ];
+      };
+    };
+  };
 }
