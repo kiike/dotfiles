@@ -1,6 +1,7 @@
 {
   imports = [
     ./comma.nix
+    ./rclone.nix
     ./git.nix
     ./gpg.nix
     ./helix.nix
