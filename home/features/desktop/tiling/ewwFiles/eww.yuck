@@ -1,0 +1,119 @@
+(defwidget date [] (box :class "date" {formattime(EWW_TIME, "%a %d %b")}))
+(defwidget time [] (box :class "time" {formattime(EWW_TIME, "%H:%M")}))
+(defvar current-client-visible false)
+
+
+(deflisten current-client
+  :initial ""
+`./hyprland-activewindow HDMI-A-1`)
+
+(deflisten workspaces
+  :initial ""
+`./hyprland-workspaces HDMI-A-1`)
+
+(defwidget current-client-box []
+  (box :class "current-client"
+  current-client)
+)
+
+(defwidget workspaces-box []
+  (box :class "workspaces"
+    (for workspace in workspaces
+      (box :class "workspace"
+        (button
+          :onclick "hyprctl dispatch workspace ${workspace.id}"
+          :class "${workspace.class}"
+          "${workspace.name}"
+        ))
+    )))
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+    :class "metric"
+    :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+      :max 101
+      :active {onchange != ""}
+      :value value
+    :onchange onchange)))
+
+(defpoll volume :interval "1s"
+"pamixer --get-volume")
+
+(defwidget datetime []
+  (box
+    :class "datetime"
+    :orientation "vertical"
+    :halign "center"
+    (date)
+    (time)
+  ))
+
+(defwidget hover-slide-right [var-name var-value ?onchange]
+  
+  (eventbox :onhover "eww update ${var-name}=true"
+    :onhoverlost "eww update ${var-name}=false"
+    (box :class "metric" :orientation "h" :space-evenly false
+      (children :nth 0)
+      (revealer :reveal volume-bar-visible :transition "slideright" (children :nth 1))
+    )))
+
+
+(defwidget left-modules []
+  (box :class "left-modules" :orientation "horizontal" :space-evenly false :halign "start"
+    (workspaces-box)
+    (current-client-box)
+  ))
+
+(defwidget center-modules []
+  (box :class "center-modules" :orientation "horizontal" :space-evenly false :halign "center"
+    (datetime)
+  ))
+
+(defwidget right-modules []
+  (box :class "right-modules" :orientation "horizontal" :space-evenly false :halign "end"
+    (hover-slide-right :var-name "volume-bar-visible"
+      :var-value false
+      (box :class "label" {volume == 0 ? " " : volume < 50 ? "" : ""})
+      (scale :min 0
+        :max 101
+        :active true
+        :value volume
+      :onchange "pamixer --set-volume {}")
+    )
+    (metric :label ""
+      :value {EWW_CPU.avg}
+    :onchange "")
+    (metric :label ""
+      :value {EWW_RAM.used_mem_perc}
+    :onchange "")
+    (metric :label ""
+      :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+    :onchange "")
+    (box :class "systray"
+      (systray)
+    )
+  ))
+
+(defvar volume-bar-visible false)
+
+(defwidget bar []
+  (centerbox
+    (left-modules)
+    (center-modules)
+    (right-modules)
+  ))
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :wm-ignore false
+  :geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :anchor "top center"
+  )
+  :exclusive true
+  (bar))
+

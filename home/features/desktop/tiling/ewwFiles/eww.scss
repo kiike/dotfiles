@@ -1,0 +1,114 @@
+$background: rgba(#000, 0.4);
+
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+}
+
+//Global Styles
+box.datetime {
+  background-color: $background;
+  color: white;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+
+.date {
+  font-size: 0.9rem;
+}
+
+.time {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: -0.5rem;
+  color: shade(#fff, 0.9);
+}
+
+.sidestuff slider {
+  all: unset;
+  color: #ffd5cd;
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: #d35d6e;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  /* border-radius: 50px; */
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 12px;
+}
+.metric scale trough highlight {
+  all: unset;
+  background-color: #ffffff;
+  color: #000000;
+  border-radius: 10px;
+}
+.metric scale trough {
+  all: unset;
+  background-color: #4e4e4e;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 12px;
+}
+
+.workspace {
+  margin-right: 5px;
+}
+
+.workspace {
+  label {
+    font-size: 1.2rem;
+  }
+}
+
+.current-client {
+  margin-left: 10px;
+}
+
+.left-modules,
+.right-modules {
+  background-color: $background;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+
+.left-modules {
+  margin-left: 10px;
+}
+
+.right-modules {
+  margin-right: 10px;
+}
+
+.right-modules,
+left-modules,
+box.datetime {
+  border-radius: 10px;
+}
+
+.workspace-active {
+  label {
+    font-weight: bold;
+  }
+}
+
+.test-box-red {
+  background-color: #ff0000;
+  min-width: 20px;
+}
+
+.systray {
+}
+
+.metric {
+  padding-right: 20px;
+}
+.label {
+  font-size: 1.2rem;
+}

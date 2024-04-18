@@ -1,4 +1,11 @@
-{ inputs, pkgs, ... }:
 {
-  home.packages = [ inputs.eww.packages.${pkgs.system}.default ];
+  inputs,
+  pkgs,
+  ...
+}: {
+  programs.eww = {
+    enable = true;
+    package = inputs.eww.packages.${pkgs.system}.default;
+    configDir = ./ewwFiles;
+  };
 }
