@@ -8,5 +8,6 @@
     ./ripgrep.nix
     ./vifm.nix
     ./yazi.nix
+    ./ouch.nix
   ];
 }
