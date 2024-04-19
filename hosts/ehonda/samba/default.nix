@@ -8,5 +8,6 @@
         writable = "yes";
       };
     };
+    openFirewall = true;
   };
 }
