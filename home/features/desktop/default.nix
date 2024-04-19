@@ -1,5 +1,6 @@
 {
   imports = [
+    ./nheko.nix
     ./alacritty.nix
     ./firefox.nix
     ./flameshot.nix
