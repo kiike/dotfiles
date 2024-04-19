@@ -135,8 +135,8 @@
         "$mainMod, M, exit, "
         "$mainMod, E, exec, $fileManager"
         "$mainMod, V, togglefloating,"
-        "$mainMod, R, exec, $menu"
-        "$mainMod, P, pseudo,"
+        "$mainMod, SPACE, exec, $menu"
+        "$mainMod SHIFT, S, pseudo,"
         "$mainMod, S, togglesplit,"
 
         # Move focus with mainMod + arrow keys
@@ -184,5 +184,24 @@
         "$mainMod, V, exec, clipman pick -t wofi"
       ];
     };
+    extraConfig = ''
+      bind=$mainMod,R,submap,resize
+      submap=resize
+      binde=,l,resizeactive,20 0
+      binde=,h,resizeactive,-20 0
+      binde=,k,resizeactive,0 -20
+      binde=,j,resizeactive,0 20
+      bind=,escape,submap,reset
+      submap=reset
+
+      bind=$mainMod,M,submap,move
+      submap=move
+      binde=,h,swapwindow,l
+      binde=,l,swapwindow,r
+      binde=,k,swapwindow,u
+      binde=,j,swapwindow,d
+      bind=,escape,submap,reset
+      submap=reset
+    '';
   };
 }
