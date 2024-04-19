@@ -1,4 +1,5 @@
 {
+  networking.enableIPv6 = false;
   services.resolved.enable = true;
   services.avahi = {
     enable = true;

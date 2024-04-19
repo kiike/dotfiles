@@ -1,7 +1,7 @@
 {
   imports = [
     ./i18n.nix
-    ./localdns.nix
+    ./networking.nix
     ./udisks.nix
   ];
   nix = {
