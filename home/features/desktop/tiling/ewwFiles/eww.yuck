@@ -84,7 +84,7 @@
     (metric :label ""
       :value {EWW_CPU.avg}
     :onchange "")
-    (metric :label ""
+    (metric :label "󱛵"
       :value {EWW_RAM.used_mem_perc}
     :onchange "")
     (metric :label ""
