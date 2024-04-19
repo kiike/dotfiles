@@ -42,6 +42,7 @@
     enable = true;
     settings = {
       exec-once = [
+        "dex -a"
         "hyprpaper"
         "eww open bar"
       ];

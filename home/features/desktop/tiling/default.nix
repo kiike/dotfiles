@@ -5,5 +5,6 @@
     ./dunst.nix
     ./wofi.nix
     ./clipboard.nix
+    ./autostart.nix
   ];
 }
