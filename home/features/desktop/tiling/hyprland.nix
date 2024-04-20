@@ -21,6 +21,8 @@
     hyprpaper
     xdg-desktop-portal-hyprland
     xdg-desktop-portal
+    hyprland-activewindow
+    hyprland-workspaces
   ];
   xdg.portal = {
     enable = true;
