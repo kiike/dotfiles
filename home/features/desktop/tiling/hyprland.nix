@@ -42,9 +42,9 @@
     enable = true;
     settings = {
       exec-once = [
-        "dex -a"
         "hyprpaper"
         "eww open bar"
+        "sh -c 'sleep 5s; dex -a'"
       ];
 
       "monitor" = ",preferred,auto,auto";
