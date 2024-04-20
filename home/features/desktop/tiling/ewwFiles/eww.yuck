@@ -1,24 +1,29 @@
-(defwidget date [] (box :class "date" {formattime(EWW_TIME, "%a %d %b")}))
-(defwidget time [] (box :class "time" {formattime(EWW_TIME, "%H:%M")}))
 (defvar current-client-visible false)
+(defvar volume-bar-visible false)
 
+(defwidget date []
+  (box :class "date" {formattime(EWW_TIME, "%a %d %b")}))
+(defwidget time []
+  (box :class "time" {formattime(EWW_TIME, "%H:%M")}))
+(defwidget datetime []
+  (box
+    :class "datetime"
+    :orientation "vertical"
+    :halign "center"
+    (date)
+    (time)
+  ))
 
-(deflisten current-client
-  :initial ""
-`./hyprland-activewindow HDMI-A-1`)
-
-(deflisten workspaces
-  :initial ""
-`./hyprland-workspaces HDMI-A-1`)
-
-(defwidget current-client-box []
+(deflisten current-client :initial "" `hyprland-activewindow _`)
+(defwidget current-client-box [monitor]
   (box :class "current-client"
-  current-client)
+  {current-client[monitor].title})
 )
 
-(defwidget workspaces-box []
+(deflisten workspaces :initial "" `hyprland-workspaces _`)
+(defwidget workspaces-box [monitor]
   (box :class "workspaces"
-    (for workspace in workspaces
+    (for workspace in {workspaces[monitor].workspaces}
       (box :class "workspace"
         (button
           :onclick "hyprctl dispatch workspace ${workspace.id}"
@@ -37,72 +42,15 @@
       :value value
     :onchange onchange)))
 
-(defpoll volume :interval "1s"
-"pamixer --get-volume")
-
-(defwidget datetime []
-  (box
-    :class "datetime"
-    :orientation "vertical"
-    :halign "center"
-    (date)
-    (time)
-  ))
+(defpoll volume :interval "1s" "pamixer --get-volume")
 
 (defwidget hover-slide-right [var-name var-value ?onchange]
-  
   (eventbox :onhover "eww update ${var-name}=true"
     :onhoverlost "eww update ${var-name}=false"
     (box :class "metric" :orientation "h" :space-evenly false
       (children :nth 0)
       (revealer :reveal volume-bar-visible :transition "slideright" (children :nth 1))
     )))
-
-
-(defwidget left-modules []
-  (box :class "left-modules" :orientation "horizontal" :space-evenly false :halign "start"
-    (workspaces-box)
-    (current-client-box)
-  ))
-
-(defwidget center-modules []
-  (box :class "center-modules" :orientation "horizontal" :space-evenly false :halign "center"
-    (datetime)
-  ))
-
-(defwidget right-modules []
-  (box :class "right-modules" :orientation "horizontal" :space-evenly false :halign "end"
-    (hover-slide-right :var-name "volume-bar-visible"
-      :var-value false
-      (box :class "label" {volume == 0 ? " " : volume < 50 ? "" : ""})
-      (scale :min 0
-        :max 101
-        :active true
-        :value volume
-      :onchange "pamixer --set-volume {}")
-    )
-    (metric :label ""
-      :value {EWW_CPU.avg}
-    :onchange "")
-    (metric :label "󱛵"
-      :value {EWW_RAM.used_mem_perc}
-    :onchange "")
-    (metric :label ""
-      :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-    :onchange "")
-    (box :class "systray"
-      (systray)
-    )
-  ))
-
-(defvar volume-bar-visible false)
-
-(defwidget bar []
-  (centerbox
-    (left-modules)
-    (center-modules)
-    (right-modules)
-  ))
 
 (defwindow bar
   :monitor 0
@@ -115,5 +63,34 @@
     :anchor "top center"
   )
   :exclusive true
-  (bar))
+  
+  (centerbox
+    (box :class "left-modules" :orientation "horizontal" :space-evenly false :halign "start"
+      (workspaces-box :monitor 0)
+      (current-client-box :monitor 0)
+    )
+    
+    (box :class "center-modules" :orientation "horizontal" :space-evenly false :halign "center"
+      (datetime)
+    )
+    (box :class "right-modules" :orientation "horizontal" :space-evenly false :halign "end"
+      (hover-slide-right :var-name "volume-bar-visible"
+        :var-value false
+        (box :class "label" {volume == 0 ? " " : volume < 50 ? "" : ""})
+        (scale :min 0
+          :max 101
+          :active true
+          :value volume
+        :onchange "pamixer --set-volume {}")
+      )
+      (metric :label "" :value {EWW_CPU.avg} :onchange "")
+      (metric :label "󱛵" :value {EWW_RAM.used_mem_perc} :onchange "")
+      (metric :label ""
+        :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+      :onchange "")
+      (box :class "systray"
+        (systray)
+      )
+    )
+  ))
 
