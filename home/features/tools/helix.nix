@@ -11,7 +11,6 @@
     defaultEditor = true;
     package = inputs.helix.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
-      alejandra
       nil
       nixd
       nixfmt-rfc-style
@@ -38,7 +37,7 @@
       {
         name = "nix";
         auto-format = true;
-        formatter.command = lib.getExe pkgs.alejandra;
+        formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
       }
       {
         name = "python";
