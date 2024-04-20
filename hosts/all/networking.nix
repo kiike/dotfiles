@@ -6,4 +6,8 @@
     allowInterfaces = null;
     publish.enable = true;
   };
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+  };
 }
