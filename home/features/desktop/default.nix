@@ -12,5 +12,6 @@
     ./gtk.nix
     ./vscode
     ./pavucontrol.nix
+    ./gammastep.nix
   ];
 }
