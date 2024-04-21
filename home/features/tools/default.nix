@@ -9,5 +9,6 @@
     ./vifm.nix
     ./yazi.nix
     ./ouch.nix
+    ./tmux.nix
   ];
 }
