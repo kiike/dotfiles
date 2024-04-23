@@ -13,5 +13,6 @@
     ./vscode
     ./pavucontrol.nix
     ./gammastep.nix
+    ./syncthing.nix
   ];
 }

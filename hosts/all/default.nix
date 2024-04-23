@@ -3,6 +3,7 @@
     ./i18n.nix
     ./networking.nix
     ./udisks.nix
+    ./syncthing.nix
   ];
   nix = {
     gc = {
