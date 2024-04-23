@@ -73,6 +73,14 @@
         };
         modules = [./hosts/dhalsim];
       };
+
+      balrog = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [./hosts/balrog];
+      };
       ehonda = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
@@ -100,6 +108,16 @@
         modules = [
           nix-index-database.hmModules.nix-index
           ./home/kiike/ehonda
+        ];
+      };
+      "kiike@balrog" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          nix-index-database.hmModules.nix-index
+          ./home/kiike/balrog
         ];
       };
     };
