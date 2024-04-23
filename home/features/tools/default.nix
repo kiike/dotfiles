@@ -10,5 +10,6 @@
     ./yazi.nix
     ./ouch.nix
     ./tmux.nix
+    ./zellij.nix
   ];
 }
