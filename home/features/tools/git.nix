@@ -4,6 +4,11 @@
     pkgs.pre-commit
     pkgs.lazygit
   ];
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = true;
+    extensions = [ pkgs.gh-dash ];
+  };
   programs.git = {
     enable = true;
     userName = "Enric Morales";
