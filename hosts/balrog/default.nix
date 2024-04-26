@@ -72,7 +72,16 @@
     ];
   };
 
-  programs.hyprland.enable = true;
+  powerManagement.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+  virtualisation.libvirtd.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
+  programs.virt-manager.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -111,6 +120,5 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  virtualisation.podman.enable = true;
 
 }

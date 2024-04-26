@@ -84,7 +84,6 @@
     defaultNetwork.settings.dns_enabled = true;
   };
   programs.virt-manager.enable = true;
-  programs.hyprland.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
