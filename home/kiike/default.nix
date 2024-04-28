@@ -13,4 +13,9 @@ rec {
   home.sessionVariables = {
     XDG_DATA_DIRS = "${home.homeDirectory}/.nix-profile/share:$XDG_DATA_DIRS";
   };
+  xdg.userDirs = {
+    enable = true;
+    download = "${home.homeDirectory}/downloads";
+    documents = "${home.homeDirectory}/documents";
+  };
 }
