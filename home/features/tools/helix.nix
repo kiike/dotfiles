@@ -22,6 +22,35 @@
         };
         line-number = "relative";
         cursor-shape.insert = "bar";
+        auto-save = true;
+        soft-wrap = {
+          enable = true;
+          max-indent-retain = 90;
+        };
+      };
+      keys = {
+        normal = {
+          space.space = "file_picker";
+          space.w = ":w";
+          space.q = ":q";
+          esc = [
+            "collapse_selection"
+            ":w"
+          ];
+        };
+        insert = {
+          "esc" = [
+            "normal_mode"
+            ":w"
+          ];
+        };
+        select = {
+          "esc" = [
+            "collapse_selection"
+            "normal_mode"
+            ":w"
+          ];
+        };
       };
     };
 
