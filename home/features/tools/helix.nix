@@ -10,18 +10,8 @@
     defaultEditor = true;
     package = inputs.helix.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
-      lldb_18
-      rust-analyzer
-      rustup
       nil
-      nixd
       nixfmt-rfc-style
-      python311Packages.python-lsp-ruff
-      python311Packages.python-lsp-server
-      python312
-      python312Packages.debugpy
-      typst-lsp
-      pyright
     ];
     settings = {
       theme = "monokai_pro";
