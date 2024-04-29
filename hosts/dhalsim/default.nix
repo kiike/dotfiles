@@ -4,6 +4,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../all
+    ../all/kiike.nix
   ];
 
   # Bootloader.
@@ -52,23 +53,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kiike = {
-    isNormalUser = true;
-    description = "Enric Morales";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "podman"
-      "libvirtd"
-      "input"
-      "video"
-      "audio"
-      "qemu-libvirtd"
-    ];
-    packages = with pkgs; [ firefox ];
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

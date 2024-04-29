@@ -4,6 +4,7 @@
     ./networking.nix
     ./udisks.nix
     ./syncthing.nix
+    ./kiike.nix
   ];
   nix = {
     gc = {

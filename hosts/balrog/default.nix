@@ -5,11 +5,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../all
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../all
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -28,9 +28,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-
   services.xserver.enable = true;
-
 
   # Configure console keymap
   console.keyMap = "us-acentos";
@@ -58,19 +56,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kiike = {
-    isNormalUser = true;
-    description = "Enric Morales";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-      kate
-      helix
-    #  thunderbird
-    ];
-  };
-
   powerManagement.enable = true;
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
@@ -88,8 +73,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -118,6 +103,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
-
 }
