@@ -54,6 +54,14 @@
       };
     };
 
+    languages."language-server" = {
+      basedpyright = {
+        command = "basedpyright-langserver";
+        args = [ "--stdio" ];
+        config = { };
+      };
+    };
+
     languages.language = [
       {
         name = "nix";
