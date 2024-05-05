@@ -6,5 +6,6 @@
     ./syncthing.nix
     ./users/kiike.nix
     ./nix.nix
+    ./greetd.nix
   ];
 }
