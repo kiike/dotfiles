@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.file = {
     ".config/hypr/hyprpaper.conf".text = ''
@@ -14,8 +14,8 @@
   };
   home.packages = with pkgs; [
     grim
+    slurp
     satty
-    hyprshot
     hyprlock
     hyprpicker
     hyprpaper
@@ -132,60 +132,74 @@
       "$mainMod" = "SUPER";
 
       # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-      bind = [
-        "$mainMod, RETURN, exec, $terminal"
-        "$mainMod, ESCAPE, killactive, "
-        "$mainMod SHIFT, ESCAPE, exit, "
-        "$mainMod, E, exec, $fileManager"
-        "$mainMod, F, togglefloating,"
-        "$mainMod, SPACE, exec, $menu"
-        "$mainMod SHIFT, S, pseudo,"
-        "$mainMod, S, togglesplit,"
+      bind =
+        let
+          pacmd = lib.getExe' pkgs.pulseaudio "pacmd";
+          satty = lib.getExe pkgs.satty;
+          grim = lib.getExe pkgs.grim;
+        in
+        [
+          "$mainMod, RETURN, exec, $terminal"
+          "$mainMod, ESCAPE, killactive, "
+          "$mainMod SHIFT, ESCAPE, exit, "
+          "$mainMod, E, exec, $fileManager"
+          "$mainMod, F, togglefloating,"
+          "$mainMod, SPACE, exec, $menu"
+          "$mainMod SHIFT, S, pseudo,"
+          "$mainMod, S, togglesplit,"
 
-        # Move focus with mainMod + arrow keys
-        "$mainMod, H, movefocus, l"
-        "$mainMod, L, movefocus, r"
-        "$mainMod, K, movefocus, u"
-        "$mainMod, J, movefocus, d"
+          # Use satty for screenshots
+          ",Print,exec,${grim} - | ${satty} --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
 
-        # Switch workspaces with mainMod + [0-9]"
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
+          # Volume
+          ",XF86AudioRaiseVolume,exec,${pacmd} --increase 5"
+          ",XF86AudioLowerVolume,exec,${pacmd} --decrease 5"
+          ",XF86AudioMute,exec,${pacmd} --toggle-mute"
 
-        # Move active window to a workspace with mainMod + SHIFT + [0-9]"
-        "$mainMod SHIFT, 1, movetoworkspace, 1"
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-        "$mainMod SHIFT, 0, movetoworkspace, 10"
+          # Move focus with mainMod + arrow keys
+          "$mainMod, H, movefocus, l"
+          "$mainMod, L, movefocus, r"
+          "$mainMod, K, movefocus, u"
+          "$mainMod, J, movefocus, d"
 
-        # Example special workspace (scratchpad)"
-        "$mainMod, P, togglespecialworkspace, magic"
-        "$mainMod SHIFT, P, movetoworkspace, special:magic"
+          # Switch workspaces with mainMod + [0-9]"
+          "$mainMod, 1, workspace, 1"
+          "$mainMod, 2, workspace, 2"
+          "$mainMod, 3, workspace, 3"
+          "$mainMod, 4, workspace, 4"
+          "$mainMod, 5, workspace, 5"
+          "$mainMod, 6, workspace, 6"
+          "$mainMod, 7, workspace, 7"
+          "$mainMod, 8, workspace, 8"
+          "$mainMod, 9, workspace, 9"
+          "$mainMod, 0, workspace, 10"
 
-        # Scroll through existing workspaces with mainMod + scroll"
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+          # Move active window to a workspace with mainMod + SHIFT + [0-9]"
+          "$mainMod SHIFT, 1, movetoworkspace, 1"
+          "$mainMod SHIFT, 2, movetoworkspace, 2"
+          "$mainMod SHIFT, 3, movetoworkspace, 3"
+          "$mainMod SHIFT, 4, movetoworkspace, 4"
+          "$mainMod SHIFT, 5, movetoworkspace, 5"
+          "$mainMod SHIFT, 6, movetoworkspace, 6"
+          "$mainMod SHIFT, 7, movetoworkspace, 7"
+          "$mainMod SHIFT, 8, movetoworkspace, 8"
+          "$mainMod SHIFT, 9, movetoworkspace, 9"
+          "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-        # Move/resize windows with mainMod + LMB/RMB and dragging"
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:272, resizeactive"
+          # Example special workspace (scratchpad)"
+          "$mainMod, P, togglespecialworkspace, magic"
+          "$mainMod SHIFT, P, movetoworkspace, special:magic"
 
-        "$mainMod, V, exec, clipman pick -t wofi"
-      ];
+          # Scroll through existing workspaces with mainMod + scroll"
+          "$mainMod, mouse_down, workspace, e+1"
+          "$mainMod, mouse_up, workspace, e-1"
+
+          # Move/resize windows with mainMod + LMB/RMB and dragging"
+          "$mainMod, mouse:272, movewindow"
+          "$mainMod, mouse:272, resizeactive"
+
+          "$mainMod, V, exec, clipman pick -t wofi"
+        ];
     };
     extraConfig = ''
       bind=$mainMod,R,submap,resize
