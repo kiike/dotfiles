@@ -7,5 +7,6 @@
     ./users/kiike.nix
     ./nix.nix
     ./greetd.nix
+    ./i2c.nix
   ];
 }
