@@ -14,5 +14,6 @@
     ./pavucontrol.nix
     ./gammastep.nix
     ./syncthing.nix
+    ./backlight.nix
   ];
 }

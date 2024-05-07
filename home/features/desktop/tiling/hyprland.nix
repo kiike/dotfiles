@@ -137,6 +137,7 @@
           pacmd = lib.getExe' pkgs.pulseaudio "pacmd";
           satty = lib.getExe pkgs.satty;
           grim = lib.getExe pkgs.grim;
+          brightnessctl = lib.getExe pkgs.brightnessctl;
         in
         [
           "$mainMod, RETURN, exec, $terminal"
@@ -155,6 +156,10 @@
           ",XF86AudioRaiseVolume,exec,${pacmd} --increase 5"
           ",XF86AudioLowerVolume,exec,${pacmd} --decrease 5"
           ",XF86AudioMute,exec,${pacmd} --toggle-mute"
+
+          # Brightness
+          ",XF86MonBrightnessUp,exec,${brightnessctl} set +5%"
+          ",XF86MonBrightnessDown,exec,${brightnessctl} set 5%-"
 
           # Move focus with mainMod + arrow keys
           "$mainMod, H, movefocus, l"
