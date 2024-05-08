@@ -26,10 +26,6 @@
       url = "github:kiike/papis-zotero/?ref=feat/flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    eww = {
-      url = "github:kiike/eww";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     helix = {
       url = "github:helix-editor/helix/";
       inputs.nixpkgs.follows = "nixpkgs";
