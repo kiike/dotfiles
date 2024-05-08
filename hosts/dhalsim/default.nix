@@ -133,10 +133,17 @@
   systemd.services."ddcci@" = {
     scriptArgs = "%i";
     script = ''
-      echo Trying to attach ddcci to $1
       id=$(echo $1 | cut -d "-" -f 2)
-      if ${pkgs.ddcutil}/bin/ddcutil getvcp 10 -b $id; then
+      if ${pkgs.ddcutil}/bin/ddcutil getvcp 10 -b $id &>/dev/null ; then
+        echo Trying to attach ddcci to $1
         echo ddcci 0x37 > /sys/bus/i2c/devices/$1/new_device
+
+        echo "Sleeping before reloading ddcci_backlight module"
+        sleep 1s
+        echo "Reloading ddcci_backlight module"
+        ${pkgs.kmod}/bin/rmmod ddcci_backlight ddcci
+        ${pkgs.kmod}/bin/modprobe ddcci_backlight
+        exit $?
       fi
     '';
     serviceConfig.Type = "oneshot";
