@@ -1,10 +1,15 @@
-{ pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = lib.getExe pkgs.hyprland;
+        command = lib.getExe inputs.hyprland.packages.${pkgs.system}.hyprland;
         user = "kiike";
       };
     };

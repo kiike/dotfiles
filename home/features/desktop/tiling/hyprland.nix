@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   home.file = {
     ".config/hypr/hyprpaper.conf".text = ''
@@ -42,6 +47,8 @@
   };
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.outputs.packages.${pkgs.system}.hyprland;
+    xwayland.enable = true;
     settings = {
       exec-once = [
         "hyprpaper"
