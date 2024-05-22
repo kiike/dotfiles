@@ -12,7 +12,10 @@
   boot.loader.grub.devices = [ "nodev" ];
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelParams = [ "acpi_enforce_resources=lax" ];
+  boot.kernelParams = [
+    "acpi_enforce_resources=lax"
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+  ];
   networking.hostName = "dhalsim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
