@@ -21,7 +21,6 @@
     grim
     slurp
     satty
-    hyprlock
     hyprpicker
     hyprpaper
     xdg-desktop-portal-hyprland
@@ -44,6 +43,9 @@
         "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
       };
     };
+  };
+  programs.hyprlock = {
+    enable = true;
   };
   wayland.windowManager.hyprland = {
     enable = true;
