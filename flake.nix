@@ -36,86 +36,89 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nix-index-database,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    systems = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
-    lib = nixpkgs.lib // home-manager.lib;
-    forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
-    pkgsFor = lib.genAttrs systems (
-      system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nix-index-database,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
+      systems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      lib = nixpkgs.lib // home-manager.lib;
+      forEachSystem = f: lib.genAttrs systems (system: f pkgsFor.${system});
+      pkgsFor = lib.genAttrs systems (
+        system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
-    );
-  in {
-    inherit lib;
-    packages = forEachSystem (pkgs: import ./packages {inherit pkgs;});
-    overlays = import ./overlays {inherit inputs;};
-    nixosConfigurations = {
-      dhalsim = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
+      );
+    in
+    {
+      inherit lib;
+      packages = forEachSystem (pkgs: import ./packages { inherit pkgs; });
+      overlays = import ./overlays { inherit inputs; };
+      nixosConfigurations = {
+        dhalsim = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./hosts/dhalsim ];
         };
-        modules = [./hosts/dhalsim];
-      };
 
-      balrog = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
+        balrog = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./hosts/balrog ];
         };
-        modules = [./hosts/balrog];
+        ehonda = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./hosts/ehonda ];
+        };
       };
-      ehonda = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
+      homeConfigurations = {
+        "kiike@dhalsim" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            nix-index-database.hmModules.nix-index
+            ./home/kiike/dhalsim
+          ];
         };
-        modules = [./hosts/ehonda];
+        "kiike@ehonda" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            nix-index-database.hmModules.nix-index
+            ./home/kiike/ehonda
+          ];
+        };
+        "kiike@balrog" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            nix-index-database.hmModules.nix-index
+            ./home/kiike/balrog
+          ];
+        };
       };
     };
-    homeConfigurations = {
-      "kiike@dhalsim" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-        modules = [
-          nix-index-database.hmModules.nix-index
-          ./home/kiike/dhalsim
-        ];
-      };
-      "kiike@ehonda" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-        modules = [
-          nix-index-database.hmModules.nix-index
-          ./home/kiike/ehonda
-        ];
-      };
-      "kiike@balrog" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs outputs;
-        };
-        modules = [
-          nix-index-database.hmModules.nix-index
-          ./home/kiike/balrog
-        ];
-      };
-    };
-  };
 }
