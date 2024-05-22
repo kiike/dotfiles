@@ -7,5 +7,6 @@
     ../../features/shell
     ../../features/uni
     ../../features/system
+    ../../features/proaudio.nix
   ];
 }
