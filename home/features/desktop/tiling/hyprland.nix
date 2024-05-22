@@ -4,11 +4,14 @@
   inputs,
   ...
 }:
+let
+  wallpaper_path = "~/Pictures/wallpapers/simpsons/homer_sky_upscaled_3440x1440.png";
+in
 {
   home.file = {
     ".config/hypr/hyprpaper.conf".text = ''
-      preload = ~/Pictures/wallpapers/simpsons/homer_sky_upscaled_3440x1440.png
-      wallpaper = ,~/Pictures/wallpapers/simpsons/homer_sky_upscaled_3440x1440.png
+      preload = ${wallpaper_path}
+      wallpaper = ,${wallpaper_path}
       splash = false
     '';
     # ".config/xdg-desktop-portal/hyprland-portals.conf".text = ''
@@ -46,6 +49,49 @@
   };
   programs.hyprlock = {
     enable = true;
+    settings = {
+      general = {
+        grace = 10;
+      };
+
+      background = [
+        {
+          path = wallpaper_path;
+          blur_passes = 1;
+        }
+      ];
+
+      label = [
+        {
+          monitor = "";
+          text = "cmd[update:1000] echo $(date '+%a %d %b %H:%M')";
+          text_align = "center";
+          color = "rgba(200, 200, 200, 1.0)";
+          font_size = 25;
+          font_family = "Noto Sans";
+
+          position = "0, 80";
+          halign = "center";
+          valign = "center";
+        }
+      ];
+
+      input-field = [
+        {
+          size = "300, 50";
+          position = "0, -80";
+          monitor = "";
+          dots_center = true;
+          fade_on_empty = false;
+          font_color = "rgb(202, 211, 245)";
+          inner_color = "rgb(91, 96, 120)";
+          outer_color = "rgb(0, 0, 0)";
+          outline_thickness = 0;
+          placeholder_text = "Type your password.";
+          shadow_passes = 2;
+        }
+      ];
+    };
   };
   wayland.windowManager.hyprland = {
     enable = true;
