@@ -57,7 +57,10 @@
         "sleep 10s; nheko"
       ];
 
-      "monitor" = ",preferred,auto,1";
+      "monitor" = [
+        ",preferred,auto,1"
+        "Unknown-1,disable"
+      ];
       "$terminal" = "alacritty";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
