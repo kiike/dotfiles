@@ -1,6 +1,7 @@
 { outputs, ... }:
 rec {
   nixpkgs = {
+    config.allowUnfree = true;
     overlays = [
       outputs.overlays.modifications
       outputs.overlays.additions
