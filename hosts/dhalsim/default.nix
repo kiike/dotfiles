@@ -118,7 +118,7 @@
     modesetting.enable = true;
     powerManagement.enable = true;
     open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   boot.extraModprobeConfig = ''
