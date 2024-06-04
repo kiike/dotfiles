@@ -102,7 +102,6 @@ in
         "hyprpaper"
         "eww open bar"
         "sleep 5s; dex -a"
-        "sleep 10s; nheko"
       ];
 
       "monitor" = [
