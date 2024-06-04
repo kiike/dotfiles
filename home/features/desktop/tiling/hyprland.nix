@@ -184,8 +184,18 @@ in
       # Example windowrule v2
       # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
       # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-      windowrulev2 = "suppressevent maximize, class:.*"; # You'll probably like this.
-
+      windowrulev2 = [
+        "suppressevent maximize, class:.*" # You'll probably like this.
+        "nofocus, class: ^REAPER$, title: menu"
+        "noborder, class: ^REAPER$, title: menu"
+        "opacity 1.0 override, class: ^REAPER$, title: menu"
+        "noanim, class: ^REAPER$, title: menu"
+        "windowdance, class: ^REAPER$, title: menu"
+        "move cursor -20 10, class: ^REAPER$, title: menu"
+        "noinitialfocus, floating: 1, class: ^REAPER$, title: ^$"
+        "tile, floating: 1, initialClass: ^REAPER$, initialTitle: ^REAPER v.*"
+        "noinitialfocus, floating: 1, class: ^REAPER$, title: ^Customize.*"
+      ];
       # See https://wiki.hyprland.org/Configuring/Keywords/ for more
       "$mainMod" = "SUPER";
 
