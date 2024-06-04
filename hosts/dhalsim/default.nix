@@ -112,6 +112,8 @@
     driSupport32Bit = true;
   };
 
+  programs.xwayland.enable = true;
+
   nixpkgs.config.nvidia.acceptLicense = true;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {

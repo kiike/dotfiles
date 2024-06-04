@@ -77,6 +77,8 @@
     #  wget
   ];
 
+  programs.xwayland.enable = true;
+
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
