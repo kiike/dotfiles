@@ -8,6 +8,7 @@ deploy_home() {
     home-manager switch --flake ~/dotfiles -b backup
 }
 
+nix flake update
 target=all
 if [ $# -gt 0 ]; then
   target=$1
