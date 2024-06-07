@@ -14,6 +14,7 @@ in
       DISPLAY=:$(${lib.getExe xwayland} -reset -terminate -displayfd 1 &)
       echo $DISPLAY
       ${lib.getExe' reaper "reaper"} &
+      ${lib.getExe qjackctl} &
       exec ${lib.getExe' icewm "icewm-session"} &
       wait $server
     '')
