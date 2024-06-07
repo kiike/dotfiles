@@ -34,6 +34,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
+    autofirma-nix.url = "git+https://github.com/nilp0inter/autofirma-nix/";
   };
 
   outputs =
@@ -42,6 +44,7 @@
       nixpkgs,
       home-manager,
       nix-index-database,
+      autofirma-nix,
       ...
     }@inputs:
     let
@@ -96,6 +99,7 @@
           };
           modules = [
             nix-index-database.hmModules.nix-index
+            autofirma-nix.homeManagerModules.default
             ./home/kiike/dhalsim
           ];
         };
@@ -115,6 +119,7 @@
             inherit inputs outputs;
           };
           modules = [
+            autofirma-nix.homeManagerModules.default
             nix-index-database.hmModules.nix-index
             ./home/kiike/balrog
           ];

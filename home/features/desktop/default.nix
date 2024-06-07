@@ -15,5 +15,6 @@
     ./gammastep.nix
     ./syncthing.nix
     ./backlight.nix
+    ./autofirma.nix
   ];
 }
