@@ -11,5 +11,6 @@
     ./ouch.nix
     ./tmux.nix
     ./zellij.nix
+    ./eza.nix
   ];
 }
