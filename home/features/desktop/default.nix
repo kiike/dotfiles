@@ -1,7 +1,7 @@
 {
   imports = [
     ./nheko.nix
-    ./alacritty.nix
+    ./kitty.nix
     ./firefox.nix
     ./flameshot.nix
     ./fonts.nix

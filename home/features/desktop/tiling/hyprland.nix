@@ -108,7 +108,7 @@ in
         ",preferred,auto,1"
         "Unknown-1,disable"
       ];
-      "$terminal" = "alacritty";
+      "$terminal" = "kitty";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
 
