@@ -2,7 +2,21 @@
   programs.nushell = {
     enable = true;
     extraConfig = ''
-      $env.config = {show_banner: false}
+      $env.config = {
+        show_banner: false
+        shell_integration: {
+          osc2: true
+          osc8: true
+          osc9_9: true
+          osc133: true
+          osc633: true
+        }
+        hooks: {
+          env_change: {
+            PWD: {|before, after| $'($after)'}
+          }
+        }
+      }
     '';
   };
 }
