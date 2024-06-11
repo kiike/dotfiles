@@ -3,8 +3,8 @@
   home.packages = with pkgs; [
     source-serif
     source-sans
+    source-code-pro
     lmodern
-    nerdfonts
     symbols-nerd-font
   ];
   fonts.fontconfig.enable = true;
