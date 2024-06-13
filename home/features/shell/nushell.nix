@@ -1,6 +1,10 @@
+{ pkgs, lib, ... }:
 {
   programs.nushell = {
     enable = true;
+    shellAliases = {
+      cat = "${lib.getExe pkgs.bat}";
+    };
     extraConfig = ''
       $env.config = {
         show_banner: false
