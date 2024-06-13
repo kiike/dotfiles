@@ -5,15 +5,16 @@
       name = "Source Code Pro Medium";
       size = 11;
     };
-    theme = "Monokai Pro (Filter Machine)";
+    theme = "Monokai Pro (Filter Octagon)";
     settings = {
       bold_font = "Source Code Pro Bold";
       bold_italic_font = "Source Code Pro Bold Italic";
       italic_font = "Source Code Pro Italic";
       shell = "nu";
-
+      background = "#282a3a";
     };
     extraConfig = ''
+      map ctrl+alt+enter launch --cwd=current
       # https://github.com/Sharparam/dotfiles/blob/main/kitty/.config/kitty/font-nerd-symbols.conf
       # - Use additional nerd symbols
       # See https://github.com/be5invis/Iosevka/issues/248

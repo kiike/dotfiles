@@ -14,7 +14,7 @@
       nixfmt-rfc-style
     ];
     settings = {
-      theme = "monokai_pro";
+      theme = "monokai_pro_octagon";
       editor = {
         file-picker = {
           ignore = true;

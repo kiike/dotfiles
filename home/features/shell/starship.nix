@@ -1,3 +1,40 @@
+let
+  colors = {
+    # primary colors
+    "red" = "#ff657a";
+    "orange" = "#ff9b5e";
+    "yellow" = "#ffd76d";
+    "green" = "#bad761";
+    "blue" = "#9cd1bb";
+    "purple" = "#c39ac9";
+    # base colors
+    "base0" = "#161821";
+    "base1" = "#1e1f2b";
+    "base2" = "#282a3a";
+    "base3" = "#3a3d4b";
+    "base4" = "#535763";
+    "base5" = "#696d77";
+    "base6" = "#767b81";
+    "base7" = "#b2b9bd";
+    "base8" = "#eaf2f1";
+    # variants
+    "base8x0c" = "#303342";
+    # gradient
+    gradient = [
+      "#282a39"
+      "#353f50"
+      "#415667"
+      "#4d6e7c"
+      "#5b8690"
+      "#6ca0a1"
+      "#82b9af"
+      "#9dd2bc"
+    ];
+  };
+  styles = {
+    programmingLanguages = "bg:${colors.base0}";
+  };
+in
 {
   programs.starship = {
     enable = true;
@@ -9,60 +46,38 @@
       # and use the os module below
       "username" = {
         "show_always" = true;
-        "style_user" = "bg:#9A348E";
-        "style_root" = "bg:#9A348E";
-        "format" = "[$user ]($style)";
+        "format" = "$user";
         "disabled" = false;
       };
-      # An alternative to the username module which displays a symbol that
-      # represents the current operating system
-      "os" = {
-        "style" = "bg:#9A348E";
-        "disabled" = true; # Disabled by default
-      };
       "directory" = {
-        "style" = "bg:#DA627D";
-        "format" = "[ $path ]($style)";
+        "format" = "$path";
         "truncation_length" = 3;
         "truncation_symbol" = "…/";
       };
       "c" = {
-        "style" = "bg:#86BBD8";
         "symbol" = " ";
-        "format" = "[ $symbol ($version) ]($style)";
+        "format" = "$symbol ($version)";
       };
       "docker_context" = {
-        "style" = "bg:#06969A";
-        "format" = "[ $symbol $context ]($style)";
+        "format" = "$symbol $context";
       };
       "git_branch" = {
-        "style" = "bg:#FCA17D";
-        "format" = "[ $symbol $branch ]($style)";
+        "format" = "$symbol $branch";
       };
       "git_status" = {
-        "style" = "bg:#FCA17D";
-        "format" = "[$all_status$ahead_behind ]($style)";
+        "format" = "$all_status$ahead_behind";
       };
       "golang" = {
-        "style" = "bg:#86BBD8";
         "symbol" = " ";
-        "format" = "[ $symbol ($version) ]($style)";
+        "format" = "$symbol ($version)";
       };
       "nodejs" = {
         "symbol" = " ";
-        "style" = "bg:#86BBD8";
-        "format" = "[ $symbol ($version) ]($style)";
+        "format" = "$symbol ($version)";
       };
       "rust" = {
         "symbol" = " ";
-        "style" = "bg:#86BBD8";
-        "format" = "[ $symbol ($version) ]($style)";
-      };
-      "time" = {
-        "disabled" = false;
-        "time_format" = "%R"; # Hour:Minute Format
-        "style" = "bg:#33658A";
-        "format" = "[ ♥ $time ]($style)";
+        "format" = "$symbol ($version)";
       };
       "aws" = {
         "symbol" = "  ";
@@ -81,70 +96,54 @@
       };
       "hostname" = {
         "ssh_symbol" = " ";
+        "ssh_only" = false;
+        "format" = "$hostname";
       };
       "memory_usage" = {
         "symbol" = "󰍛 ";
       };
       "nix_shell" = {
         "symbol" = " ";
-        "style" = "bg:#33658A";
-        "format" = "[ $symbol ($version) ]($style)";
-      };
-      os.symbols = {
-        "Alpine" = " ";
-        "Amazon" = " ";
-        "Arch" = " ";
-        "Artix" = " ";
-        "CentOS" = " ";
-        "Debian" = " ";
-        "Fedora" = " ";
-        "FreeBSD" = " ";
-        "Linux" = " ";
-        "NetBSD" = " ";
-        "NixOS" = " ";
-        "OpenBSD" = "󰈺 ";
-        "openSUSE" = " ";
-        "OracleLinux" = "󰌷 ";
-        "Raspbian" = " ";
-        "Redhat" = " ";
-        "RedHatEnterprise" = " ";
-        "SUSE" = " ";
-        "Ubuntu" = " ";
-        "Unknown" = " ";
-        "Windows" = "󰍲 ";
+        "format" = "$symbol $state $name";
       };
       "package" = {
         "symbol" = "󰏗 ";
-        "format" = "[ $symbol ($version) ]($style)";
+        "format" = "$symbol ($version)";
       };
       "python" = {
         "symbol" = " ";
-        "style" = "bg:#86BBD8";
-        "format" = "[ $symbol ($version) ]($style)";
+        "format" = "$symbol ($version)";
       };
       "format" =
-        (builtins.replaceStrings [ "\n" ] [ "" ] ''
-          [](#9A348E)
-          $os
-          $username
-          [](bg:#DA627D fg:#9A348E)
-          $directory
-          [](fg:#DA627D bg:#FCA17D)
-          $git_branch
-          $git_status
-          [](fg:#FCA17D bg:#86BBD8)
-          $c
-          $golang
-          $python
-          $nodejs
-          $rust
-          [](fg:#86BBD8 bg:#06969A)
+        with builtins;
+        (replaceStrings [ "\n" ] [ "" ] ''
+          [](${elemAt colors.gradient 0})
+          [$username ](bg:${elemAt colors.gradient 0})
+
+          [](fg:${elemAt colors.gradient 0} bg:${elemAt colors.gradient 1})
+          [ $hostname ](bg:${elemAt colors.gradient 1})
+
+          [](fg:${elemAt colors.gradient 1} bg:${elemAt colors.gradient 2})
+          [ $directory ](bg:${elemAt colors.gradient 2})
+
+          [](fg:${elemAt colors.gradient 2} bg:${elemAt colors.gradient 3})
+          [ $git_branch $git_commit $git_status ](bg:${elemAt colors.gradient 3})
+
+          [](fg:${elemAt colors.gradient 3} bg:${elemAt colors.gradient 4})
+          [ ${
+            builtins.concatStringsSep "" [
+              "$golang"
+              "$python"
+              "$nodejs"
+              "$rust"
+            ]
+          } ](bg:${elemAt colors.gradient 4})
+          [](fg:${elemAt colors.gradient 5} bg:${elemAt colors.gradient 6})
           $docker_context
-          [](fg:#06969A bg:#33658A)
+          [](fg:${elemAt colors.gradient 6})
           $nix_shell
-          [ ](fg:#33658A)
         '')
-        + "\n[ ](fg:#33658A)";
+        + "\n[ ](fg:${elemAt colors.gradient 7})";
     };
   };
 }
