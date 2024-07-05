@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   nix = {
     gc = {
@@ -6,6 +7,7 @@
       options = "--delete-older-than 15d";
     };
     settings = {
+      extra-platforms = config.boot.binfmt.emulatedSystems;
       experimental-features = [
         "nix-command"
         "flakes"

@@ -16,6 +16,12 @@
     "acpi_enforce_resources=lax"
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
   ];
+
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "riscv64-linux"
+  ];
+
   networking.hostName = "dhalsim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
