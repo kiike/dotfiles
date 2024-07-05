@@ -101,6 +101,7 @@
             nix-index-database.hmModules.nix-index
             autofirma-nix.homeManagerModules.default
             ./home/kiike/dhalsim
+            ./home/features/nvidia.nix
           ];
         };
         "kiike@ehonda" = home-manager.lib.homeManagerConfiguration {
