@@ -1,6 +1,7 @@
 {
   imports = [
     ./nheko.nix
+    ./cursor.nix
     ./kitty.nix
     ./firefox.nix
     ./flameshot.nix
