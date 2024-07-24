@@ -24,6 +24,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.checkReversePath = false;
+  networking.firewall.logReversePathDrops = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
