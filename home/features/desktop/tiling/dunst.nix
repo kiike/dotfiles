@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.dunst = with pkgs; {
-    enable = true;
+    enable = false;
     iconTheme = {
       name = "breeze-dark";
       package = breeze-icons;

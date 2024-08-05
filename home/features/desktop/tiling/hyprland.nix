@@ -20,20 +20,25 @@ in
     #   org.freedesktop.impl.portal.FileChooser=kde
     # '';
   };
-  home.packages = with pkgs; [
-    grim
-    slurp
-    satty
-    hyprpicker
-    hyprpaper
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal
-    hyprland-activewindow
-    hyprland-workspaces
-  ];
+  home.packages =
+    with pkgs;
+    [
+      grim
+      slurp
+      satty
+      hyprpicker
+      hyprpaper
+      xdg-desktop-portal
+      # hyprland-activewindow
+      # hyprland-workspaces
+    ]
+    ++ [ inputs.ags.packages.${pkgs.system}.ags ];
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [
+      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gnome
+    ];
     config = {
       common = {
         default = [ "hyprland" ];
@@ -42,6 +47,11 @@ in
       };
       hyprland = {
         default = [ "hyprland" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+      };
+      niri = {
+        default = [ "gnome" ];
         "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
         "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
       };
@@ -71,7 +81,7 @@ in
           font_family = "Noto Sans";
 
           position = "0, 80";
-          halign = "center";
+          # halign = "center";
           valign = "center";
         }
       ];
@@ -95,12 +105,12 @@ in
   };
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.outputs.packages.${pkgs.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
     settings = {
       exec-once = [
         "hyprpaper"
-        "eww open bar"
+        "ags"
         "sleep 5s; dex -a"
       ];
 
@@ -171,6 +181,10 @@ in
         force_default_wallpaper = 0; # Set to 0 or 1 to disable the anime mascot wallpapers
       };
 
+      debug = {
+        disable_logs = false;
+      };
+
       # Example windowrule v1
       # windowrule = float, ^(kitty)$
       # Example windowrule v2
@@ -182,7 +196,7 @@ in
         "noborder, class: ^REAPER$, title: menu"
         "opacity 1.0 override, class: ^REAPER$, title: menu"
         "noanim, class: ^REAPER$, title: menu"
-        "windowdance, class: ^REAPER$, title: menu"
+        # "windowdance, class: ^REAPER$, title: menu"
         "move cursor -20 10, class: ^REAPER$, title: menu"
         "noinitialfocus, floating: 1, class: ^REAPER$, title: ^$"
         "tile, floating: 1, initialClass: ^REAPER$, initialTitle: ^REAPER v.*"

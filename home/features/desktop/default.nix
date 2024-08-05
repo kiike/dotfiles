@@ -9,6 +9,7 @@
     ./gtk.nix
     ./keepassxc.nix
     ./mpv.nix
+    ./niri.nix
     ./qt.nix
     ./gtk.nix
     ./vscode

@@ -1,6 +1,6 @@
 {
   programs.autofirma = {
-    enable = true;
+    enable = false;
     firefoxIntegration.profiles = {
       main = {
         enable = true;
