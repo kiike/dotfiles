@@ -14,6 +14,10 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
+  '';
 
   networking.hostName = "balrog"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -37,6 +41,11 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [ intel-vaapi-driver ];
+  };
 
   # Enable sound with pipewire.
   #sound.enable = true;
