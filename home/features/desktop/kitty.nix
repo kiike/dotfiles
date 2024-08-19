@@ -72,6 +72,10 @@
       window_border_width 1
       tab_bar_style powerline
       tab_bar_edge top
+
+      enable_audio_bell no
+      visual_bell_duration 0.2
+      visual_bell_color #800000
     '';
   };
 
