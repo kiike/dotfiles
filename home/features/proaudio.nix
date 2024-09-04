@@ -50,8 +50,12 @@ in
         done
       }
 
-      DISPLAY=:$(${lib.getExe xwayland} -reset -terminate -displayfd 1 &)
-      echo $DISPLAY
+
+      export DISPLAY=''${1:-:0}
+      ${lib.getExe xwayland} -reset -terminate ''$DISPLAY &
+      server=$?
+      unset WAYLAND_DISPLAY QT_QPA_PLATFORM
+      sleep 1
       ${lib.getExe' reaper "reaper"} &
       ${lib.getExe qjackctl} &
 
@@ -60,7 +64,7 @@ in
       primary-wl-to-x &
       primary-x-to-wl &
 
-      exec ${lib.getExe' icewm "icewm-session"} &
+      ${lib.getExe' icewm "icewm-session"}
       wait $server
     '')
     (pkgs.makeDesktopItem {
