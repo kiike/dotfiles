@@ -1,5 +1,6 @@
 {
   imports = [
+    ./btop.nix
     ./comma.nix
     ./rclone.nix
     ./git.nix
