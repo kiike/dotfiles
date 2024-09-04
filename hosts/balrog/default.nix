@@ -43,6 +43,8 @@
   networking.firewall.checkReversePath = false;
   networking.firewall.logReversePathDrops = true;
 
+  services.logind.lidSwitchDocked = "suspend";
+
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
@@ -89,7 +91,6 @@
     defaultNetwork.settings.dns_enabled = true;
   };
   programs.virt-manager.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
