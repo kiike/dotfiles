@@ -1,15 +1,10 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
-}:
+{ ... }:
 {
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = lib.getExe inputs.hyprland.packages.${pkgs.system}.hyprland;
+        command = "niri-session";
         user = "kiike";
       };
     };

@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -10,6 +15,8 @@
     ./hardware-configuration.nix
     ../all
   ];
+
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -89,6 +96,10 @@
   ];
 
   programs.xwayland.enable = true;
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
+  };
 
   hardware.bluetooth = {
     enable = true;

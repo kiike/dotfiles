@@ -22,6 +22,11 @@
         "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
         "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
       };
+      niri = {
+        default = [ "gnome" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+      };
     };
   };
 }

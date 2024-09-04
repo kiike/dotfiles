@@ -1,10 +1,11 @@
-{ outputs, ... }:
+{ outputs, inputs, ... }:
 rec {
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
       outputs.overlays.modifications
       outputs.overlays.additions
+      inputs.niri.overlays.niri
     ];
   };
   programs.home-manager.enable = true;

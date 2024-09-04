@@ -36,6 +36,7 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     autofirma-nix.url = "git+https://github.com/nilp0inter/autofirma-nix/";
+    niri.url = "git+https://github.com/sodiboo/niri-flake";
   };
 
   outputs =
@@ -44,6 +45,7 @@
       nixpkgs,
       home-manager,
       nix-index-database,
+      niri,
       autofirma-nix,
       ...
     }@inputs:
@@ -81,7 +83,10 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ ./hosts/balrog ];
+          modules = [
+            inputs.niri.nixosModules.niri
+            ./hosts/balrog
+          ];
         };
         ehonda = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -122,6 +127,7 @@
           modules = [
             autofirma-nix.homeManagerModules.default
             nix-index-database.hmModules.nix-index
+            niri.homeModules.config
             ./home/kiike/balrog
           ];
         };
