@@ -67,6 +67,11 @@
       # nonicons contains icons in the range: U+F101-U+F27D
       # U+F167 is HTML logo, but YouTube logo in Symbols Nerd Font
       symbol_map U+F102,U+F116-U+F118,U+F12F,U+F13E,U+F1AF,U+F1BF,U+F1CF,U+F1FF,U+F20F,U+F21F-U+F220,U+F22E-U+F22F,U+F23F,U+F24F,U+F25F nonicons
+
+      window_margin_width 4
+      window_border_width 1
+      tab_bar_style powerline
+      tab_bar_edge top
     '';
   };
 
