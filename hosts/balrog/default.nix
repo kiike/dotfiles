@@ -22,7 +22,11 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
+  boot.extraModulePackages = [
+    pkgs.linuxPackages.v4l2loopback
+    pkgs.linuxPackages.ddcci-driver
+  ];
+  boot.kernelModules = [ "ddcci_backlight" ];
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
   '';
