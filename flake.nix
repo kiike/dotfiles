@@ -20,14 +20,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    papis = {
-      url = "github:papis/papis";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    papis-zotero = {
-      url = "github:kiike/papis-zotero/?ref=feat/flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     helix.url = "github:helix-editor/helix/";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
