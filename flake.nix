@@ -26,6 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    ags.url = "/home/kiike/projects/ags";
 
     autofirma-nix.url = "git+https://github.com/nilp0inter/autofirma-nix/";
     niri.url = "git+https://github.com/sodiboo/niri-flake";
