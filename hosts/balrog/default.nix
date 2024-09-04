@@ -14,6 +14,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../all
+    ../all/kmonad.nix
   ];
 
   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
