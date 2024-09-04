@@ -1,6 +1,5 @@
 {
   imports = [
-    ./hyprland.nix
     ./eww.nix
     ./wofi.nix
     ./ags.nix
