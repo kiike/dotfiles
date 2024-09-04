@@ -1,5 +1,6 @@
 {
   imports = [
+    ./xdp.nix
     ./nheko.nix
     ./cursor.nix
     ./kitty.nix

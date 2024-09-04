@@ -26,27 +26,9 @@ in
     satty
     hyprpicker
     hyprpaper
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal
     hyprland-activewindow
     hyprland-workspaces
   ];
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-    config = {
-      common = {
-        default = [ "hyprland" ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
-      };
-      hyprland = {
-        default = [ "hyprland" ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
-      };
-    };
-  };
   programs.hyprlock = {
     enable = true;
     settings = {
