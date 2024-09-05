@@ -23,7 +23,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags.url = "/home/kiike/projects/ags";
+    ags.url = "github:kiike/ags/wip/rectangular-progress";
 
     autofirma-nix.url = "git+https://github.com/nilp0inter/autofirma-nix/";
 
