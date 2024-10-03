@@ -60,6 +60,7 @@
         args = [ "--stdio" ];
         config = { };
       };
+      rust-analyzer.config.check.command = "clippy";
     };
 
     languages.language = [
