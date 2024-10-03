@@ -8,5 +8,6 @@
     ./nix.nix
     ./greetd.nix
     ./i2c.nix
+    ./earlyoom.nix
   ];
 }
