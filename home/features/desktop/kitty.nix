@@ -5,7 +5,7 @@
       name = "Source Code Pro Medium";
       size = 11;
     };
-    theme = "Monokai Pro (Filter Octagon)";
+    themeFile = "Monokai_Pro_(Filter_Octagon)";
     settings = {
       bold_font = "Source Code Pro Bold";
       bold_italic_font = "Source Code Pro Bold Italic";
