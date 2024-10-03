@@ -20,6 +20,7 @@
     aliases = {
       "s" = "status --short";
       "l" = "log --pretty=oneline --abbrev-commit";
+      "review-pr" = "!f() { git fetch -fu \${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f";
     };
     ignores = [
       ".vscode"
