@@ -71,6 +71,41 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  services.zrepl = {
+    enable = true;
+    settings = {
+      jobs = [
+        {
+          name = "snapjob";
+          type = "snap";
+          filesystems = {
+            "ehonda-pool<" = true;
+          };
+          snapshotting = {
+            type = "periodic";
+            interval = "15m";
+            prefix = "zrepl_";
+          };
+          pruning = {
+            keep = [
+              {
+                type = "grid";
+                grid = "1x1h(keep=all) | 24x1h | 30x1d | 6x30d";
+                regex = "^zrepl_.*";
+              }
+              {
+                type = "regex";
+                negate = true;
+                regex = "^zrepl_.*";
+              }
+            ];
+          };
+        }
+      ];
+    };
+
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
