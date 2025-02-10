@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 {
   imports = [
     # Include the results of the hardware scan.
@@ -31,17 +35,28 @@
   time.timeZone = "Europe/Madrid";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.kiike = {
-    isNormalUser = true;
-    description = "Enric Morales";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    packages = with pkgs; [ ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKgdjDdqEwsLigkba9C26oRW3ATZIYS5OcFLtlBzoOL7 kiike@balrog.megis.lan"
-    ];
+  users = {
+    users = {
+      shared = {
+        isNormalUser = true;
+        description = "Shared files";
+        extraGroups = [ "shared" ];
+
+      };
+      kiike = {
+        isNormalUser = true;
+        description = "Enric Morales";
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+        ];
+        packages = with pkgs; [ ];
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKgdjDdqEwsLigkba9C26oRW3ATZIYS5OcFLtlBzoOL7 kiike@balrog.megis.lan"
+        ];
+      };
+    };
+    groups.shared.gid = 1002;
   };
 
   # Enable automatic login for the user.
