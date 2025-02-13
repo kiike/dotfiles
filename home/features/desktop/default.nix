@@ -14,7 +14,6 @@
     ./vscode
     ./pavucontrol.nix
     ./gammastep.nix
-    ./syncthing.nix
     ./backlight.nix
     ./autofirma.nix
     ./steam.nix
