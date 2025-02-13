@@ -93,6 +93,7 @@
           modules = [
             nix-index-database.hmModules.nix-index
             autofirma-nix.homeManagerModules.default
+            niri.homeModules.config
             ./home/kiike/dhalsim
             ./home/features/nvidia.nix
           ];
