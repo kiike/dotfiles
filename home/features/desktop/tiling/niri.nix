@@ -14,8 +14,8 @@ let
 in
 {
   home.packages = [
-    pkgs.niri-unstable
     pkgs.fuzzel
+    pkgs.niri
   ];
   programs.niri.settings = {
     binds = with config.lib.niri.actions; {
