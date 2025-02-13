@@ -17,7 +17,7 @@
         }
         hooks: {
           env_change: {
-            PWD: {|before, after| $'($after)'}
+            PWD: [{|before, after| print $'($after)'}]
           }
         }
       }
